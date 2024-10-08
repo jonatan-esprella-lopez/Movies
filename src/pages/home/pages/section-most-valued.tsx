@@ -1,27 +1,22 @@
 import { useState, useEffect } from "react";
 import { Movie } from "../../../interfaces/movie.interface";
-import { getMoviesMostValued, fetchMovie } from "../../../services/movie-service";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
+import { useMovieStore } from "../../../stores/movie-store";
 
 
 export function MostValued() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const{
+    mostValuedMovie,
+    fetchPopularMovies
+  } = useMovieStore()
+
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [modalMovie, setModalMovie] = useState<boolean>(false);
-  const [trailer, setTrailer] = useState<{ key: string } | null>(null);
 
   const handleOpenModal = async (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
-    
-    const movieData = await fetchMovie(movie.id);
-    if (movieData && movieData.key) {
-      setTrailer({ key: movieData.key });
-    } else {
-      setTrailer(null); 
-    }
-  
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -29,21 +24,14 @@ export function MostValued() {
   };
   
   useEffect(() => {
-    const loadMostValuedMovies = async () => {
-      
-      console.log(getMoviesMostValued())
-      const fetchedMovies = await getMoviesMostValued();
-      setMovies(fetchedMovies);
-    };
-
-    loadMostValuedMovies();
-  }, []);
+   fetchPopularMovies();
+  }, [fetchPopularMovies]);
 
   return (
     <main className="container-main">
       <h1>Mas Valoradas</h1>
       <section className="main-container-movie conteiner-movies">
-        {movies.map((movie) => (
+        {mostValuedMovie.map((movie) => (
           <CardMovie  key={movie.id} movie={movie} onOpenModal={handleOpenModal}/>
         ))}   
       </section>

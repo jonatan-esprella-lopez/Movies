@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Movie } from "../../../interfaces/movie.interface";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
-
 import { useMovieStore } from "../../../stores/movie-store";
 
+
+
 export function AllMovies() {
+  const {
+    popularMovies,
+    fetchPopularMovies
+  } = useMovieStore()
 
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [modalMovie, setModalMovie] = useState<boolean>(false);
-  const { popularMovies } = useMovieStore();
+  
+  useEffect(() => {
+    fetchPopularMovies();
+  }, [fetchPopularMovies])
 
   const handleOpenModal = async (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
-    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (

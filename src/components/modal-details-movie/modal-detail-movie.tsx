@@ -1,13 +1,14 @@
 import { useMovieDetails } from "../../hooks/use-movie-details"
+import { useState } from "react";
 import CloseIcon from "../../assets/modal/Icon.svg";
 import YouTube from "react-youtube";
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 import { StarRating } from "./star-rating";
 import { ModalMoviesProps } from "./modal.interface";
-import { useEffect, useState } from "react";
-import { fetchMovie, fetchTrailer } from "../../services/movie-service";
+import { fetchTrailer } from "../../services/movie-service";
+import { imageApi } from "../../services/movie-api";
 
-const URL_IMAGE = 'https://image.tmdb.org/t/p/original';
+const URL_IMAGE = imageApi;
 
 export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesProps) => {
   const movie = useMovieDetails(movieId);
@@ -18,14 +19,7 @@ export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesPr
   const handleModalClick = (event: React.MouseEvent) => {
     event.stopPropagation();
   };
-    // const movieData = await fetchMovie(movieId);
-    //   if (movieData && movieData.key) {
-    //     return{ key: movieData.key };
-    //   } else {
-    //     return (null); 
-    //   }
 
-  // useEffect(() => {
     const fetchMovieTrailer = async () => {
       try {
         const fetchedTrailer = await fetchTrailer(movieId);
@@ -43,7 +37,6 @@ export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesPr
     if (movieId) {
       fetchMovieTrailer();
     }
-  // }, [movieId]);
 
   return (
     <article className="contenedor-modal-details" onClick={onClose}>

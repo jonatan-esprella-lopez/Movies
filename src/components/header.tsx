@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HeaderNavProps } from "../interfaces/interfaces";
 import Logotipo from "../assets/movies/logo-blockBuster.png";
 import Search from "../assets/movies/search.svg";
+import { useMovieStore } from "../stores/movie-store";
 
 
 
-export function HeaderNav({ updateQuery }: HeaderNavProps) {
+export function HeaderNav() {
+  const { 
+    setQuery,
+  } = useMovieStore()
+
   const [localSearchKey, setLocalSearchKey] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSearchSubmit = (event:any) => {
     event.preventDefault()
-    updateQuery(localSearchKey)
+    setQuery(localSearchKey)
     navigate( `/search-movie?=${localSearchKey}`)
     setLocalSearchKey("")
   };
