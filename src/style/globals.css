@@ -1,0 +1,13 @@
+
+.btn-primary {
+    background-color: red;    
+}
+
+
+.btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
