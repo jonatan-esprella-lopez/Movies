@@ -6,12 +6,12 @@ import { useMovieStore } from "../../../stores/movie-store";
 
 export function AllMovies() {
   const {
-    popularMovies,
-    fetchPopularMovies,
-    selectedMovie,
     modalMovie,
-    setSelectedMovie,
-    setModalMovie
+    popularMovies,
+    selectedMovie,
+    setModalMovie,
+    fetchPopularMovies,
+    setSelectedMovie
   } = useMovieStore();
 
   useEffect(() => {
@@ -21,15 +21,6 @@ export function AllMovies() {
   const handleOpenModal = (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
-  const handleCloseModal = () => {
-    setModalMovie(false);
-    setSelectedMovie(null);
   };
 
   return (
@@ -45,9 +36,7 @@ export function AllMovies() {
       {modalMovie && selectedMovie && (
         <section className="conteniner-modal-movie">
           <ModalDetailMovie
-            modalMovie={modalMovie}
             movieId={selectedMovie.id} 
-            onClose={handleCloseModal}
           />
         </section>
       )}

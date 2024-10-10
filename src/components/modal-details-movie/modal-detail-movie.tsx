@@ -7,12 +7,24 @@ import { ModalMoviesProps } from "./modal.interface";
 import { fetchTrailer, getMovieDetails } from "../../services/movie-service";
 import { imageApi } from "../../services/movie-api";
 import { SingleMovieDetails } from "../../interfaces/single-movie-details";
+import { useMovieStore } from "../../stores/movie-store";
 
-export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesProps) => {
+export const ModalDetailMovie = ({ movieId }: ModalMoviesProps) => {
+const {
+  modalMovie,
+  setModalMovie
+} = useMovieStore();
+
   const [movie, setMovie] = useState<SingleMovieDetails | null>(null); 
   const [trailer, setTrailer] = useState<{ key: string } | null>(null);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
+    
     if (movieId) {
       const fetchMovieDetails = async () => {
         try {
@@ -42,6 +54,11 @@ export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesPr
     }
   }, [movieId]);
 
+  const handleCloseModal = () => {
+    setModalMovie(false);
+  };
+
+
   if (!modalMovie || !movie) return null;
 
   const handleModalClick = (event: React.MouseEvent) => {
@@ -49,13 +66,13 @@ export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesPr
   };
 
   return (
-    <article className="contenedor-modal-details" onClick={onClose}>
+    <article className="contenedor-modal-details" onClick={handleCloseModal}>
       <div className="rotar-multiejes" onClick={handleModalClick}>
         <img src={imageApi(movie.poster_path)} className="portada-modal" alt="Movie Poster" />
         <StarRating voteAverage={movie.vote_average} />
       </div>
       <div className="details-modal" onClick={handleModalClick}>
-        <button onClick={onClose} className="close-button">
+        <button onClick={handleCloseModal} className="close-button">
           <img src={CloseIcon} alt="Cerrar" />
         </button>
         <h3 className="title-movie">{movie.title}</h3>

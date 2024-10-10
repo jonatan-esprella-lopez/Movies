@@ -21,10 +21,6 @@ export function LessValued() {
   const handleOpenModal = (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   };
 
   return (
@@ -38,9 +34,7 @@ export function LessValued() {
       {modalMovie && selectedMovie && (
           <section className="conteniner-modal-movie">
             <ModalDetailMovie
-              modalMovie={modalMovie}
               movieId={selectedMovie.id} 
-              onClose={() => setModalMovie(false)}
             />
           </section>
         )}

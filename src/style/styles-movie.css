@@ -26,9 +26,15 @@
     font-size: 15px;
 }
 
+.header-nav span {  
+    padding: 1rem 1.5rem;
+}
 
+.header-nav span:hover {
+    cursor: pointer;
+}
 
-.header-nav p {
+.header-nav span p {
     border-bottom: 2px solid #00000000;
     color: #ffffff;
 }

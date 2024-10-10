@@ -3,7 +3,5 @@ export interface StarRatingProps {
 }
 
 export interface ModalMoviesProps {
-    modalMovie: boolean;
     movieId: number;
-    onClose: () => void;
 }

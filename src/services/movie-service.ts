@@ -14,21 +14,10 @@ const getMovies = async (filters: Record<string, string | number> = {}, searchKe
   return response.data.results;
 };
 
-export const getAllMovies = () => {
-  return getMovies();
-};
-
-export const getMoviesMostValued = () => {
-  return getMovies({ "vote_average.gte": 5 });
-};
-
-export const getMoviesLessValued = () => {
-  return getMovies({ "vote_average.lte": 5 });
-};
-
-export const getMoviesSearch = (searchKey: string) => {
-  return getMovies({}, searchKey);
-};
+export const getAllMovies = () => getMovies();
+export const getMoviesMostValued = () => getMovies({ "vote_average.gte": 5 });
+export const getMoviesLessValued = () => getMovies({ "vote_average.lte": 5 });
+export const getMoviesSearch = (searchKey: string) => getMovies({}, searchKey);
 
 export const getMovieDetails = async (movieId: number) => {
   try {
@@ -50,7 +39,6 @@ export const getMovieDetails = async (movieId: number) => {
   }
 }
 
-
 export const fetchTrailer = async(movieId: number) => {
   const movieData = await fetchMovie(movieId);
     if (movieData && movieData.key) {
@@ -69,7 +57,7 @@ export const fetchMovie = async (id: number): Promise<any> => {
     },
   });
   if (data.videos && data.videos.results) {
-    const trailer = data.videos.results.find((vid: any) => vid.name === "Official Trailer");
+    const trailer = data.videos.results.find((vid: any) => vid.name === "Oficial Trailer");
     return trailer ? trailer : data.videos.results[0];
   }
   return null;

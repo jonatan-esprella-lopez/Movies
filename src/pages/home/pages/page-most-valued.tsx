@@ -6,9 +6,9 @@ import { useMovieStore } from "../../../stores/movie-store";
 
 export function MostValued() {
   const{
-    selectedMovie,
     modalMovie,
-    popularMovies,
+    selectedMovie,
+    mostValuedMovie,
     setModalMovie,
     setSelectedMovie,
     fetchMostValuedMovies
@@ -21,26 +21,20 @@ export function MostValued() {
   const handleOpenModal = (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   };
   
   return (
     <main className="container-main">
       <h1>Mas Valoradas</h1>
       <section className="main-container-movie conteiner-movies">
-        {popularMovies.map((movie) => (
+        {mostValuedMovie.map((movie) => (
           <CardMovie  key={movie.id} movie={movie} onOpenModal={handleOpenModal}/>
         ))}   
       </section>
       {modalMovie && selectedMovie && (
           <section className="conteniner-modal-movie">
             <ModalDetailMovie
-              modalMovie={modalMovie}
               movieId={selectedMovie.id} 
-              onClose={() => setModalMovie(false)}
             />
           </section>
         )}

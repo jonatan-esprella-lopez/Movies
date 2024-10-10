@@ -1,8 +1,4 @@
-interface ButtonProps {
-  icon: string;
-  text: string;
-  className: string;
-}
+import { ButtonProps } from "../interfaces/interfaces";
 
 export function MovieButton({ icon, text, className }: ButtonProps) {
   return (

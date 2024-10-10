@@ -1,4 +1,4 @@
-import NoFoundImg from "../../assets/movies/no-found.svg"
+import NoFoundImg from "../assets/movies/no-found.svg"
 
 export function NoFound (){
     return(

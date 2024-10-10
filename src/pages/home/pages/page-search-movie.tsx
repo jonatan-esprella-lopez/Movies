@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { NoFound } from "../../no-found/no-found";
+import { NoFound } from "../../../components/no-found";
 import { Movie } from "../../../interfaces/movie.interface";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
-
 
 export function SearchMovie() {
   const {
@@ -28,10 +27,6 @@ export function SearchMovie() {
   const handleOpenModal = async (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   };
 
   return (
@@ -45,9 +40,7 @@ export function SearchMovie() {
       {modalMovie && selectedMovie && (
           <section className="conteniner-modal-movie">
             <ModalDetailMovie
-              modalMovie={modalMovie} 
-              movieId={selectedMovie.id} 
-              onClose={() => setModalMovie(false)}
+              movieId={selectedMovie.id}
             />
           </section>
         )}

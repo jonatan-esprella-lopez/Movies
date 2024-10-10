@@ -24,3 +24,10 @@ export interface Trailer {
   site: string;
   type: string;
 }
+
+export interface ButtonProps {
+  icon: string;
+  text: string;
+  className: string;
+}
+

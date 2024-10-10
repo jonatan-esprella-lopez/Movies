@@ -14,9 +14,11 @@ export function HeaderNav() {
 
   const handleSearchSubmit = (event:any) => {
     event.preventDefault()
-    setQuery(localSearchKey)
-    navigate( `/search-movie?=${localSearchKey}`)
-    setLocalSearchKey("")
+      setQuery(localSearchKey)
+      if(localSearchKey){
+        navigate( `/search-movie?=${localSearchKey}`)
+      }
+      setLocalSearchKey("")
   };
 
     return(
@@ -26,7 +28,7 @@ export function HeaderNav() {
         </Link>
         <nav className="header-nav">
           <span>
-            <Link to="" className="custom-link">
+            <Link to="/" className="custom-link">
               <p>Todos</p>
             </Link>
           </span>
@@ -53,7 +55,6 @@ export function HeaderNav() {
             alt="Buscar"
             onClick={handleSearchSubmit}
             />
-
         </form>
       </header>
     )

@@ -51,18 +51,22 @@ export const useMovieStore = create<MovieStore>((set) => ({
   fetchPopularMovies: () => {
     getAllMovies().then((movies) => {
       set({ popularMovies: movies });
+      set({ searchResults: movies });
     });
   },
 
   fetchLessValuedMovies: () => {
     getMoviesLessValued().then((movies) => {
       set({ lessValuedMovie: movies });
+      set({ searchResults: movies });
     });
   },
 
   fetchMostValuedMovies: () => {
     getMoviesMostValued().then((movies) => {
       set({ mostValuedMovie: movies });
+      set({ searchResults: movies });
+
     });
   },
 
@@ -79,5 +83,6 @@ export const useMovieStore = create<MovieStore>((set) => ({
   setModalMovie: (isOpen) => {
     set({ modalMovie: isOpen });
   },
+
 
 }));
