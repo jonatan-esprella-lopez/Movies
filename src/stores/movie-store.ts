@@ -1,26 +1,41 @@
 import { create } from 'zustand';
 import { Movie } from '../interfaces/movie.interface';
 import { DisplayMovieStatus } from '../interfaces/interfaces';
-import { getMoviesSearch, getAllMovies, getMoviesLessValued, getMoviesMostValued } from '../services/movie-service';
+import { 
+  getMoviesSearch, 
+  getAllMovies, 
+  getMoviesLessValued, 
+  getMoviesMostValued,
+} from '../services/movie-service';
+
 
 interface MovieStore {
   displayMoviesStatus: DisplayMovieStatus;
   query: string;
-  id: number;
+  idMovie: number;
+  modalMovie: boolean;
+  detailsMovie: Movie | null;
+  selectedMovie: Movie | null;
   searchResults: Movie[];
   popularMovies: Movie[];
   lessValuedMovie: Movie[];
   mostValuedMovie: Movie[];
   setQuery: (query: string) => void;
+  setSelectedMovie: (movie: Movie | null) => void;
   fetchPopularMovies: () => void;
   fetchLessValuedMovies: () => void;
+  fetchMostValuedMovies: () => void;
   fetchSearchResults: (query: string) => void;
+  setModalMovie: (isOpen: boolean) => void;
 }
 
 export const useMovieStore = create<MovieStore>((set) => ({
   displayMoviesStatus: 'ALL',
   query: '',
-  id: 0,
+  idMovie: 0,
+  modalMovie: false,
+  detailsMovie: null,
+  selectedMovie: null,
   searchResults: [],
   popularMovies: [],
   lessValuedMovie: [],
@@ -32,13 +47,12 @@ export const useMovieStore = create<MovieStore>((set) => ({
       set({ searchResults: movies });
     });
   },
- 
+  
   fetchPopularMovies: () => {
     getAllMovies().then((movies) => {
       set({ popularMovies: movies });
     });
   },
-
 
   fetchLessValuedMovies: () => {
     getMoviesLessValued().then((movies) => {
@@ -52,11 +66,18 @@ export const useMovieStore = create<MovieStore>((set) => ({
     });
   },
 
-
   fetchSearchResults: (query) => {
     getMoviesSearch(query).then((movies) => {
       set({ searchResults: movies });
     });
+  },
+
+  setSelectedMovie: (movie) => {
+    set({ selectedMovie: movie });
+  },
+
+  setModalMovie: (isOpen) => {
+    set({ modalMovie: isOpen });
   },
 
 }));

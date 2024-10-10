@@ -3,8 +3,8 @@ import { NotFoundPage } from "../pages/no-found/no-found-page";
 import { MovieView } from "../pages/movie/movie-page";
 import { createBrowserRouter } from "react-router-dom";
 import { AllMovies } from "../pages/home/pages/page-all-movies";
-import { LessValued } from "../pages/home/pages/section-less-valued";
-import { MostValued } from "../pages/home/pages/section-most-valued";
+import { LessValued } from "../pages/home/pages/page-less-valued";
+import { MostValued } from "../pages/home/pages/page-most-valued";
 import { SearchMovie } from "../pages/home/components";
 
 const router = createBrowserRouter([

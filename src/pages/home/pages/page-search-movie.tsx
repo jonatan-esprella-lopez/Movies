@@ -1,18 +1,30 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { NoFound } from "../../no-found/no-found";
 import { Movie } from "../../../interfaces/movie.interface";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
 
-export function LessValued() {
+
+export function SearchMovie() {
   const {
-    lessValuedMovie,
-    fetchLessValuedMovies
-  } = useMovieStore()
+    modalMovie,
+    selectedMovie,
+    searchResults,
+    setSelectedMovie,
+    setModalMovie,
+    fetchSearchResults
+  } = useMovieStore();
 
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [modalMovie, setModalMovie] = useState<boolean>(false);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.toString();
 
+  useEffect(() => {
+    fetchSearchResults(query);
+  }, [fetchSearchResults]);
+  
   const handleOpenModal = async (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
@@ -22,28 +34,25 @@ export function LessValued() {
     });
   };
 
-  useEffect(() => {
-    fetchLessValuedMovies();
-  }, [fetchLessValuedMovies])
-
-
   return (
     <main className="container-main">
-      <h1>Menos Valoradas</h1>
+      <h1>Busqueda de pelicula</h1>
       <section className="main-container-movie conteiner-movies">
-        {lessValuedMovie.map((movie) => (
-          <CardMovie  key={movie.id} movie={movie} onOpenModal={handleOpenModal}/>
-        ))}
+          {searchResults.map((movie) => (
+            <CardMovie  key={movie.id} movie={movie} onOpenModal={handleOpenModal}/>
+          ))}
       </section>
       {modalMovie && selectedMovie && (
           <section className="conteniner-modal-movie">
             <ModalDetailMovie
-              modalMovie={modalMovie}
+              modalMovie={modalMovie} 
               movieId={selectedMovie.id} 
               onClose={() => setModalMovie(false)}
             />
           </section>
         )}
+
+      {searchResults.length === 0 && <NoFound/>}
     </main>
   );
 }

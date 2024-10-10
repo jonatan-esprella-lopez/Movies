@@ -1,10 +1,8 @@
 import { useState } from "react";
+import { useMovieStore } from "../stores/movie-store";
 import { Link, useNavigate } from "react-router-dom";
 import Logotipo from "../assets/movies/logo-blockBuster.png";
 import Search from "../assets/movies/search.svg";
-import { useMovieStore } from "../stores/movie-store";
-
-
 
 export function HeaderNav() {
   const { 
@@ -53,7 +51,7 @@ export function HeaderNav() {
           <img
             src={Search}
             alt="Buscar"
-          onClick={handleSearchSubmit}
+            onClick={handleSearchSubmit}
             />
 
         </form>

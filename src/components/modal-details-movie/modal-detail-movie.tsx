@@ -1,18 +1,46 @@
-import { useMovieDetails } from "../../hooks/use-movie-details"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "../../assets/modal/Icon.svg";
 import YouTube from "react-youtube";
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 import { StarRating } from "./star-rating";
 import { ModalMoviesProps } from "./modal.interface";
-import { fetchTrailer } from "../../services/movie-service";
+import { fetchTrailer, getMovieDetails } from "../../services/movie-service";
 import { imageApi } from "../../services/movie-api";
-
-const URL_IMAGE = imageApi;
+import { SingleMovieDetails } from "../../interfaces/single-movie-details";
 
 export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesProps) => {
-  const movie = useMovieDetails(movieId);
+  const [movie, setMovie] = useState<SingleMovieDetails | null>(null); 
   const [trailer, setTrailer] = useState<{ key: string } | null>(null);
+
+  useEffect(() => {
+    if (movieId) {
+      const fetchMovieDetails = async () => {
+        try {
+          const movieDetails = await getMovieDetails(movieId);
+          setMovie(movieDetails);
+        } catch (error) {
+          console.error("Error fetching movie details:", error);
+        }
+      };
+
+      const fetchMovieTrailer = async () => {
+        try {
+          const fetchedTrailer = await fetchTrailer(movieId);
+          if (fetchedTrailer && fetchedTrailer.key) {
+            setTrailer({ key: fetchedTrailer.key });
+          } else {
+            setTrailer(null); 
+          }
+        } catch (error) {
+          console.error("Error fetching movie trailer:", error);
+          setTrailer(null); 
+        }
+      };
+
+      fetchMovieDetails();
+      fetchMovieTrailer();
+    }
+  }, [movieId]);
 
   if (!modalMovie || !movie) return null;
 
@@ -20,28 +48,10 @@ export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesPr
     event.stopPropagation();
   };
 
-    const fetchMovieTrailer = async () => {
-      try {
-        const fetchedTrailer = await fetchTrailer(movieId);
-        if (fetchedTrailer && fetchedTrailer.key) {
-          setTrailer({ key: fetchedTrailer.key });
-        } else {
-          setTrailer(null); 
-        }
-      } catch (error) {
-        console.error("Error fetching movie trailer:", error);
-        setTrailer(null); 
-      }
-    };
-
-    if (movieId) {
-      fetchMovieTrailer();
-    }
-
   return (
     <article className="contenedor-modal-details" onClick={onClose}>
       <div className="rotar-multiejes" onClick={handleModalClick}>
-        <img src={`${URL_IMAGE}${movie.poster_path}`} className="portada-modal" alt="Movie Poster" />
+        <img src={imageApi(movie.poster_path)} className="portada-modal" alt="Movie Poster" />
         <StarRating voteAverage={movie.vote_average} />
       </div>
       <div className="details-modal" onClick={handleModalClick}>
@@ -58,7 +68,7 @@ export const ModalDetailMovie = ({ modalMovie, movieId, onClose }: ModalMoviesPr
         {trailer && (
           <YouTube
             videoId={trailer.key}
-            className="reproductor skeleton-image "
+            className="reproductor skeleton-image"
             containerClassName="youtube-container"
             opts={{
               playerVars: {

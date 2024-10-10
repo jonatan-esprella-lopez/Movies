@@ -1,20 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Movie } from "../../../interfaces/movie.interface";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
 
-
 export function MostValued() {
   const{
-    mostValuedMovie,
-    fetchPopularMovies
+    selectedMovie,
+    modalMovie,
+    popularMovies,
+    setModalMovie,
+    setSelectedMovie,
+    fetchMostValuedMovies
   } = useMovieStore()
 
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [modalMovie, setModalMovie] = useState<boolean>(false);
+  useEffect(() => {
+    fetchMostValuedMovies();
+  }, [fetchMostValuedMovies]);
 
-  const handleOpenModal = async (movie: Movie) => {
+  const handleOpenModal = (movie: Movie) => {
     setSelectedMovie(movie);
     setModalMovie(true);
     window.scrollTo({
@@ -23,15 +27,11 @@ export function MostValued() {
     });
   };
   
-  useEffect(() => {
-   fetchPopularMovies();
-  }, [fetchPopularMovies]);
-
   return (
     <main className="container-main">
       <h1>Mas Valoradas</h1>
       <section className="main-container-movie conteiner-movies">
-        {mostValuedMovie.map((movie) => (
+        {popularMovies.map((movie) => (
           <CardMovie  key={movie.id} movie={movie} onOpenModal={handleOpenModal}/>
         ))}   
       </section>

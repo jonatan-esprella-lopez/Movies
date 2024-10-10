@@ -1,8 +1,9 @@
 import Star from "../assets/movies/star.svg";
 import { Movie } from "../interfaces/movie.interface";
 import NoFoundImage from "../assets/movies/movie-void.svg";
+import { imageApi } from "../services/movie-api";
 
-const URL_IMAGE = "https://image.tmdb.org/t/p/original";
+
 
 interface props{
     movie: Movie;
@@ -12,13 +13,14 @@ interface props{
 export function CardMovie ({ movie, onOpenModal }: props) {
     const getStarsClass = (voteAverage: number) => 
         voteAverage > 5 ? "container-stars" : "container-stars-low";
+    const portada = imageApi(movie.poster_path);
     return(
         <article>
             <div key={movie.id} className="portada-movie" onClick={() => onOpenModal(movie)}>
                 {movie.poster_path ?
                     (
                         <div>
-                            <img src={`${URL_IMAGE + movie.poster_path}`} alt={movie.title} className="movie-image"/>
+                            <img src={`${portada}`} alt={movie.title} className="movie-image"/>
                         </div>
                     ):(
                         <div className="movie-void">
