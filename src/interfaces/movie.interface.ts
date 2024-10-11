@@ -14,7 +14,3 @@ export interface Movie {
   runtime: number;
   genres: Genre[];
 }
-
-export interface SearchProps {
-  movies: Movie[];
-}

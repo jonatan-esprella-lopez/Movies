@@ -33,12 +33,12 @@ export function HeaderNav() {
             </Link>
           </span>
           <span>
-            <Link to="most-valued" className="custom-link">
+            <Link to="/most-valued" className="custom-link">
               <p>Más valoradas</p>  
             </Link>
           </span>
           <span>
-            <Link to="less-valued" className="custom-link">
+            <Link to="/less-valued" className="custom-link">
               <p>Menos valoradas</p>
             </Link>
           </span >

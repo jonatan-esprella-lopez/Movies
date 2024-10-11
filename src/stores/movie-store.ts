@@ -1,16 +1,14 @@
 import { create } from 'zustand';
 import { Movie } from '../interfaces/movie.interface';
-import { DisplayMovieStatus } from '../interfaces/interfaces';
 import { 
   getMoviesSearch, 
   getAllMovies, 
   getMoviesLessValued, 
   getMoviesMostValued,
+  fetchTrailer,
 } from '../services/movie-service';
 
-
 interface MovieStore {
-  displayMoviesStatus: DisplayMovieStatus;
   query: string;
   idMovie: number;
   modalMovie: boolean;
@@ -20,6 +18,8 @@ interface MovieStore {
   popularMovies: Movie[];
   lessValuedMovie: Movie[];
   mostValuedMovie: Movie[];
+  trailerMovie: number;
+  setSelectedMovieDetails: (id: number) => void; 
   setQuery: (query: string) => void;
   setSelectedMovie: (movie: Movie | null) => void;
   fetchPopularMovies: () => void;
@@ -30,12 +30,12 @@ interface MovieStore {
 }
 
 export const useMovieStore = create<MovieStore>((set) => ({
-  displayMoviesStatus: 'ALL',
   query: '',
   idMovie: 0,
   modalMovie: false,
   detailsMovie: null,
   selectedMovie: null,
+  trailerMovie: 0,
   searchResults: [],
   popularMovies: [],
   lessValuedMovie: [],
@@ -66,7 +66,6 @@ export const useMovieStore = create<MovieStore>((set) => ({
     getMoviesMostValued().then((movies) => {
       set({ mostValuedMovie: movies });
       set({ searchResults: movies });
-
     });
   },
 
@@ -76,13 +75,19 @@ export const useMovieStore = create<MovieStore>((set) => ({
     });
   },
 
+  setSelectedMovieDetails: (movieId) => {
+    fetchTrailer(movieId).then((trailer) => {  
+      set({ trailerMovie: trailer.key ?? undefined }); // Accede a 'key' si existe, de lo contrario asigna 'undefined'
+    });
+  },
+
   setSelectedMovie: (movie) => {
+    console.log("Este es el movie:", movie);
     set({ selectedMovie: movie });
   },
 
   setModalMovie: (isOpen) => {
     set({ modalMovie: isOpen });
   },
-
 
 }));

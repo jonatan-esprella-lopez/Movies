@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { NoFound } from "../../../components/no-found";
-import { Movie } from "../../../interfaces/movie.interface";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
@@ -11,8 +10,6 @@ export function SearchMovie() {
     modalMovie,
     selectedMovie,
     searchResults,
-    setSelectedMovie,
-    setModalMovie,
     fetchSearchResults
   } = useMovieStore();
 
@@ -23,25 +20,18 @@ export function SearchMovie() {
   useEffect(() => {
     fetchSearchResults(query);
   }, [fetchSearchResults]);
-  
-  const handleOpenModal = async (movie: Movie) => {
-    setSelectedMovie(movie);
-    setModalMovie(true);
-  };
 
   return (
     <main className="container-main">
       <h1>Busqueda de pelicula</h1>
       <section className="main-container-movie conteiner-movies">
           {searchResults.map((movie) => (
-            <CardMovie  key={movie.id} movie={movie} onOpenModal={handleOpenModal}/>
+            <CardMovie  key={movie.id} movie={movie} />
           ))}
       </section>
       {modalMovie && selectedMovie && (
           <section className="conteniner-modal-movie">
-            <ModalDetailMovie
-              movieId={selectedMovie.id}
-            />
+            <ModalDetailMovie />
           </section>
         )}
 

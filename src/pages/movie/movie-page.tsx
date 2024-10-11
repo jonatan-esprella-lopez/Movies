@@ -1,8 +1,9 @@
+import { HeaderNav } from "../../components/header"
 
 export function MovieView() {
     return(
         <main className="container-main">
-
+            <HeaderNav/>
             <section>
                 <img src="" alt="" />
                 <section>
