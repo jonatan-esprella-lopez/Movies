@@ -15,8 +15,6 @@ export interface Image {
   file_path: string;
 }
 
-export type DisplayMovieStatus = 'ALL' | 'SEARCH' | 'MOST_VALUED' | 'LESS_VALUED';
-
 export interface Trailer {
   id: string;
   name: string;

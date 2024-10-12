@@ -1,24 +1,19 @@
-import { create } from 'zustand';
-import { Movie } from '../interfaces/movie.interface';
-import { 
-  getMoviesSearch, 
-  getAllMovies, 
-  getMoviesLessValued, 
-  getMoviesMostValued,
-  fetchTrailer,
-} from '../services/movie-service';
+import { create } from "zustand";
+import { Movie } from "../interfaces/movie.interface";
+import { fetchTrailer, getAllMovies, getMovieDetails, getMoviesLessValued, getMoviesMostValued, getMoviesSearch } from "../services/movie-service";
+import { SingleMovieDetails } from "../interfaces/single-movie-details";
 
 interface MovieStore {
   query: string;
   idMovie: number;
   modalMovie: boolean;
   detailsMovie: Movie | null;
-  selectedMovie: Movie | null;
+  selectedMovie: SingleMovieDetails | null;
   searchResults: Movie[];
   popularMovies: Movie[];
   lessValuedMovie: Movie[];
   mostValuedMovie: Movie[];
-  trailerMovie: number;
+  trailerMovie: { key: string } | null; 
   setSelectedMovieDetails: (id: number) => void; 
   setQuery: (query: string) => void;
   setSelectedMovie: (movie: Movie | null) => void;
@@ -35,7 +30,7 @@ export const useMovieStore = create<MovieStore>((set) => ({
   modalMovie: false,
   detailsMovie: null,
   selectedMovie: null,
-  trailerMovie: 0,
+  trailerMovie: null,
   searchResults: [],
   popularMovies: [],
   lessValuedMovie: [],
@@ -77,13 +72,18 @@ export const useMovieStore = create<MovieStore>((set) => ({
 
   setSelectedMovieDetails: (movieId) => {
     fetchTrailer(movieId).then((trailer) => {  
-      set({ trailerMovie: trailer.key ?? undefined }); // Accede a 'key' si existe, de lo contrario asigna 'undefined'
+      set({ trailerMovie: trailer ?? null }); 
     });
   },
 
-  setSelectedMovie: (movie) => {
-    console.log("Este es el movie:", movie);
-    set({ selectedMovie: movie });
+  setSelectedMovie: (movie: any) => {
+    getMovieDetails(movie.id)
+      .then((details: any) => {
+        set({ selectedMovie: details });
+      })
+      .catch((error: any) => {
+        console.error("Error al obtener los detalles de la película:", error);
+      });
   },
 
   setModalMovie: (isOpen) => {

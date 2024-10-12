@@ -39,15 +39,14 @@ export const getMovieDetails = async (movieId: number) => {
   }
 }
 
-export const fetchTrailer = async(movieId: number) => {
+export const fetchTrailer = async (movieId: number) => {
   const movieData = await fetchMovie(movieId);
-    if (movieData && movieData.key) {
-      return{ key: movieData.key };
-    } else {
-      return (null); 
-    }
-}
-
+  if (movieData && movieData.key) {
+    return { key: movieData.key };
+  } else {
+    return null;
+  }
+};
 
 export const fetchMovie = async (id: number): Promise<any> => {
   const { data } = await moviesApi.get(`/movie/${id}`, {
@@ -56,6 +55,7 @@ export const fetchMovie = async (id: number): Promise<any> => {
       language: "es-ES",
     },
   });
+
   if (data.videos && data.videos.results) {
     const trailer = data.videos.results.find((vid: any) => vid.name === "Oficial Trailer");
     return trailer ? trailer : data.videos.results[0];

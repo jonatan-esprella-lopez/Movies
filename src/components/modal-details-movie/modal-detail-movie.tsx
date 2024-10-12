@@ -1,62 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CloseIcon from "../../assets/modal/Icon.svg";
 import YouTube from "react-youtube";
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 import { StarRating } from "./star-rating";
 import { imageApi } from "../../services/movie-api";
-import { SingleMovieDetails } from "../../interfaces/single-movie-details";
 import { useMovieStore } from "../../stores/movie-store";
 
 export const ModalDetailMovie = () => {
-const {
-  modalMovie,
-  selectedMovie,
-  setModalMovie,
-} = useMovieStore();
-
-  const [movie, setMovie] = useState<SingleMovieDetails | null>(null); 
-  const [trailer, setTrailer] = useState<{ key: string } | null>(null);
-  console.log("El resultado:", selectedMovie?.genres)
+  const {
+    modalMovie,
+    selectedMovie,
+    setModalMovie,
+    trailerMovie,
+    setSelectedMovieDetails,
+  } = useMovieStore();
 
   useEffect(() => {
+    if (selectedMovie) {
+      setSelectedMovieDetails(selectedMovie.id);
+    }
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-
-    // if (movieId) {
-    //   const fetchMovieDetails = async () => {
-    //     try {
-    //       const movieDetails = await getMovieDetails(movieId);
-    //       setMovie(movieDetails);
-    //     } catch (error) {
-    //       console.error("Error fetching movie details:", error);
-    //     }
-    //   };
-
-    //   const fetchMovieTrailer = async () => {
-    //     try {
-    //       const fetchedTrailer = await fetchTrailer(movieId);
-    //       if (fetchedTrailer && fetchedTrailer.key) {
-    //         setTrailer({ key: fetchedTrailer.key });
-    //       } else {
-    //         setTrailer(null); 
-    //       }
-    //     } catch (error) {
-    //       console.error("Error fetching movie trailer:", error);
-    //       setTrailer(null); 
-    //     }
-    //   };
-
-    //   fetchMovieDetails();
-    //   fetchMovieTrailer();
-    // }
   }, [selectedMovie]);
 
   const handleCloseModal = () => {
     setModalMovie(false);
   };
-
 
   if (!modalMovie || !selectedMovie) return null;
 
@@ -81,9 +52,10 @@ const {
           {selectedMovie.genres?.length > 0 ? selectedMovie.genres.map(genre => genre.name).join(' / ') : 'No genres available'} <span>●</span>
           {Math.floor(selectedMovie.runtime / 60)}h {selectedMovie.runtime % 60}m
         </div>
-        {trailer && (
+
+        {trailerMovie && (
           <YouTube
-            videoId={trailer.key}
+            videoId={trailerMovie.key}
             className="reproductor skeleton-image"
             containerClassName="youtube-container"
             opts={{
@@ -94,6 +66,7 @@ const {
             }}
           />
         )}
+        
         <div className="conteiner-button-details">
           <ButtonMovie />
         </div>
