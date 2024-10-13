@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { Movie } from "../interfaces/movie.interface";
 import { fetchTrailer, getAllMovies, getMovieDetails, getMoviesLessValued, getMoviesMostValued, getMoviesSearch } from "../services/movie-service";
 import { SingleMovieDetails } from "../interfaces/single-movie-details";
+import { persist } from "zustand/middleware";
 
 interface MovieStore {
   query: string;
@@ -24,7 +25,8 @@ interface MovieStore {
   setModalMovie: (isOpen: boolean) => void;
 }
 
-export const useMovieStore = create<MovieStore>((set) => ({
+export const useMovieStore = create(persist<MovieStore>(
+  (set) => ({
   query: '',
   idMovie: 0,
   modalMovie: false,
@@ -90,4 +92,7 @@ export const useMovieStore = create<MovieStore>((set) => ({
     set({ modalMovie: isOpen });
   },
 
-}));
+}),{
+ name: 'moviesData' 
+}
+));

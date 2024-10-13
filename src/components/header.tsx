@@ -16,7 +16,8 @@ export function HeaderNav() {
     event.preventDefault()
       setQuery(localSearchKey)
       if(localSearchKey){
-        navigate( `/search-movie?=${localSearchKey}`)
+        const formattedTitle = localSearchKey.replace(/\s+/g, '_');
+        navigate(`/search-movie?query=${formattedTitle}`);
       }
       setLocalSearchKey("")
   };

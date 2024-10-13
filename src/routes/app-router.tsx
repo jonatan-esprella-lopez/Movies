@@ -6,7 +6,8 @@ import { AllMovies } from "../pages/home/pages/page-all-movies";
 import { LessValued } from "../pages/home/pages/page-less-valued";
 import { MostValued } from "../pages/home/pages/page-most-valued";
 import { SearchMovie } from "../pages/home/pages";
-
+import { Pelicula } from "../pages/peliculas"
+ 
 const router = createBrowserRouter([
 {
     path: "/",
@@ -36,8 +37,8 @@ const router = createBrowserRouter([
     element: <MovieView />,
 },
 {
-    path: "/Todas las peliculas",
-    element: <AllMovies />,
+    path: "/pelicula",
+    element: <Pelicula />,
 },
 {
     path: "*",

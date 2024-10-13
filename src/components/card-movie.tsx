@@ -11,8 +11,8 @@ export function CardMovie({ movie }: Props) {
   const { setModalMovie, setSelectedMovie } = useMovieStore();
 
   const handleSearchSubmit = () => {
-    setSelectedMovie(movie);  // Establece la película seleccionada
-    setModalMovie(true);      // Muestra el modal
+    setSelectedMovie(movie);
+    setModalMovie(true); 
   };
 
   const getStarsClass = (voteAverage: number) =>
@@ -32,7 +32,7 @@ export function CardMovie({ movie }: Props) {
         </div>
       ) : (
         <div>
-          {/* No hay imagen disponible */}
+          {/* No se que poner aqui XD */}
         </div>
       )}
     </article>
