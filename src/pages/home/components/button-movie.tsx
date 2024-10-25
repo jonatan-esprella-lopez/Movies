@@ -2,18 +2,22 @@ import { useNavigate } from "react-router-dom";
 import { useMovieStore } from "../../../stores/movie-store";
 import Play from "../../../assets/movies/Icon.svg";
 import Informacion from "../../../assets/movies/informacion.svg";
+import "./button-movie.css"
 
-export function ButtonMovie() {
-  const { selectedMovie, setModalMovie } = useMovieStore()
+export const ButtonMovie = () => {
   const navigate = useNavigate();
+  const { 
+    selectedMovie, 
+    setModalMovie 
+  } = useMovieStore()
   
-  const getFormattedMoviePath = () => {
-    if (!selectedMovie) return '';
-    return `/movie/${selectedMovie.id}`; 
+  const getFormattedMoviePath = (): string => {
+    return `/movie/${selectedMovie.id}`;
   };
-  const handleModalMovie = () => {
-    setModalMovie(false);
-    if (selectedMovie) {
+
+  const handleModalMovie = (): void => {
+    if(selectedMovie){
+      setModalMovie(false);
       navigate(getFormattedMoviePath());
     }
   };
@@ -25,7 +29,7 @@ export function ButtonMovie() {
         <span>Ver Ahora</span>
       </button>
 
-      <button className="conteiner-btn-2" onClick={() => console.log("Ver Después clickeado")}>
+      <button className="conteiner-btn-2">
         <img src={Informacion} alt="Ver Después" className="icon-button-slider" />
         <span>Ver Después</span>
       </button>

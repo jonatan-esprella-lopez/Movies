@@ -10,7 +10,7 @@ interface MovieStore {
   idMovie: number;
   modalMovie: boolean;
   detailsMovie: Movie | null;
-  selectedMovie: SingleMovieDetails[];
+  selectedMovie: SingleMovieDetails;
   searchResults: Movie[];
   trailerMovie: { key: string } | null; 
   setSelectedMovieDetails: (id: number) => void; 

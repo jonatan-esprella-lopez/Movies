@@ -1,11 +1,11 @@
 export interface SingleMovieDetails {
+    id:                    number;
     adult:                 boolean;
     backdrop_path:         string;
     belongs_to_collection: null;
     budget:                number;
     genres:                Genre[];
     homepage:              string;
-    id:                    number;
     imdb_id:               string;
     origin_country:        string[];
     original_language:     string;
