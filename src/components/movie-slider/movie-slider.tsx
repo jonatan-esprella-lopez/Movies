@@ -3,17 +3,17 @@
   import { SliderDots } from "./slider-dots";
   import { SliderContent } from "./slider-content.tsx";
 
-  export function MovieSlider() {
-    const [currentIndex, setCurrentIndex] = useState(0);
+  export function MovieSlider(): JSX.Element {
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
   
-    const goToNextSlide = () => {
+    const goToNextSlide = (): void => {
       setCurrentIndex((prevIndex) => (prevIndex === 7 - 1 ? 0 : prevIndex + 1));
     };
-    const goToPreviousSlide = () => {
+    const goToPreviousSlide = (): void => {
       setCurrentIndex((prevIndex) => (prevIndex === 0 ? 7 - 1 : prevIndex - 1));
     };
 
-    const handleDotClick = (index: number) => {
+    const handleDotClick = (index: number): void => {
       setCurrentIndex(index);
     };
   
@@ -21,7 +21,7 @@
       <div className="slider">
         <div className="slider-wrapper">
           <SliderControls onPrevious={goToPreviousSlide} onNext={goToNextSlide} />
-          <SliderContent currentIndex={currentIndex} />
+          <SliderContent currentIndex={ currentIndex } />
           <SliderDots count={7} currentIndex={currentIndex} onDotClick={handleDotClick} />
         </div>
       </div>

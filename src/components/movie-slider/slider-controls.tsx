@@ -1,9 +1,7 @@
-interface SliderControlsProps {
-  onPrevious: () => void;
-  onNext: () => void;
-}
+import { SliderControlsProps } from "../../interfaces/common-interfaces";
 
-export const SliderControls = ({ onPrevious, onNext }: SliderControlsProps) => (
+
+export const SliderControls = ({ onPrevious, onNext }: SliderControlsProps): JSX.Element => (
   <>
     <button className="slider-arrow left-arrow" onClick={onPrevious}>
       &#10094;

@@ -1,15 +1,14 @@
 import Star from "../assets/movies/star.svg";
-import { Movie } from "../interfaces/movie.interface";
+import { MovieDataBasic } from "../interfaces/movie.interface";
 import { imageApi } from "../services/movie-api";
 import { useMovieStore } from "../stores/movie-store";
 
-interface Props {
-  movie: Movie;
-}
-
-export function CardMovie({ movie }: Props) {
-  const { setModalMovie, setSelectedMovie } = useMovieStore();
-
+export function CardMovie(movie: MovieDataBasic):JSX.Element {
+  const { 
+    setModalMovie, 
+    setSelectedMovie 
+  } = useMovieStore();
+  
   const handleSearchSubmit = () => {
     setSelectedMovie(movie);
     setModalMovie(true); 
@@ -22,7 +21,6 @@ export function CardMovie({ movie }: Props) {
 
   return (
     <article key={movie.id}>
-      {movie.poster_path ? (
         <div className="portada-movie" onClick={handleSearchSubmit}>
           <img src={`${portada}`} alt={movie.title} className="movie-image" />
           <div className={getStarsClass(movie.vote_average)}>
@@ -30,11 +28,6 @@ export function CardMovie({ movie }: Props) {
             {parseFloat(movie.vote_average.toFixed(1))}
           </div>
         </div>
-      ) : (
-        <div>
-          {/* No se que poner aqui XD */}
-        </div>
-      )}
     </article>
   );
 }

@@ -1,10 +1,6 @@
-interface SliderDotsProps {
-  count: number;
-  currentIndex: number;
-  onDotClick: (index: number) => void;
-}
+import { SliderDotsProps } from "../../interfaces/common-interfaces";
 
-export const SliderDots = ({ count, currentIndex, onDotClick }: SliderDotsProps) => (
+export const SliderDots = ({ count, currentIndex, onDotClick }: SliderDotsProps): JSX.Element => (
   <div className="slider-dots">
     {Array.from({ length: count }).map((_, index) => (
       <span
