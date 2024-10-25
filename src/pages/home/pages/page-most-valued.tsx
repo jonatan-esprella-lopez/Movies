@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
-import { MovieDataBasic } from "../../../interfaces/movie.interface";
+import { SingleMovieDetails } from "../../../interfaces/movie.interface";
 import { getMoviesMostValued } from "../../../services/movie-service";
 
 export function MostValued() {
   const{ modalMovie } = useMovieStore();
-  const [movie, setMovie] = useState<MovieDataBasic[]>([]);
+  const [movie, setMovie] = useState<SingleMovieDetails[]>([]);
 
   useEffect(() => {
     getMoviesMostValued().then((movies) => {

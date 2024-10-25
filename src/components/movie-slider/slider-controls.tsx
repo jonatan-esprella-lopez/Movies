@@ -1,4 +1,4 @@
-import { SliderControlsProps } from "../../interfaces/common-interfaces";
+import { SliderControlsProps } from "../../interfaces/common.interfaces";
 
 
 export const SliderControls = ({ onPrevious, onNext }: SliderControlsProps): JSX.Element => (

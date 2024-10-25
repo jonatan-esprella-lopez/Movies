@@ -1,13 +1,13 @@
-import { MovieDataBasic } from "../../interfaces/movie.interface";
+import { SingleMovieDetails } from "../../interfaces/movie.interface";
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 import { useEffect, useState } from "react";
 import { getMoviesMostValued } from "../../services/movie-service";
 import { useMovieStore } from "../../stores/movie-store";
 import { URL_IMAGE } from "../../services/movie-api";
-import { sliderContentProps } from "../../interfaces/common-interfaces";
+import { sliderContentProps } from "../../interfaces/common.interfaces";
 
 export const SliderContent = ({ currentIndex }: sliderContentProps ):JSX.Element => {
-  const [movies, setMovies] = useState<MovieDataBasic[]>([]);
+  const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
   const {
     setSelectedMovie
   } = useMovieStore();

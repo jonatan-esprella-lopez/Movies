@@ -5,7 +5,7 @@ import { useMovieStore } from "../../stores/movie-store";
 import { getMoviesMostValued } from "../../services/movie-service";
 import { imageApi } from "../../services/movie-api";
 import "./cartelera.css";
-import { Movie } from "../../interfaces/movie.interface";
+import { SingleMovieDetails } from "../../interfaces/movie.interface";
 import { SeatMap } from "./componets/seat-map";
 import { DateSelector } from "./componets/date-selector";
 
@@ -14,7 +14,7 @@ export const Cartelera = () => {
         selectedMovie,
         setSelectedMovie
     } = useMovieStore()
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
   const [imagen, setImagen] = useState<string | undefined>();
 
   const [seatMapPerMovie, setSeatMapPerMovie] = useState<{ [key: string]: any }>({});
@@ -27,7 +27,7 @@ export const Cartelera = () => {
     console.log(selectedMovie);
   }, []);
 
-  const handleMovieSelected = (movie: Movie): void => {
+  const handleMovieSelected = (movie: SingleMovieDetails): void => {
     setSelectedMovie(movie);
     setImagen(imageApi(movie.poster_path));
   };
@@ -53,7 +53,7 @@ export const Cartelera = () => {
           );
         })}
       </section>
-      {/* <DateSelector/> */}
+      <DateSelector/>
       {selectedMovie && (
         <section className="Selected-mov-Cartelera">
           <img src={imagen} alt="" />
@@ -66,11 +66,11 @@ export const Cartelera = () => {
               <p>Realidad Virtual</p>
             </nav>
             <p>{selectedMovie.title}</p>
-            {/* <SeatMap
+            <SeatMap
               movieId={selectedMovie.id}
               seatMap={seatMapPerMovie[selectedMovie.id] || null} 
               onSeatMapChange={handleSeatMapChange} 
-            /> */}
+            />
           </section>
         </section>
       )}

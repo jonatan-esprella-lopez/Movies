@@ -1,4 +1,4 @@
-import { SliderDotsProps } from "../../interfaces/common-interfaces";
+import { SliderDotsProps } from "../../interfaces/common.interfaces";
 
 export const SliderDots = ({ count, currentIndex, onDotClick }: SliderDotsProps): JSX.Element => (
   <div className="slider-dots">

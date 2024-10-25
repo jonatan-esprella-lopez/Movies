@@ -1,9 +1,9 @@
-import Star from "../assets/movies/star.svg";
-import { MovieDataBasic } from "../interfaces/movie.interface";
-import { imageApi } from "../services/movie-api";
 import { useMovieStore } from "../stores/movie-store";
+import { imageApi } from "../services/movie-api";
+import Star from "../assets/movies/star.svg";
+import { CardMovieProps } from "../interfaces/common.interfaces";
 
-export function CardMovie(movie: MovieDataBasic):JSX.Element {
+export function CardMovie({ movie }: CardMovieProps):JSX.Element {
   const { 
     setModalMovie, 
     setSelectedMovie 
@@ -17,6 +17,7 @@ export function CardMovie(movie: MovieDataBasic):JSX.Element {
   const getStarsClass = (voteAverage: number) =>
     voteAverage > 5 ? "container-stars" : "container-stars-low";
 
+  const voteAverage = movie.vote_average ?? 0;
   const portada = imageApi(movie.poster_path);
 
   return (
@@ -25,9 +26,10 @@ export function CardMovie(movie: MovieDataBasic):JSX.Element {
           <img src={`${portada}`} alt={movie.title} className="movie-image" />
           <div className={getStarsClass(movie.vote_average)}>
             <img src={Star} alt="star" />
-            {parseFloat(movie.vote_average.toFixed(1))}
+            {parseFloat(voteAverage.toFixed(1))}
           </div>
         </div>
     </article>
   );
 }
+

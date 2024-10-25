@@ -4,35 +4,32 @@
 
 .slider {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 100% - 35px;
     margin: auto;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 } 
-
-.slider-wrapper {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
   
 .slider-content {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    background-color: #717171;
+    min-height: 390px;
+    max-height: 390px;
     width: 100%;
+    border-radius: 10px;
 }
   
 .slide {
-    background-color: #717171;
     position: relative;
     min-width: 100%;
-    min-height: 390px;
-    max-height: 390px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;    
-    border-radius: 10px;
 }
 
 .slide div {  

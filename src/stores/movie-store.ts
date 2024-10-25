@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { Movie } from "../interfaces/movie.interface";
 import { fetchTrailer, getMovieDetails, getMoviesSearch } from "../services/movie-service";
 import { SingleMovieDetails } from "../interfaces/single-movie-details";
 import { persist } from "zustand/middleware";
@@ -9,9 +8,9 @@ interface MovieStore {
   query: string;
   idMovie: number;
   modalMovie: boolean;
-  detailsMovie: Movie | null;
-  selectedMovie: SingleMovieDetails;
-  searchResults: Movie[];
+  detailsMovie: SingleMovieDetails | null;
+  selectedMovie: SingleMovieDetails | null;
+  searchResults: SingleMovieDetails[];
   trailerMovie: { key: string } | null; 
   setSelectedMovieDetails: (id: number) => void; 
   setQuery: (query: string) => void;
@@ -28,7 +27,7 @@ export const useMovieStore = create(
   idMovie: 0,
   modalMovie: false,
   detailsMovie: null,
-  selectedMovie: [],
+  selectedMovie: null,
   trailerMovie: null,
   searchResults: [],
 
@@ -40,30 +39,26 @@ export const useMovieStore = create(
   },
 
   fetchSearchResults: (query) => {
-    getMoviesSearch(query).then((movies) => {
-      set({ searchResults: movies });
-    });
+    getMoviesSearch(query)
+      .then((movies) => set({ searchResults: movies }))
+      .catch((error) => console.error("Error al obtener los resultados de búsqueda:", error));
   },
 
   setSelectedMovieDetails: (movieId) => {
-    fetchTrailer(movieId).then((trailer) => {  
-      set({ trailerMovie: trailer ?? null }); 
-    });
+    fetchTrailer(movieId)
+      .then((trailer) => set({ trailerMovie: trailer ?? null }))
+      .catch((error) => console.error("Error al obtener el tráiler:", error));
   },
 
   setSelectedMovie: (movie: SingleMovieDetails) => {
     getMovieDetails(movie.id)
-      .then((details: SingleMovieDetails[]) => {
-        set({ selectedMovie: details });
-      })
-      .catch((error: SingleMovieDetails[]) => {
-        console.error("Error al obtener los detalles de la película:", error);
-      });
+      .then((details) => set({ selectedMovie: details ?? null }))
+      .catch((error) => console.error("Error al obtener los detalles de la película:", error));
   },
 
   setModalMovie: (isOpen) => {
     set({ modalMovie: isOpen });
-    if ( isOpen == false ) set({selectedMovie: []});  
+    if ( isOpen == false ) set({selectedMovie: null});  
   },
 
 }),{
