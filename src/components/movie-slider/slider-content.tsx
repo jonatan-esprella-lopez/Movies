@@ -1,15 +1,32 @@
 import { Movie } from "../../interfaces/movie.interface";
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 import NoFoundImage from "../../assets/movies/movie-void.svg"
+import { useEffect, useState } from "react";
+import { getMoviesMostValued } from "../../services/movie-service";
+import { useMovieStore } from "../../stores/movie-store";
 const URL_IMAGE = 'https://image.tmdb.org/t/p/original';
 
 interface SliderContentProps {
-  movies: Movie[];
   currentIndex: number;
 }
 
-export const SliderContent = ({ movies, currentIndex }: SliderContentProps) => {
-  
+export const SliderContent = ({ currentIndex }: SliderContentProps) => {
+  const {
+    setSelectedMovie
+  } = useMovieStore();
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    getMoviesMostValued().then((movies) =>{
+      setMovies(movies)
+      setSelectedMovie(movies[currentIndex])
+
+    }).catch((error) => {
+      console.error('Error al obtener las películas', error);
+    });
+  }, [getMoviesMostValued,currentIndex]);
+
+
   return(
   <div className="slider-content" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
     {movies.map((movie, index) => (
@@ -28,7 +45,7 @@ export const SliderContent = ({ movies, currentIndex }: SliderContentProps) => {
                 </div>
             )
         }
-        <ButtonMovie movieTitle={"hola:"+ movie.title}/>
+        <ButtonMovie />
       </div>
     ))}
   </div>

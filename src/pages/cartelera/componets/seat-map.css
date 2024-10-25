@@ -1,0 +1,48 @@
+.seat-map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e2a3a;
+    border-radius: 10px;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .screen {
+    width: 90%;
+    height: 30px;
+    background-color: #ccc;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  
+  .seat-grid {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    grid-gap: 5px;
+  }
+  
+  .seat-row {
+    display: contents;
+  }
+  
+  .seat {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    font-size: 14px;
+  }
+  
+  .seat:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+  }
+  

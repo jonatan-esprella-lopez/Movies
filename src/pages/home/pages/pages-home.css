@@ -1,0 +1,10 @@
+.conteiner-movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+  
+.conteiner-movies h1{
+    font-size: 48px;
+    text-align: left;
+}

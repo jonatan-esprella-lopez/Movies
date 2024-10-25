@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import CloseIcon from "../../assets/modal/Icon.svg";
+import { useMovieStore } from "../../stores/movie-store";
+import { imageApi } from "../../services/movie-api";
 import YouTube from "react-youtube";
+
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 import { StarRating } from "./star-rating";
-import { imageApi } from "../../services/movie-api";
-import { useMovieStore } from "../../stores/movie-store";
+import CloseIcon from "../../assets/modal/Icon.svg";
 
 export const ModalDetailMovie = () => {
   const {
     modalMovie,
     selectedMovie,
-    setModalMovie,
     trailerMovie,
+    setModalMovie,
     setSelectedMovieDetails,
   } = useMovieStore();
 
@@ -20,7 +21,7 @@ export const ModalDetailMovie = () => {
       setSelectedMovieDetails(selectedMovie.id);
     }
     window.scrollTo({
-      top: 0,
+      top: 0, 
       behavior: 'smooth',
     });
   }, [selectedMovie]);
@@ -29,14 +30,14 @@ export const ModalDetailMovie = () => {
     setModalMovie(false);
   };
 
-  if (!modalMovie || !selectedMovie) return null;
+  if (!modalMovie) return null;
 
   const handleModalClick = (event: React.MouseEvent) => {
     event.stopPropagation();
   };
 
   return (
-    <article className="contenedor-modal-details" onClick={handleCloseModal}>
+    <section className="contenedor-modal-details" onClick={handleCloseModal}>
       <div className="rotar-multiejes" onClick={handleModalClick}>
         <img src={imageApi(selectedMovie.poster_path)} className="portada-modal" alt="Movie Poster" />
         <StarRating voteAverage={selectedMovie.vote_average} />
@@ -71,6 +72,6 @@ export const ModalDetailMovie = () => {
           <ButtonMovie />
         </div>
       </div>
-    </article>
+    </section>
   );
 };

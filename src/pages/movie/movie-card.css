@@ -3,7 +3,7 @@
 }
 
 .poster-section {
-margin-right: 20px;
+  margin-right: 80px;
 }
 
 .details-section {
@@ -24,13 +24,6 @@ align-items: center;
 margin-bottom: 20px;
 }
 
-.rating-score {
-    border: 2px solid #008cff;
-padding: 5px 10px;
-border-radius: 10px;
-font-size: 24px;
-margin-right: 10px;
-}
 
 .user-rating {
 font-size: 18px;
@@ -39,8 +32,8 @@ margin-right: 20px;
 
 .vibe-button {
 background-color: transparent;
-color: #1db1f3;
-border: 1px solid #1db1f3;
+color: #FED941;
+border: 1px solid #FED941;
 padding: 5px 10px;
 cursor: pointer;
 border-radius: 5px;
@@ -60,6 +53,21 @@ align-items: center;
     margin-right: 10px;
 }
 
+.conteiner-genres{
+  display: flex;
+  align-items: center;
+}
+
+.genres-movie{
+  font-weight: bold;
+  color: #c0c0c0;
+  border: 1px solid #c0c0c0;
+  margin: 0.3rem;
+  padding: 2px 20px;
+  border-radius: 4px;
+}
+
+
   .movie-overview {
     font-size: 16px;
     line-height: 1.5;
@@ -72,3 +80,17 @@ align-items: center;
   .watch-now {
     margin-top: 20px;
   }
+
+.contain-reparto{
+  display: flex;
+  margin: 50px 0;
+}
+
+.reparto {
+  margin: 0 10px;
+}
+
+.reparto img {
+  width: 180px;
+  border-radius: 10px;
+}

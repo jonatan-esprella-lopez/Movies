@@ -1,0 +1,49 @@
+.date-selector-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: #fff;
+  }
+  
+  .arrow {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .dates {
+    display: flex;
+    /* overflow-x: scroll; */
+    gap: 10px;
+    padding: 20px 0;
+  }
+  
+  .date-item {
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    min-width: 80px;
+  }
+  
+  .date-item p {
+    margin: 0;
+  }
+  
+  .date-item .date {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .date-item.selected {
+    color: red;
+    transform: scale(1.2);
+  }
+  
+  .date-item:hover {
+    transform: scale(1.1);
+  }
+  

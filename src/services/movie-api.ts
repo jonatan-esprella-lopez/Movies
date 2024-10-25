@@ -16,3 +16,5 @@ export const imageApi = (posterMovie: string) => {
   return URL_IMAGE + posterMovie;
 }
 
+
+

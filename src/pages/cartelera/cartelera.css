@@ -1,0 +1,44 @@
+.conteiner-movies-cartelera {
+    display: flex;
+}
+
+.cartelera-movie img {
+    width: 150px;
+    margin: 0 10px;
+    border-radius: 10px;
+    border: 1px solid #ad3a00;
+}
+
+.cartelera-movie img:hover {
+    cursor: pointer;
+    filter: brightness(1.3);
+}
+
+.Selected-mov-Cartelera {
+    width: 75vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.Selected-mov-Cartelera img {
+    width: 300px;
+}
+
+
+.nav-type-room {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-type-room p {
+    color: whitesmoke;
+    background: #ad3a00;
+    width: 120px;
+    height: 40px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}

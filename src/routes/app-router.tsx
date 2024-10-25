@@ -7,6 +7,7 @@ import { LessValued } from "../pages/home/pages/page-less-valued";
 import { MostValued } from "../pages/home/pages/page-most-valued";
 import { SearchMovie } from "../pages/home/pages";
 import { Pelicula } from "../pages/peliculas"
+import { Cartelera } from "../pages/cartelera/cartelera";
  
 const router = createBrowserRouter([
 {
@@ -33,12 +34,16 @@ const router = createBrowserRouter([
       
 },
 {
-    path: "/movie",
+    path: "/movie/:id",
     element: <MovieView />,
 },
 {
     path: "/pelicula",
     element: <Pelicula />,
+},
+{
+    path: "/cartelera",
+    element: <Cartelera/>,
 },
 {
     path: "*",
