@@ -6,8 +6,10 @@ import { useMovieStore } from "../../../stores/movie-store";
 import { SingleMovieDetails } from "../../../interfaces/movie.interface";
 import { getMoviesMostValued } from "../../../services/movie-service";
 
-export function MostValued() {
-  const{ modalMovie } = useMovieStore();
+export function MostValued(): JSX.Element {
+  const{ 
+    modalMovie 
+  } = useMovieStore();
   const [movie, setMovie] = useState<SingleMovieDetails[]>([]);
 
   useEffect(() => {

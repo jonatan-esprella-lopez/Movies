@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./seat-map.css";
 
-// Tipos de estado del asiento
 type SeatStatus = "available" | "reserved" | "selected";
 
-// Interfaz para representar un asiento
 interface Seat {
   row: string;
   number: number;
   status: SeatStatus;
 }
 
-// Props del componente SeatMap
 interface SeatMapProps {
   movieId: string;
-  seatMap: Seat[] | null; // Mapa de asientos guardado o null
-  onSeatMapChange: (movieId: string, seatMap: Seat[]) => void; // Callback para actualizar el mapa de asientos
+  seatMap: Seat[] | null; 
+  onSeatMapChange: (movieId: string, seatMap: Seat[]) => void;
 }
 
 const seatRows = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 const seatNumbers = Array.from({ length: 18 }, (_, i) => i + 1);
 
-export const SeatMap: React.FC<SeatMapProps> = ({ movieId, seatMap, onSeatMapChange }) => {
-  // Estado local para los asientos
+export const SeatMap = ({ movieId, seatMap, onSeatMapChange }: SeatMapProps) => {
+ 
   const [seats, setSeats] = useState<Seat[]>(
     seatRows.flatMap((row) =>
       seatNumbers.map((number) => ({
@@ -33,14 +30,12 @@ export const SeatMap: React.FC<SeatMapProps> = ({ movieId, seatMap, onSeatMapCha
     )
   );
 
-  // Cargar el mapa de asientos guardado si existe
   useEffect(() => {
     if (seatMap) {
       setSeats(seatMap);
     }
   }, [seatMap]);
 
-  // Función para cambiar el estado de un asiento
   const toggleSeatStatus = (row: string, number: number) => {
     const newSeats = seats.map((seat) =>
       seat.row === row && seat.number === number
@@ -57,10 +52,9 @@ export const SeatMap: React.FC<SeatMapProps> = ({ movieId, seatMap, onSeatMapCha
     );
 
     setSeats(newSeats);
-    onSeatMapChange(movieId, newSeats); // Notificamos el cambio al componente padre
+    onSeatMapChange(movieId, newSeats);
   };
 
-  // Función para determinar el color del asiento basado en su estado
   const getSeatColor = (status: SeatStatus): string => {
     switch (status) {
       case "available":

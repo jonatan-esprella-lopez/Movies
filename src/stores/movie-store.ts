@@ -12,14 +12,15 @@ interface MovieStore {
   selectedMovie: SingleMovieDetails | null;
   searchResults: SingleMovieDetails[];
   trailerMovie: { key: string } | null; 
-  setSelectedMovieDetails: (id: number) => void; 
+  setSelectedMovieDetails: (id: number) => void;
+  setMovieDetails: (movieID: number) => void; 
   setQuery: (query: string) => void;
   setSelectedMovie: (SingleMovieDetails: SingleMovieDetails) => void;
   fetchSearchResults: (query: string) => void;
   setModalMovie: (isOpen: boolean) => void;
 }
 
-// TODO: devtools
+// TODO: implemntar devtools
 export const useMovieStore = create(
   persist<MovieStore>(
   (set) => ({
@@ -54,6 +55,12 @@ export const useMovieStore = create(
     getMovieDetails(movie.id)
       .then((details) => set({ selectedMovie: details ?? null }))
       .catch((error) => console.error("Error al obtener los detalles de la película:", error));
+  },
+
+  setMovieDetails: (movieId: number): void => {
+    getMovieDetails(movieId)
+    .then((detailsMovie) => set({ detailsMovie: detailsMovie ?? null }))
+    .catch((error) => console.error("Error al obtener el detalle de la pelicular", error));
   },
 
   setModalMovie: (isOpen) => {

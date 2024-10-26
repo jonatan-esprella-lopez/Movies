@@ -18,25 +18,21 @@ font-size: 32px;
 margin-bottom: 10px;
 }
 
-.rating-section {
-display: flex;
-align-items: center;
-margin-bottom: 20px;
-}
-
-
-.user-rating {
-font-size: 18px;
-margin-right: 20px;
-}
 
 .vibe-button {
-background-color: transparent;
-color: #FED941;
-border: 1px solid #FED941;
-padding: 5px 10px;
-cursor: pointer;
-border-radius: 5px;
+  background-color: transparent;
+  color: #FED941;
+  border: 1px solid #FED941;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.vibe-button:hover {
+  background-color: #FED941;
+  color: black;
+  cursor: pointer;
 }
 
 .movie-info {

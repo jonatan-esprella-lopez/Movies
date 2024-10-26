@@ -1,5 +1,6 @@
 import { useMovieStore } from "../stores/movie-store";
 import { imageApi } from "../services/movie-api";
+import NoFoundMovie from "../assets/movies/movie-void.svg"
 import Star from "../assets/movies/star.svg";
 import { CardMovieProps } from "../interfaces/common.interfaces";
 
@@ -9,7 +10,7 @@ export function CardMovie({ movie }: CardMovieProps):JSX.Element {
     setSelectedMovie 
   } = useMovieStore();
   
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = (): void => {
     setSelectedMovie(movie);
     setModalMovie(true); 
   };
@@ -22,8 +23,8 @@ export function CardMovie({ movie }: CardMovieProps):JSX.Element {
 
   return (
     <article key={movie.id}>
-        <div className="portada-movie" onClick={handleSearchSubmit}>
-          <img src={`${portada}`} alt={movie.title} className="movie-image" />
+          <div className="portada-movie" onClick={handleSearchSubmit}>
+          <img src={movie.poster_path ? portada : NoFoundMovie} alt={movie.title} className="movie-image" />
           <div className={getStarsClass(movie.vote_average)}>
             <img src={Star} alt="star" />
             {parseFloat(voteAverage.toFixed(1))}

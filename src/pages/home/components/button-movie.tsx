@@ -4,7 +4,7 @@ import Play from "../../../assets/movies/Icon.svg";
 import Informacion from "../../../assets/movies/informacion.svg";
 import "./button-movie.css"
 
-export const ButtonMovie = () => {
+export const ButtonMovie = (): JSX.Element => {
   const navigate = useNavigate();
   const { 
     selectedMovie, 
@@ -12,7 +12,7 @@ export const ButtonMovie = () => {
   } = useMovieStore()
   
   const getFormattedMoviePath = (): string => {
-    return `/movie/${selectedMovie.id}`;
+    return selectedMovie ? `/movie/${selectedMovie.id}` : "";
   };
 
   const handleModalMovie = (): void => {

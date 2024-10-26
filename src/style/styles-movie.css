@@ -8,8 +8,8 @@
     padding: 35px 0 ;
 }
 
-.full-logo {
-    height: 75px;
+.full-logo {  
+  height: 75px;
 }
 
 .full-logo:hover {
@@ -206,25 +206,6 @@
     width: 15px;
     height: 15px;
     padding-right: 3px;
-}
-
-
-.conteiner-no-found{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.conteiner-no-found img{
-    width: 350px;
-    padding-bottom: 24px;
-}
-
-.conteiner-no-found h3{
-    font-family: Montserrat;
-    font-size: 28px;
 }
 
 

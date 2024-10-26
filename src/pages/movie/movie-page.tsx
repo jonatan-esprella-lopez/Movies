@@ -5,7 +5,7 @@ import { imageApi } from "../../services/movie-api";
 import "./movie-card.css";
 import {
   fetchActorsMovie,
-  fetchMovieDetailsById,
+  getMovieDetails,
 } from "../../services/movie-service";
 import { VibeModal } from "./vibe-modal";
 import { SingleMovieDetails } from "../../interfaces/single-movie-details";
@@ -14,80 +14,77 @@ import { Footer } from "../../components/footer/footer";
 import { StarRating } from "../../components/modal-details-movie/star-rating";
 import { useMovieStore } from "../../stores/movie-store";
 
-export const MovieView = () => {
+export const MovieView = (): JSX.Element => {
+  const {
+    selectedMovie,
+    detailsMovie,
+    setMovieDetails,
+  } = useMovieStore();
+
   const { id } = useParams<{ id: string }>();
-  const [movieDetails, setMovieDetails] = useState<SingleMovieDetails>();
   const [isModalOpen, setModalOpen] = useState(false);
   const [actors, setActors] = useState<Cast[]>([]);
   
+ 
   useEffect(() => {
     if (id) {
-      fetchActorsMovie(parseInt(id))
-      .then((response) => {
-        setActors(response);
-          console.log(actors);
-        })
-        .catch((error) => {
-          console.log("El error es de los actores", error);
-        });
-        
-      fetchMovieDetailsById(parseInt(id))
-      .then((response) => {
-          setMovieDetails(response?.data);
-          console.log(id);
-        })
-        .catch((error) => {
-          console.error("Error fetching movie details:", error);
-        });
+      const movieId = parseInt(id);
+      fetchActorsMovie(movieId)
+      .then((response) => { setActors(response);})
+      .catch((error) => {
+        console.log("El error es de los actores", error);
+      });
+      
+      getMovieDetails(movieId)
+      .then((response) => setMovieDetails(response))
+      .catch((error) => {
+        console.error("Error fetching movie details:", error);
+      });
       }
-  }, [id]);
+    }, [id, setMovieDetails]);
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
   };
 
-  const portada = movieDetails ? imageApi(movieDetails.poster_path) : "";
+  const portada = selectedMovie ? imageApi(selectedMovie.poster_path) : "";
 
   return (
     <section className="container-main">
       <HeaderNav />
       <section className="conteiner-details-movie">
-        <article className="poster-section">
-          <div className="rotar-multiejes">
+        <article className="poster-section rotar-multiejes">
             <img src={portada} className="portada-modal" alt="Movie Poster" />
-            {movieDetails &&
-              <StarRating voteAverage={parseFloat(movieDetails.vote_average.toFixed(1))} />
+            {selectedMovie &&
+              <StarRating voteAverage={parseFloat(selectedMovie.vote_average.toFixed(1))} />
             }
-          </div>
         </article>
+
+          {selectedMovie &&
         <section className="details-section">
-          {movieDetails && (
-            <>
               <h1>
-                Pelicula: {movieDetails.title} (
-                {movieDetails.release_date?.substring(0, 4)})
+                Pelicula: {selectedMovie.title} (
+                {selectedMovie.release_date?.substring(0, 4)})
               </h1>
-              <div className="rating-section">
-                <span className="user-rating">Puntuación de usuarios</span>
-                <button className="vibe-button" onClick={toggleModal}>
-                  ¿Cuál es tu vibra?
-                </button>
-              </div>
+              
               <div className="movie-info">
                 <strong className="country-movie">
-                  {movieDetails.origin_country || "N/A"}
+                  {selectedMovie.origin_country || "N/A"}
                 </strong>
                 <div className="conteiner-genres">
-                  {movieDetails.genres?.length > 0
-                    ? movieDetails.genres.map((genre) => (
+                  {selectedMovie.genres?.length > 0
+                    ? selectedMovie.genres.map((genre) => (
                         <p className="genres-movie">{genre.name}</p>
                       ))
                     : "No genres available"}
                 </div>
+                <button className="vibe-button" onClick={toggleModal}>
+                  ¿Cuál es tu vibra?
+                </button>
               </div>
               <div className="movie-overview">
                 <h2>Vista general</h2>
-                <p>{movieDetails.overview || "No overview available."}</p>
+                <p>{selectedMovie.overview || "No overview available."}</p>
               </div>
 
               <div className="watch-now">
@@ -95,9 +92,8 @@ export const MovieView = () => {
                   <button className="conteiner-btn-1">Reservar asiento</button>
                 </Link>
               </div>
-            </>
-          )}
         </section>
+        }
       </section>
 
       <section className="contain-reparto">

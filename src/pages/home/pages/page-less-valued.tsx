@@ -6,8 +6,10 @@ import { useMovieStore } from "../../../stores/movie-store";
 import { getMoviesLessValued } from "../../../services/movie-service";
 import { SingleMovieDetails } from "../../../interfaces/movie.interface";
 
-export function LessValued() {
-  const{ modalMovie } = useMovieStore();
+export function LessValued(): JSX.Element {
+  const{ 
+    modalMovie 
+  } = useMovieStore();
   const [movie, setMovie] = useState<SingleMovieDetails[]>([]);
 
   useEffect(() => {

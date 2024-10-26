@@ -6,8 +6,10 @@ import { SingleMovieDetails } from "../../../interfaces/movie.interface";
 import { getAllMovies } from "../../../services/movie-service";
 import { useMovieStore } from "../../../stores/movie-store";
 
-export function AllMovies() {
-  const { modalMovie } = useMovieStore();
+export function AllMovies():JSX.Element {
+  const {
+    modalMovie 
+  } = useMovieStore();
   const [movie, setMovie] = useState<SingleMovieDetails[]>([]);
 
   useEffect(() => {

@@ -18,13 +18,13 @@
 }
 
 .footer h3 {
-  font-size: 1.25rem;
+  font-size: 1.10rem;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
 .footer p {
-  color: #bdc3c7;
+  color: #888888;
 }
 
 .footer ul {
@@ -45,24 +45,35 @@
   color: white;
 }
 
-.social-icons {
+.social-icons a {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.social-icons img{
+  width: 25px;
+  height: 25px;
+  margin: 5px;
 }
 
 .newsletter-form {
   display: flex;
+  margin-top: 20px;
+  margin-right: 10px;
 }
 
 .newsletter-input {
   flex-grow: 1;
   padding: 0.5rem;
-  border: none;
+  border: 1px solid #0091f1;
   border-radius: 4px 0 0 4px;
 }
 
+
 .newsletter-button {
-  background-color: #3498db;
+  background-color: #0091f1;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -70,9 +81,15 @@
   cursor: pointer;
 }
 
+.newsletter-button:hover {
+  cursor: pointer;
+  background-color: #0f9ffe;
+}
+
 .footer-bottom {
   border-top: 1px solid #34495e;
   margin-top: 2rem;
   padding-top: 2rem;
   text-align: center;
+  color: rgb(139, 139, 139);
 }

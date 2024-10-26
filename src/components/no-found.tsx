@@ -1,10 +1,10 @@
 import NoFoundImg from "../assets/movies/no-found.svg"
 
-export function NoFound (){
+export function NoFound (): JSX.Element {
     return(
-        <div className="conteiner-no-found">
+        <section className="conteiner-no-found">
             <img src={NoFoundImg} alt="" />
             <h3>Oops, No se encontro la pelicula!</h3>
-        </div>
+        </section>
     )
 }

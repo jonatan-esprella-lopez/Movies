@@ -4,7 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Logotipo from "../assets/movies/logo-blockBuster.png";
 import Search from "../assets/movies/search.svg";
 
-export function HeaderNav() {
+const NAV_LINKS = [
+  { path: "/", label: "Todos" },
+  { path: "/most-valued", label: "Más valoradas" },
+  { path: "/less-valued", label: "Menos valoradas" },
+  { path: "/cartelera", label: "Cartelera" },
+];
+
+export function HeaderNav(): JSX.Element {
   const { 
     setQuery,
   } = useMovieStore()
@@ -12,14 +19,14 @@ export function HeaderNav() {
   const [localSearchKey, setLocalSearchKey] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleSearchSubmit = (event:any) => {
+  const handleSearchSubmit = (event:any): void => {
     event.preventDefault()
       setQuery(localSearchKey)
       if(localSearchKey){
         const formattedTitle = localSearchKey.replace(/\s+/g, '_');
         navigate(`/search-movie?query=${formattedTitle}`);
       }
-      setLocalSearchKey("")
+      setLocalSearchKey("");
   };
 
     return(
@@ -28,21 +35,13 @@ export function HeaderNav() {
           <img src={Logotipo} alt="Logotipo" className="full-logo" />
         </Link>
         <nav className="header-nav">
-          <span>
-            <Link to="/" className="custom-link">
-              <p>Todos</p>
-            </Link>
-          </span>
-          <span>
-            <Link to="/most-valued" className="custom-link">
-              <p>Más valoradas</p>  
-            </Link>
-          </span>
-          <span>
-            <Link to="/less-valued" className="custom-link">
-              <p>Menos valoradas</p>
-            </Link>
-          </span >
+          {NAV_LINKS.map((link) => (
+            <span key={link.path}>
+              <Link to={link.path} className="custom-link">
+                <p>{link.label}</p>
+              </Link>
+            </span>
+          ))}
         </nav>
         <form className="function-header-nav" onSubmit={handleSearchSubmit}>
           <input

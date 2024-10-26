@@ -12,7 +12,7 @@ export const moviesApi = axios.create({
   },
 });
 
-export const imageApi = (posterMovie: string) => {
+export const imageApi = (posterMovie: string): string => {
   return URL_IMAGE + posterMovie;
 }
 

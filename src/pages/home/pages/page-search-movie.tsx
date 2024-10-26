@@ -6,7 +6,7 @@ import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
 
-export function SearchMovie() {
+export function SearchMovie(): JSX.Element {
   const {
     modalMovie,
     searchResults,

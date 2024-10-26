@@ -1,0 +1,29 @@
+.container-not-found {
+    text-align: center;
+    padding: 2rem;
+}
+
+.image-notfound.animated-bounce {
+    animation: bounce 2s ease infinite;
+    width: 350px;
+    padding-bottom: 24px;
+}
+  
+.quick-links button {
+    width: 200px;
+    margin: 20px 10px 0 10px;
+    font-size: 14px;
+}
+  
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+  
+.conteiner-no-found{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
