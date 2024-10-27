@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { useMovieStore } from "../stores/movie-store";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import { useMovieStore } from "../stores/movie-store";
+
 import Logotipo from "../assets/movies/logo-blockBuster.png";
 import Search from "../assets/movies/search.svg";
 

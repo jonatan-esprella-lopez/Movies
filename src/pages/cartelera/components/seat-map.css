@@ -4,14 +4,15 @@
     align-items: center;
     background-color: #1e2a3a;
     border-radius: 10px;
-    width: 100%;
-    margin: auto;
+    padding: 30px;
   }
   
   .screen {
     width: 90%;
     height: 30px;
-    background-color: #ccc;
+    background-color: #ff9900;
+    color: black;
+    font-weight: bold;
     text-align: center;
     font-size: 18px;
     margin-bottom: 20px;
@@ -28,6 +29,11 @@
     display: contents;
   }
   
+  .seat-null {
+    width: 30px;
+    height: 30px;
+  }
+
   .seat {
     width: 30px;
     height: 30px;

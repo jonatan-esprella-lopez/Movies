@@ -67,6 +67,7 @@ export const useMovieStore = create(
     set({ modalMovie: isOpen });
     if ( isOpen == false ) set({selectedMovie: null});  
   },
+  
 
 }),{
  name: 'moviesData' 

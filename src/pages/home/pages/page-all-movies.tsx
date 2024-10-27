@@ -10,12 +10,12 @@ export function AllMovies():JSX.Element {
   const {
     modalMovie 
   } = useMovieStore();
-  const [movie, setMovie] = useState<SingleMovieDetails[]>([]);
+  const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
 
   useEffect(() => {
     getAllMovies()
       .then((movies) => {
-        setMovie(movies);
+        setMovies(movies);
       })
       .catch((error) => {
         console.error("Error al obtener las películas", error);
@@ -26,7 +26,7 @@ export function AllMovies():JSX.Element {
     <main className="container-main">
       <h1>Todas las peliculas</h1>
       <section className="conteiner-movies">
-        {movie.map((movie) => (
+        {movies.map((movie) => (
           <CardMovie  key={movie.id} movie={movie}/>
         ))}
       </section>

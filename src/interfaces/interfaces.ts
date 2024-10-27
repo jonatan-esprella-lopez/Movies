@@ -29,3 +29,7 @@ export interface ButtonProps {
   className: string;
 }
 
+
+export interface MovieDetailsProps {
+  onVibeClick: () => void;
+}

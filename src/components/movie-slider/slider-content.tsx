@@ -1,9 +1,11 @@
-import { SingleMovieDetails } from "../../interfaces/movie.interface";
-import { ButtonMovie } from "../../pages/home/components/button-movie";
 import { useEffect, useState } from "react";
-import { getMoviesMostValued } from "../../services/movie-service";
+
 import { useMovieStore } from "../../stores/movie-store";
+import { getMoviesMostValued } from "../../services/movie-service";
 import { URL_IMAGE } from "../../services/movie-api";
+
+import { ButtonMovie } from "../../pages/home/components/button-movie";
+import { SingleMovieDetails } from "../../interfaces/movie.interface";
 import { sliderContentProps } from "../../interfaces/common.interfaces";
 
 export const SliderContent = ({ currentIndex }: sliderContentProps ):JSX.Element => {
@@ -26,7 +28,7 @@ export const SliderContent = ({ currentIndex }: sliderContentProps ):JSX.Element
     {movies.map((movie, index) => (
       <div className="slide" key={index}>
         <img
-          src={movie.backdrop_path !== null ? `${URL_IMAGE}${movie.backdrop_path}` : `${URL_IMAGE}${movie.poster_path}`}
+          src={movie.backdrop_path !== null ? `${URL_IMAGE}${"w780"}${movie.backdrop_path}` : `${URL_IMAGE}${movie.poster_path}`}
           alt={`Imagen de la película ${movie.title}`}
         />
         <ButtonMovie />

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
-export const URL_IMAGE = "https://image.tmdb.org/t/p/original";
+export const URL_IMAGE = "https://image.tmdb.org/t/p/";
 
 
 export const moviesApi = axios.create({
@@ -12,9 +12,7 @@ export const moviesApi = axios.create({
   },
 });
 
-export const imageApi = (posterMovie: string): string => {
-  return URL_IMAGE + posterMovie;
+export const imageApi = (posterMovie: string, size: string): string => {
+  return `${URL_IMAGE}${size}${posterMovie}`;
 }
-
-
 

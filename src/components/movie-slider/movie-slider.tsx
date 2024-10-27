@@ -2,6 +2,7 @@
   import { SliderControls } from "./slider-controls";
   import { SliderDots } from "./slider-dots";
   import { SliderContent } from "./slider-content.tsx";
+  
   import "./slider.css"
 
   export function MovieSlider(): JSX.Element {

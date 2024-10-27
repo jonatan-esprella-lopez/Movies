@@ -1,4 +1,3 @@
-import React from 'react';
 import './vibe-modal.css';
 
 interface VibeModalProps {
@@ -6,7 +5,7 @@ interface VibeModalProps {
     onClose: () => void;
 }
 
-export const VibeModal: React.FC<VibeModalProps> = ({ isOpen, onClose }) => {
+export const VibeModal = ({ isOpen, onClose }: VibeModalProps) => {
     if (!isOpen) return null;
 
     return (

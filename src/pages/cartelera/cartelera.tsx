@@ -1,35 +1,46 @@
 import { useEffect, useState } from "react";
-import { Footer } from "../../components/footer/footer";
-import { HeaderNav } from "../../components/header";
 import { useMovieStore } from "../../stores/movie-store";
-import { getMoviesMostValued } from "../../services/movie-service";
-import { imageApi } from "../../services/movie-api";
-import "./cartelera.css";
-import { SingleMovieDetails } from "../../interfaces/movie.interface";
-import { SeatMap } from "./componets/seat-map";
-import { DateSelector } from "./componets/date-selector";
 
-export const Cartelera = () => {
-    const {
-        selectedMovie,
-        setSelectedMovie
-    } = useMovieStore()
+import { imageApi } from "../../services/movie-api";
+import { getMoviesMostValued } from "../../services/movie-service";
+
+import { HeaderNav } from "../../components/header";
+import { DateSelector } from "./components/date-selector";
+import { Footer } from "../../components/footer/footer";
+import { SingleMovieDetails } from "../../interfaces/movie.interface";
+import "./cartelera.css";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
+export const Cartelera = (): JSX.Element => {
+  const {
+      selectedMovie,
+      setSelectedMovie
+  } = useMovieStore()
+
+  const {
+    id = 0,
+    title = "",    
+  } = selectedMovie || {};
+
   const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
   const [imagen, setImagen] = useState<string | undefined>();
+  const navigate = useNavigate();
 
   const [seatMapPerMovie, setSeatMapPerMovie] = useState<{ [key: string]: any }>({});
 
   useEffect(() => {
     getMoviesMostValued().then((movies) => {
       setMovies(movies);
-      console.log(selectedMovie)
     });
-    console.log(selectedMovie);
   }, []);
 
   const handleMovieSelected = (movie: SingleMovieDetails): void => {
     setSelectedMovie(movie);
-    setImagen(imageApi(movie.poster_path));
+    setImagen(imageApi(movie.poster_path, "w400"));
+    window.scrollTo({ top: 425, behavior: 'smooth' });
+    
+  
+    navigate(getFormattedMoviePath());
   };
 
   const handleSeatMapChange = (movieId: string, seatMap: any) => {
@@ -39,13 +50,17 @@ export const Cartelera = () => {
     }));
   };
 
+  const getFormattedMoviePath = (): string => {
+    return selectedMovie ? `/cartelera/${selectedMovie.id}` : "";
+  };
+
   return (
     <main className="container-main">
       <HeaderNav />
-      
+      <h2>Selecciona una pelicula</h2>
       <section className="conteiner-movies-cartelera">
         {movies.map((movie) => {
-          const portada = imageApi(movie.poster_path);
+          const portada = imageApi(movie.poster_path, "w200");
           return (
             <div className="cartelera-movie" key={movie.id} onClick={() => handleMovieSelected(movie)}>
               <img src={`${portada}`} alt="" />
@@ -53,28 +68,32 @@ export const Cartelera = () => {
           );
         })}
       </section>
-      <DateSelector/>
-      {selectedMovie && (
         <section className="Selected-mov-Cartelera">
           <img src={imagen} alt="" />
           <section className="conte">
+            <h3>Seleccione el formato</h3>
             <nav className="nav-type-room">
-              <p>2D</p>
-              <p>3D</p>
-              <p>Doble atmos</p>
-              <p>4D</p>
-              <p>Realidad Virtual</p>
+              <Link to="./2D">
+                <button>2D</button>
+              </Link>
+              <Link to="./3D">
+                <button>3D</button>
+              </Link>
+              <Link to="./doble-atmos">
+                <button>Doble atmos</button>
+              </Link>
+              <Link to="./4D">
+                <button>4D</button>
+              </Link>
+              <Link to="./Reality">
+                <button>Realidad virtual</button>
+              </Link>
             </nav>
-            <p>{selectedMovie.title}</p>
-            <SeatMap
-              movieId={selectedMovie.id}
-              seatMap={seatMapPerMovie[selectedMovie.id] || null} 
-              onSeatMapChange={handleSeatMapChange} 
-            />
+            <p>{title}</p>
+            <Outlet/>
           </section>
         </section>
-      )}
-    
+              <DateSelector/>
       <Footer />
     </main>
   );

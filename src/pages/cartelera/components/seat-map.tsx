@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import "./seat-map.css";
 
 type SeatStatus = "available" | "reserved" | "selected";
@@ -10,15 +11,16 @@ interface Seat {
 }
 
 interface SeatMapProps {
-  movieId: string;
-  seatMap: Seat[] | null; 
-  onSeatMapChange: (movieId: string, seatMap: Seat[]) => void;
+  movieId: number;
+  seatMap: Seat[] | null;
+
+  onSeatMapChange: (movieId: number, seatMap: Seat[]) => void;
 }
 
 const seatRows = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
 const seatNumbers = Array.from({ length: 18 }, (_, i) => i + 1);
 
-export const SeatMap = ({ movieId, seatMap, onSeatMapChange }: SeatMapProps) => {
+export const SeatMap = ({ movieId, seatMap, onSeatMapChange }: SeatMapProps | any) => {
  
   const [seats, setSeats] = useState<Seat[]>(
     seatRows.flatMap((row) =>
@@ -72,9 +74,11 @@ export const SeatMap = ({ movieId, seatMap, onSeatMapChange }: SeatMapProps) => 
     <div className="seat-map-container">
       <div className="screen">Pantalla</div>
       <div className="seat-grid">
-        {seatRows.map((row) => (
+      {seatRows.map((row) => (
           <div key={row} className="seat-row">
             {seatNumbers.map((number) => {
+              if (number === 9 || number === 10) return <div className="seat-null"></div>;
+              
               const seat = seats.find((seat) => seat.row === row && seat.number === number);
               return (
                 <div

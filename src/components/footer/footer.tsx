@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
-import './footer.css';
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from '../../assets/icon/social-page/index';
+import { Link } from 'react-router-dom';
+
+import './footer.css';
 
 export const Footer = (): JSX.Element => {
   return (

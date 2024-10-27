@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useMovieStore } from "../../stores/movie-store";
 import { imageApi } from "../../services/movie-api";
-import YouTube from "react-youtube";
 import { ButtonMovie } from "../../pages/home/components/button-movie";
+
+import YouTube from "react-youtube";
+
 import { StarRating } from "./star-rating";
 import CloseIcon from "../../assets/modal/Icon.svg";
 
@@ -28,15 +30,16 @@ export const ModalDetailMovie = (): JSX.Element => {
   useEffect(() => {
       setSelectedMovieDetails(id);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [selectedMovie, setSelectedMovieDetails]);
+  }, [id, setSelectedMovieDetails]);
 
   const handleCloseModal = () => setModalMovie(false);
-
+  console.log(poster_path)
+  const portada = imageApi(poster_path, "w200");
   return (
     <section className="contenedor-modal-details" onClick={handleCloseModal}>
       <div className="rotar-multiejes" onClick={(e) => e.stopPropagation()}>
         <img
-          src={imageApi(poster_path)}
+          src={portada}
           className="portada-modal"
           alt="Movie Poster"
         />
@@ -61,7 +64,6 @@ export const ModalDetailMovie = (): JSX.Element => {
             containerClassName="youtube-container"
             opts={{
               playerVars: {
-                autoplay: 1,
                 controls: 1,
               },
             }}

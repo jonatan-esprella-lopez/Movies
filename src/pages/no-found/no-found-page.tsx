@@ -1,8 +1,10 @@
-import NotFound from "../../assets/404.svg";
-import { HeaderNav } from "../../components/header";
 import { useNavigate } from "react-router-dom";
-import "./no-found-page.css"
+
 import { Footer } from "../../components/footer/footer";
+import { HeaderNav } from "../../components/header";
+
+import NotFound from "../../assets/404.svg";
+import "./no-found-page.css"
 
 export function NotFoundPage(): JSX.Element { 
   const navigate = useNavigate();

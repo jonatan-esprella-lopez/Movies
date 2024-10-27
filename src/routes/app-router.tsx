@@ -8,6 +8,7 @@ import { MostValued } from "../pages/home/pages/page-most-valued";
 import { SearchMovie } from "../pages/home/pages";
 import { Pelicula } from "../pages/peliculas"
 import { Cartelera } from "../pages/cartelera/cartelera";
+import { SeatMap } from "../pages/cartelera/components/seat-map";
  
 const router = createBrowserRouter([
 {
@@ -43,7 +44,29 @@ const router = createBrowserRouter([
 },
 {
     path: "/cartelera",
+    element: <Cartelera />,
+},
+{
+    path: "/cartelera/:id",
     element: <Cartelera/>,
+    children: [
+        {
+            path: "",
+            element: "",
+        },
+        {
+            path: "2D",
+            element: <SeatMap/>,
+        },
+        {
+            path: "3D",
+            element: <SeatMap />,
+        },
+        {
+            path: "doble-atmos",
+            element: <SeatMap />,
+        },
+      ],
 },
 {
     path: "*",
