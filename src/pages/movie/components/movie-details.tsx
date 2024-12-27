@@ -1,6 +1,6 @@
 import { useMovieStore } from "../../../stores/movie-store";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { imageApi } from "../../../services/movie-api";
 import { getMovieDetails } from "../../../services/movie-service";
@@ -11,7 +11,8 @@ import { MovieDetailsProps } from "../../../interfaces/interfaces";
 export const MovieDetails = ({ onVibeClick }: MovieDetailsProps): JSX.Element | null => {
     const {
         detailsMovie,
-        setMovieDetails 
+        setMovieDetails,
+        setSelectedMovie
     } = useMovieStore();
     
     const { 
@@ -25,7 +26,8 @@ export const MovieDetails = ({ onVibeClick }: MovieDetailsProps): JSX.Element | 
     } = detailsMovie || {};
     
     const { id } = useParams<{ id: string }>();
-    
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (id) {
           const movieId = parseInt(id);
@@ -38,10 +40,16 @@ export const MovieDetails = ({ onVibeClick }: MovieDetailsProps): JSX.Element | 
         }
       }, [id, setMovieDetails]);
     
-      const handleReserve =  () => {
+      const handleReserve =  (): void => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+            navigate(getFormattedMoviePath());
       }
 
+
+      const getFormattedMoviePath = (): string => {
+        return detailsMovie ? `/cartelera/${detailsMovie.id}` : "";
+      };
+    
     const posterUrl = poster_path ? imageApi(poster_path, "w200") : "";
 
     return (
@@ -74,9 +82,7 @@ export const MovieDetails = ({ onVibeClick }: MovieDetailsProps): JSX.Element | 
                     <h2>Vista general</h2>
                     <p>{overview || "No overview available."}</p>
                 </div>
-                <Link to="/cartelera">
-                    <button className="btn-1-reserve" onClick={handleReserve}>Reservar asiento</button>
-                </Link>
+                <button className="btn-1-reserve" onClick={handleReserve}>Reservar asiento</button>
             </section>
         </section>
     );

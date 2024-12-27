@@ -28,7 +28,7 @@ export const SliderContent = ({ currentIndex }: sliderContentProps ):JSX.Element
     {movies.map((movie, index) => (
       <div className="slide" key={index}>
         <img
-          src={movie.backdrop_path !== null ? `${URL_IMAGE}${"w780"}${movie.backdrop_path}` : `${URL_IMAGE}${movie.poster_path}`}
+          src={movie.backdrop_path !== null ? `${URL_IMAGE}${"w1280"}${movie.backdrop_path}` : `${URL_IMAGE}${movie.poster_path}`}
           alt={`Imagen de la película ${movie.title}`}
         />
         <ButtonMovie />

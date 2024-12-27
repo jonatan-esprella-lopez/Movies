@@ -7,7 +7,8 @@
 }
 
 .details-section {
-flex: 2;
+  width: 100%;
+flex: 1;
 display: flex;
 flex-direction: column;
 }
@@ -83,7 +84,14 @@ align-items: center;
   margin: 10px 0px 10px 0;
   padding-left: 20px;
 }
-  
+
+.conteiner-movie-sell {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 
 .btn-1-reserve {

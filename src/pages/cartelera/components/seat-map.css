@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1e2a3a;
+    background: linear-gradient(to bottom, rgba(31, 41, 55, 0.8), rgba(17, 24, 39, 0.95));
+  
     border-radius: 10px;
     padding: 30px;
   }
@@ -29,9 +30,12 @@
     display: contents;
   }
   
+
   .seat-null {
     width: 30px;
     height: 30px;
+    text-align: center;
+    color: #ffcc00;
   }
 
   .seat {
@@ -43,9 +47,11 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: black;
+    color: white;
     font-size: 14px;
   }
+
+
   
   .seat:hover {
     transform: scale(1.1);

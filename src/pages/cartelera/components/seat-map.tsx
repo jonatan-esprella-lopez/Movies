@@ -1,99 +1,86 @@
-import { useState, useEffect } from "react";
-
+import { PurchaseModal } from "./purchase-modal";
 import "./seat-map.css";
+import { useCarteleraStore } from "../../../stores/Cartelera-store";
+import { SEAT_NUMBERS, SEAT_ROWS } from "../../../constants";
 
-type SeatStatus = "available" | "reserved" | "selected";
+export const SeatMap = (movieId: number) => {
+  const {
+    seats,
+    selectedSeats,
+    isModalOpen,
+    ticketPrice,
+    toggleSeatStatus,
+    openModal,
+    closeModal,
+    confirmPurchase,
+  } = useCarteleraStore();
 
-interface Seat {
-  row: string;
-  number: number;
-  status: SeatStatus;
-}
-
-interface SeatMapProps {
-  movieId: number;
-  seatMap: Seat[] | null;
-
-  onSeatMapChange: (movieId: number, seatMap: Seat[]) => void;
-}
-
-const seatRows = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-const seatNumbers = Array.from({ length: 18 }, (_, i) => i + 1);
-
-export const SeatMap = ({ movieId, seatMap, onSeatMapChange }: SeatMapProps | any) => {
- 
-  const [seats, setSeats] = useState<Seat[]>(
-    seatRows.flatMap((row) =>
-      seatNumbers.map((number) => ({
-        row,
-        number,
-        status: "available" as SeatStatus,
-      }))
-    )
-  );
-
-  useEffect(() => {
-    if (seatMap) {
-      setSeats(seatMap);
-    }
-  }, [seatMap]);
-
-  const toggleSeatStatus = (row: string, number: number) => {
-    const newSeats = seats.map((seat) =>
-      seat.row === row && seat.number === number
-        ? {
-            ...seat,
-            status:
-              seat.status === "available"
-                ? "selected"
-                : seat.status === "selected"
-                ? "reserved"
-                : "available",
-          }
-        : seat
-    );
-
-    setSeats(newSeats);
-    onSeatMapChange(movieId, newSeats);
-  };
-
-  const getSeatColor = (status: SeatStatus): string => {
+  const getSeatColor = (status: string): string => {
     switch (status) {
       case "available":
-        return "white";
+        return "#374151";
       case "reserved":
         return "black";
       case "selected":
-        return "blue";
+        return "#FED941";
       default:
         return "white";
     }
   };
 
+  const totalCost =
+    (selectedSeats[movieId]?.filter((seat) => seat.status === "selected")
+      .length || 0) * ticketPrice;
+
   return (
     <div className="seat-map-container">
       <div className="screen">Pantalla</div>
       <div className="seat-grid">
-      {seatRows.map((row) => (
+        {SEAT_ROWS.map((row: string) => (
           <div key={row} className="seat-row">
-            {seatNumbers.map((number) => {
-              if (number === 9 || number === 10) return <div className="seat-null"></div>;
-              
-              const seat = seats.find((seat) => seat.row === row && seat.number === number);
+            {SEAT_NUMBERS.map((number: number) => {
+              if (number === 9 || number === 10) {
+                return <div key={`null-${number}`} className="seat-null">{row}</div>;
+              }
+
+              const seat = seats.find(
+                (seat) => seat.row === row && seat.number === number
+              );
+
               return (
                 <div
                   key={`${row}-${number}`}
                   className="seat"
-                  style={{ backgroundColor: getSeatColor(seat!.status) }}
-                  onClick={() => toggleSeatStatus(row, number)}
+                  style={{
+                    backgroundColor: getSeatColor(
+                      seat ? seat.status : "available"
+                    ),
+                  }}
+                  onClick={() => toggleSeatStatus(String(movieId), row, number)}
                 >
-                  {number}
+                  {number > 10 ? number - 2 : number}
                 </div>
               );
             })}
           </div>
         ))}
       </div>
+      <div className="seat-summary">
+        <h3>Resumen de Compra</h3>
+        <p>Asientos Seleccionados: {selectedSeats[movieId]?.length || 0}</p>
+        <p>Total a Pagar: Bs {totalCost.toFixed(2)}</p>
+        <button className="btn-purchase" onClick={openModal}>
+          Comprar Entradas
+        </button>
+      </div>
+      {isModalOpen && (
+        <PurchaseModal
+          selectedSeats={selectedSeats[movieId]?.length || 0}
+          totalCost={totalCost}
+          onClose={closeModal}
+          onConfirmPurchase={() => confirmPurchase(String(movieId))}
+        />
+      )}
     </div>
   );
 };

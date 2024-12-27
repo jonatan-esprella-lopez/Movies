@@ -4,6 +4,9 @@
     justify-content: center;
     padding: 10px;
     color: #fff;
+    
+    margin-bottom: 30px;
+
   }
   
   .arrow {
@@ -16,10 +19,26 @@
   
   .dates {
     display: flex;
-    /* overflow-x: scroll; */
+    overflow-x: scroll;
     gap: 10px;
     padding: 20px 0;
+    margin: 0 20px;    
   }
+
+  .dates::-webkit-scrollbar {
+    height: 4px;
+    background-color: #383838;
+  }
+  
+  .dates::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .dates::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  
   
   .date-item {
     text-align: center;
@@ -39,7 +58,7 @@
   }
   
   .date-item.selected {
-    color: red;
+    color: rgb(255, 191, 0);
     transform: scale(1.2);
   }
   

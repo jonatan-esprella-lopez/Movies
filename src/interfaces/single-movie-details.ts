@@ -52,3 +52,12 @@ export interface SpokenLanguage {
     iso_639_1:    string;
     name:         string;
 }
+
+
+
+
+export interface UserSeatsSelected {
+    row:    string;
+    number: number;
+    status: string;
+}

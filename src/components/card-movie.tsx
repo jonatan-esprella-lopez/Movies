@@ -22,7 +22,7 @@ export function CardMovie({ movie }: CardMovieProps):JSX.Element {
     setModalMovie(true); 
   };
 
-  const portada = imageApi(poster_path, "w200");
+  const portada = imageApi(poster_path, "w300");
 
   return (
     <article>

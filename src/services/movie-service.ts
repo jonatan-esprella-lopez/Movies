@@ -47,6 +47,8 @@ export const fetchTrailer = async (movieId: number): Promise<{ key: string } | n
   return trailer ? { key: trailer.key } : null;
 };
 
+
+
 export const fetchMovie = async (id: number): Promise<{ key: string } | null> => {
   try {
     const { data } = await moviesApi.get(`/movie/${id}`, {
@@ -78,4 +80,5 @@ export const fetchActorsMovie = async(movieId: number): Promise <Cast[]> => {
     console.log("Error al obtener la informacion de los actores", error)
     return []
   }
+  
 }

@@ -52,19 +52,11 @@ const router = createBrowserRouter([
     children: [
         {
             path: "",
-            element: "",
+            element: <SeatMap/>,
         },
         {
             path: "2D",
             element: <SeatMap/>,
-        },
-        {
-            path: "3D",
-            element: <SeatMap />,
-        },
-        {
-            path: "doble-atmos",
-            element: <SeatMap />,
         },
       ],
 },

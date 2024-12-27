@@ -1,99 +1,138 @@
 import { useEffect, useState } from "react";
 import { useMovieStore } from "../../stores/movie-store";
-
-import { imageApi } from "../../services/movie-api";
-import { getMoviesMostValued } from "../../services/movie-service";
-
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { HeaderNav } from "../../components/header";
-import { DateSelector } from "./components/date-selector";
 import { Footer } from "../../components/footer/footer";
-import { SingleMovieDetails } from "../../interfaces/movie.interface";
 import "./cartelera.css";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { SingleMovieDetails } from "../../interfaces/single-movie-details";
+import { imageApi } from "../../services/movie-api";
+import { SeatMap } from "./components/seat-map";
+import Checkout from "./Checkout";
+import { useCarteleraStore } from "../../stores/Cartelera-store";
+import MovieDetail from "./components/movie-details";
+import { PurchaseModal } from "./components/purchase-modal";
 
 export const Cartelera = (): JSX.Element => {
   const {
-      selectedMovie,
-      setSelectedMovie
-  } = useMovieStore()
+    selectedMovie,
+    movies,
+    setSelectedMovie,
+    loadMovies,
+  } = useMovieStore();
 
-  const {
-    id = 0,
-    title = "",    
-  } = selectedMovie || {};
+  const { seats } = useCarteleraStore();
 
-  const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
-  const [imagen, setImagen] = useState<string | undefined>();
   const navigate = useNavigate();
+  const [step, setStep] = useState<number>(1);
+  const [selectedTime, setSelectedTime] = useState<string>("");
+  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
 
-  const [seatMapPerMovie, setSeatMapPerMovie] = useState<{ [key: string]: any }>({});
+  const movieId = useParams<{ movieId: string }>().movieId;
 
   useEffect(() => {
-    getMoviesMostValued().then((movies) => {
-      setMovies(movies);
-    });
-  }, []);
+    loadMovies();
+  }, [loadMovies, selectedMovie]);
 
   const handleMovieSelected = (movie: SingleMovieDetails): void => {
     setSelectedMovie(movie);
-    setImagen(imageApi(movie.poster_path, "w400"));
-    window.scrollTo({ top: 425, behavior: 'smooth' });
     
+    // Reiniciar los valores de step, asientos y tiempo seleccionado al elegir una nueva película
+    setStep(1);
+    setSelectedSeats([]);
+    setSelectedTime("");
   
-    navigate(getFormattedMoviePath());
+    window.scrollTo({ top: 445, behavior: "smooth" });
+    navigate(`/cartelera/${movie.id}`);
   };
 
-  const handleSeatMapChange = (movieId: string, seatMap: any) => {
-    setSeatMapPerMovie((prevSeatMap) => ({
-      ...prevSeatMap,
-      [movieId]: seatMap, 
-    }));
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
+    setStep(2);
   };
 
-  const getFormattedMoviePath = (): string => {
-    return selectedMovie ? `/cartelera/${selectedMovie.id}` : "";
+  const handleSeatSelection = (seats: string[]) => {
+    setSelectedSeats(seats);
   };
+
+  const handleMovieNext = () => {
+    if (step < 3) {
+      setSelectedSeats([]);
+      window.scrollTo({ top: 445, behavior: "smooth" });
+      setStep(step + 1);
+    }
+  };
+
+  const handleMovieBack = () => {
+    if (step > 1) {
+      setSelectedSeats([]);
+      window.scrollTo({ top: 445, behavior: "smooth" });
+      setStep(step - 1);
+    }
+  };
+
+
+  
+  const handleCheckout = () => {
+    setStep(3);
+  };
+
+  const portada = selectedMovie ? imageApi(selectedMovie.poster_path, "w200") : "";
 
   return (
     <main className="container-main">
       <HeaderNav />
-      <h2>Selecciona una pelicula</h2>
+      <h2>Selecciona una película</h2>
       <section className="conteiner-movies-cartelera">
-        {movies.map((movie) => {
-          const portada = imageApi(movie.poster_path, "w200");
-          return (
-            <div className="cartelera-movie" key={movie.id} onClick={() => handleMovieSelected(movie)}>
-              <img src={`${portada}`} alt="" />
-            </div>
-          );
-        })}
+        {movies.map((movie) => (
+          <div
+            className="cartelera-movie"
+            key={movie.id}
+            onClick={() => handleMovieSelected(movie)}
+          >
+            <img src={imageApi(movie.poster_path, "w200")} alt={movie.title} />
+          </div>
+        ))}
       </section>
+
+      {selectedMovie && (
         <section className="Selected-mov-Cartelera">
-          <img src={imagen} alt="" />
+          <div>
+            <img src={portada} alt={selectedMovie.title} />
+            <h1 className="movie-title">{selectedMovie.title}</h1>
+          </div>
           <section className="conte">
-            <h3>Seleccione el formato</h3>
-            <nav className="nav-type-room">
-              <Link to="./2D">
-                <button>2D</button>
-              </Link>
-              <Link to="./3D">
-                <button>3D</button>
-              </Link>
-              <Link to="./doble-atmos">
-                <button>Doble atmos</button>
-              </Link>
-              <Link to="./4D">
-                <button>4D</button>
-              </Link>
-              <Link to="./Reality">
-                <button>Realidad virtual</button>
-              </Link>
-            </nav>
-            <p>{title}</p>
-            <Outlet/>
+            <h2>Selecciona tus asientos</h2>
+
+            {step === 1 && <MovieDetail />}
+            {step === 2 && <SeatMap movieId={movieId} />}
+            {step === 3 && (
+              <Checkout
+                movie={selectedMovie}
+                time={selectedTime}
+                seats={selectedSeats}
+              />
+            )}
+
+            <div className="conteiner-movie-sell">
+              <button className="btn-1-reserve btn-add" onClick={handleMovieBack}>
+                Atrás
+              </button>
+              {step < 3 ? (
+                <button className="btn-1-reserve btn-add" onClick={handleMovieNext}>
+                  Siguiente
+                </button>
+              ) : (
+                <button
+                  className="btn-1-reserve btn-add"
+                  disabled={selectedSeats.length === 0}
+                >
+                  Completar pago
+                </button>
+              )}
+            </div>
           </section>
         </section>
-              <DateSelector/>
+      )}
       <Footer />
     </main>
   );

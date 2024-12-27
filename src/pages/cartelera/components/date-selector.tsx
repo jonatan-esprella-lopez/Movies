@@ -16,6 +16,9 @@ const dateItems: DateItem[] = [
   { day: "Martes", date: 29, month: "Octubre" },
   { day: "Miércoles", date: 30, month: "Octubre" },
   { day: "Jueves", date: 31, month: "Octubre" },
+  { day: "Martes", date: 29, month: "Octubre" },
+  { day: "Miércoles", date: 30, month: "Octubre" },
+  { day: "Jueves", date: 31, month: "Octubre" },
 ];
 
 export const DateSelector = () => {

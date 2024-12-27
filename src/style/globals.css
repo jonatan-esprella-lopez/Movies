@@ -1,7 +1,4 @@
 
-.btn-primary {
-    background-color: red;    
-}
 
 
 .btn {
@@ -9,8 +6,4 @@
     margin: 10px;
     border-radius: 6px;
     border: none;
-}
-
-h1 {
-    font-family: Montserrat;
 }
