@@ -109,6 +109,10 @@
     line-height: 1.75;
   }
   
+.movie-description{
+  width: 300px;
+}
+
   .movie-credits {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -157,6 +161,29 @@
     gap: 1rem;
   }
   
+.showtime-button.selected {
+  background-color: #ff9100;
+  border: none;
+}
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.room-card.selected {
+  background-color: #ff9100;
+  color: black;
+  border: none;
+}
+
+.room-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
   .showtime-button {
     display: flex;
     align-items: center;

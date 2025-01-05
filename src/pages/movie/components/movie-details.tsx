@@ -1,6 +1,6 @@
 import { useMovieStore } from "../../../stores/movie-store";
 import { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { imageApi } from "../../../services/movie-api";
 import { getMovieDetails } from "../../../services/movie-service";
@@ -11,8 +11,7 @@ import { MovieDetailsProps } from "../../../interfaces/interfaces";
 export const MovieDetails = ({ onVibeClick }: MovieDetailsProps): JSX.Element | null => {
     const {
         detailsMovie,
-        setMovieDetails,
-        setSelectedMovie
+        setMovieDetails
     } = useMovieStore();
     
     const { 

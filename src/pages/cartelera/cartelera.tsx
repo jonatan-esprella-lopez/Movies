@@ -11,11 +11,12 @@ import Checkout from "./Checkout";
 import { useCarteleraStore } from "../../stores/Cartelera-store";
 import MovieDetail from "./components/movie-details";
 import { PurchaseModal } from "./components/purchase-modal";
+import { ROOM_PRICES } from "../../constants";
 
 export const Cartelera = (): JSX.Element => {
   const {
-    selectedMovie,
     movies,
+    selectedMovie,
     setSelectedMovie,
     loadMovies,
   } = useMovieStore();
@@ -29,6 +30,12 @@ export const Cartelera = (): JSX.Element => {
 
   const movieId = useParams<{ movieId: string }>().movieId;
 
+  const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
+
+  // Función para manejar la selección de tipo de sala
+  const handleRoomTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedRoomType(event.target.value as keyof typeof ROOM_PRICES);
+  };
   useEffect(() => {
     loadMovies();
   }, [loadMovies, selectedMovie]);
@@ -99,12 +106,17 @@ export const Cartelera = (): JSX.Element => {
           <div>
             <img src={portada} alt={selectedMovie.title} />
             <h1 className="movie-title">{selectedMovie.title}</h1>
+            <div className="movie-synopsis">
+              <h2>Descripción</h2>
+              <p className="movie-description">{selectedMovie.overview}</p>
+            </div>
           </div>
           <section className="conte">
-            <h2>Selecciona tus asientos</h2>
+            <h2>Detalles de compra</h2>
 
             {step === 1 && <MovieDetail />}
-            {step === 2 && <SeatMap movieId={movieId} />}
+            {step === 2 && <SeatMap movieId={movieId} roomType={selectedRoomType} />}
+
             {step === 3 && (
               <Checkout
                 movie={selectedMovie}

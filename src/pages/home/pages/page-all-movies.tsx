@@ -10,6 +10,7 @@ export function AllMovies():JSX.Element {
   const {
     modalMovie 
   } = useMovieStore();
+  
   const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
 
   useEffect(() => {

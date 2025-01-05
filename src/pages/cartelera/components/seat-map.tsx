@@ -1,19 +1,32 @@
 import { PurchaseModal } from "./purchase-modal";
 import "./seat-map.css";
 import { useCarteleraStore } from "../../../stores/Cartelera-store";
-import { SEAT_NUMBERS, SEAT_ROWS } from "../../../constants";
+import { SEAT_NUMBERS, SEAT_ROWS, ROOM_PRICES } from "../../../constants.tsx";
 
-export const SeatMap = (movieId: number) => {
+interface SeatMapProps {
+  movieId: number;
+  roomType: "standard" | "premium" | "vip"; // Tipo de sala
+}
+
+export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
   const {
     seats,
     selectedSeats,
     isModalOpen,
-    ticketPrice,
     toggleSeatStatus,
     openModal,
     closeModal,
     confirmPurchase,
   } = useCarteleraStore();
+
+  const seatPrice = ROOM_PRICES[roomType];
+
+  const totalCost = selectedSeats[movieId]?.reduce((total, seat) => {
+    if (seat.status === "selected") {
+      return total + seatPrice;
+    }
+    return total;
+  }, 0) || 0;
 
   const getSeatColor = (status: string): string => {
     switch (status) {
@@ -28,10 +41,6 @@ export const SeatMap = (movieId: number) => {
     }
   };
 
-  const totalCost =
-    (selectedSeats[movieId]?.filter((seat) => seat.status === "selected")
-      .length || 0) * ticketPrice;
-
   return (
     <div className="seat-map-container">
       <div className="screen">Pantalla</div>
@@ -40,7 +49,11 @@ export const SeatMap = (movieId: number) => {
           <div key={row} className="seat-row">
             {SEAT_NUMBERS.map((number: number) => {
               if (number === 9 || number === 10) {
-                return <div key={`null-${number}`} className="seat-null">{row}</div>;
+                return (
+                  <div key={`null-${number}`} className="seat-null">
+                    {row}
+                  </div>
+                );
               }
 
               const seat = seats.find(
@@ -56,7 +69,9 @@ export const SeatMap = (movieId: number) => {
                       seat ? seat.status : "available"
                     ),
                   }}
-                  onClick={() => toggleSeatStatus(String(movieId), row, number)}
+                  onClick={() =>
+                    toggleSeatStatus(String(movieId), row, number)
+                  }
                 >
                   {number > 10 ? number - 2 : number}
                 </div>

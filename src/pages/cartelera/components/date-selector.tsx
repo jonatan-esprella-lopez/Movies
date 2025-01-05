@@ -1,10 +1,14 @@
-import { useState } from "react";
 import "./date-selector.css";
 
 interface DateItem {
   day: string;
   date: number;
   month: string;
+}
+
+interface DateSelectorProps {
+  selectedDate: number;
+  onDateSelect: (date: number) => void;
 }
 
 const dateItems: DateItem[] = [
@@ -14,20 +18,10 @@ const dateItems: DateItem[] = [
   { day: "Domingo", date: 27, month: "Octubre" },
   { day: "Lunes", date: 28, month: "Octubre" },
   { day: "Martes", date: 29, month: "Octubre" },
-  { day: "Miércoles", date: 30, month: "Octubre" },
-  { day: "Jueves", date: 31, month: "Octubre" },
-  { day: "Martes", date: 29, month: "Octubre" },
-  { day: "Miércoles", date: 30, month: "Octubre" },
-  { day: "Jueves", date: 31, month: "Octubre" },
+  { day: "Miercoles", date: 30, month: "Octubre" },
 ];
 
-export const DateSelector = () => {
-  const [selectedDate, setSelectedDate] = useState<number>(24);
-
-  const handleDateClick = (date: number) => {
-    setSelectedDate(date);
-  };
-
+export const DateSelector = ({ selectedDate, onDateSelect }: DateSelectorProps) => {
   return (
     <div className="date-selector-container">
       <button className="arrow left">{`<`}</button>
@@ -36,7 +30,7 @@ export const DateSelector = () => {
           <div
             key={item.date}
             className={`date-item ${selectedDate === item.date ? "selected" : ""}`}
-            onClick={() => handleDateClick(item.date)}
+            onClick={() => onDateSelect(item.date)}
           >
             <p className="day">{item.day}</p>
             <p className="date">{item.date}</p>
