@@ -1,11 +1,12 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import "./checkout.css";
+import { SingleMovieDetails } from '../../interfaces/single-movie-details';
 
-interface CheckoutProps {
-  movie: { title: string; price: number };
-  time: string;
-  seats: string[];
-}
+// interface CheckoutProps {
+//   movie: { title: string; price: number };
+//   time: string;
+//   seats: string[];
+// }
 
 interface FormData {
   name: string;
@@ -16,15 +17,26 @@ interface FormData {
   cvv: string;
 }
 
-function Checkout({ movie, time, seats }: CheckoutProps) {
+interface CheckoutProps {
+  movie: SingleMovieDetails;
+  time: string;
+  seats: string[];
+}
+
+// function Checkout({ movie, time, seats }: CheckoutProps) {
+const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
+ 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
+  movie;
+  time;
+  seats;
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log('Form Data:', data);
     alert('Booking successful! Check your email for tickets.');
   };
 
-  const totalPrice = movie.price * seats.length;
+  // const totalPrice = movie.price * seats.length;
 
   return (
     <div className="checkout-grid">

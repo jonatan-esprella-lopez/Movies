@@ -54,10 +54,13 @@ export interface SpokenLanguage {
 }
 
 
-
+interface Seat {
+    row: string;
+    number: number;
+    status: 'available' | 'reserved' | 'selected';
+  }
 
 export interface UserSeatsSelected {
-    row:    string;
-    number: number;
-    status: string;
+    movieId: number;
+    seats: Seat[];
 }

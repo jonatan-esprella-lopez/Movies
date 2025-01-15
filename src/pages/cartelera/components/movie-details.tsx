@@ -1,5 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { movies } from '../data/movies.ts';
+import { useParams } from 'react-router-dom';
 import './movie-detail.css';
 import { useMovieStore } from '../../../stores/movie-store.ts';
 import { DateSelector } from './date-selector.tsx';
@@ -8,11 +7,11 @@ import { useCarteleraStore } from '../../../stores/cartelera-movie.ts';
 
 const MovieDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const movie = movies.find((m) => m.id === Number(id));
+  // const navigate = useNavigate();
+  // const movie = movies.find((m) => m.id === Number(id));
 
   const {
-    selectedMovieId,
+    // selectedMovieId,
     showtimeData,
     setSelectedMovie,
     setShowtimeData,
@@ -23,9 +22,16 @@ const MovieDetail = () => {
   }, [id, setSelectedMovie]);
 
 
+  // const [selectedDate, setSelectedDate] = useState<number>(24);
+  // const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  // const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<number>(24);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+
+  selectedDate;
+  selectedTime;
+  selectedRoom;
 
   const handleDateClick = (date: number) => {
     setSelectedDate(date);
@@ -103,7 +109,8 @@ const MovieDetail = () => {
         <div className="movie-info-section">
           <div className="movie-meta">
             <div className="meta-item">
-              <span>{parseInt(selectedMovie.runtime / 60) + '.' + (selectedMovie.runtime % 60)} Hrs</span>
+              <span>{Math.floor(selectedMovie.runtime / 60) + '.' + (selectedMovie.runtime % 60)} Hrs</span>
+
             </div>
             <div className="meta-item">
               <span>

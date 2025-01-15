@@ -1,5 +1,14 @@
-import React from 'react';
-import type { Movie } from '../App';
+// import { SingleMovieDetails } from "../../interfaces/single-movie-details";
+
+
+interface Movie {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  times: string[];
+}
+
 
 interface MovieSelectorProps {
   movies: Movie[];
@@ -44,7 +53,7 @@ function MovieSelector({
                   <span className="text-sm">Available Times</span>
                 </div>
                 <div className="time-grid">
-                  {movie.times.map((time) => (
+                  {movie.times.map((time:any) => (
                     <button
                       key={time}
                       onClick={() => onTimeSelect(time)}

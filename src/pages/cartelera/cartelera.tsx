@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMovieStore } from "../../stores/movie-store";
-import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { HeaderNav } from "../../components/header";
 import { Footer } from "../../components/footer/footer";
 import "./cartelera.css";
@@ -8,10 +8,11 @@ import { SingleMovieDetails } from "../../interfaces/single-movie-details";
 import { imageApi } from "../../services/movie-api";
 import { SeatMap } from "./components/seat-map";
 import Checkout from "./Checkout";
-import { useCarteleraStore } from "../../stores/Cartelera-store";
+// import { useCarteleraStore } from "../../stores/Cartelera-store";
 import MovieDetail from "./components/movie-details";
-import { PurchaseModal } from "./components/purchase-modal";
 import { ROOM_PRICES } from "../../constants";
+// import { PurchaseModal } from "./components/purchase-modal";
+// import { ROOM_PRICES } from "../../constants";
 
 export const Cartelera = (): JSX.Element => {
   const {
@@ -21,7 +22,9 @@ export const Cartelera = (): JSX.Element => {
     loadMovies,
   } = useMovieStore();
 
-  const { seats } = useCarteleraStore();
+
+  
+  // const { seats } = useCarteleraStore();
 
   const navigate = useNavigate();
   const [step, setStep] = useState<number>(1);
@@ -30,12 +33,13 @@ export const Cartelera = (): JSX.Element => {
 
   const movieId = useParams<{ movieId: string }>().movieId;
 
+  const parsedMovieId = movieId ? parseInt(movieId, 10) : undefined;
   const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
-
+  setSelectedRoomType("standard")
   // Función para manejar la selección de tipo de sala
-  const handleRoomTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRoomType(event.target.value as keyof typeof ROOM_PRICES);
-  };
+  // const handleRoomTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedRoomType(event.target.value as keyof typeof ROOM_PRICES);
+  // };
   useEffect(() => {
     loadMovies();
   }, [loadMovies, selectedMovie]);
@@ -52,14 +56,14 @@ export const Cartelera = (): JSX.Element => {
     navigate(`/cartelera/${movie.id}`);
   };
 
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
-    setStep(2);
-  };
+  // const handleTimeSelect = (time: string) => {
+  //   setSelectedTime(time);
+  //   setStep(2);
+  // };
 
-  const handleSeatSelection = (seats: string[]) => {
-    setSelectedSeats(seats);
-  };
+  // const handleSeatSelection = (seats: string[]) => {
+  //   setSelectedSeats(seats);
+  // };
 
   const handleMovieNext = () => {
     if (step < 3) {
@@ -79,9 +83,9 @@ export const Cartelera = (): JSX.Element => {
 
 
   
-  const handleCheckout = () => {
-    setStep(3);
-  };
+  // const handleCheckout = () => {
+  //   setStep(3);
+  // };
 
   const portada = selectedMovie ? imageApi(selectedMovie.poster_path, "w200") : "";
 
@@ -103,8 +107,8 @@ export const Cartelera = (): JSX.Element => {
 
       {selectedMovie && (
         <section className="Selected-mov-Cartelera">
-          <div>
-            <img src={portada} alt={selectedMovie.title} />
+          <div className="image-container">
+            <img src={portada} alt={selectedMovie.title} className="hover-image" />
             <h1 className="movie-title">{selectedMovie.title}</h1>
             <div className="movie-synopsis">
               <h2>Descripción</h2>
@@ -115,8 +119,9 @@ export const Cartelera = (): JSX.Element => {
             <h2>Detalles de compra</h2>
 
             {step === 1 && <MovieDetail />}
-            {step === 2 && <SeatMap movieId={movieId} roomType={selectedRoomType} />}
-
+            {step === 2 && parsedMovieId !== undefined && (
+  <SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />
+)}
             {step === 3 && (
               <Checkout
                 movie={selectedMovie}

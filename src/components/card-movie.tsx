@@ -28,7 +28,7 @@ export function CardMovie({ movie }: CardMovieProps):JSX.Element {
     <article>
           <div className="portada-movie" onClick={handleSearchSubmit}>
           <img src={poster_path ? portada : NoFoundMovie} alt={title} className="movie-image" />
-          <div className={`container-stars ${vote_average > 5 ? "" : "low"}`}>
+          <div className={`container-stars${vote_average > 5 ? "" : "-low"}`}>
             <img src={Star} alt="star" />
             {vote_average.toFixed(1)}
           </div>

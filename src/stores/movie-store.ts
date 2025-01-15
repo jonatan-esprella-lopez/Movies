@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { fetchTrailer, getMovieDetails, getMoviesMostValued, getMoviesSearch } from "../services/movie-service";
 import { SingleMovieDetails, UserSeatsSelected } from "../interfaces/single-movie-details";
 import { persist, devtools} from "zustand/middleware";
-import { imageApi } from "../services/movie-api";
+
 
 
 interface MovieStore {
@@ -73,10 +73,10 @@ export const useMovieStore = create(
       .catch((error) => console.error("Error al obtener los detalles de la película:", error));
   },
 
-  setSelectedSeatMovie: (SelectedSeatUser: UserSeatsSelected) => {
+  // setSelectedSeatMovie: (SelectedSeatUser: UserSeatsSelected) => {
     
 
-  },
+  // },
 
   setMovieDetails: (movieId: number): void => {
     getMovieDetails(movieId)
@@ -101,10 +101,6 @@ export const useMovieStore = create(
 )
 );
 
-// interface Seat {
-//   row: string;
-//   number: number;
-// }
 
 // interface MovieStore {
 //   selectedMovie: SingleMovieDetails | null;
