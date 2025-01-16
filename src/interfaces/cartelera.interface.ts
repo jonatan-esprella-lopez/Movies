@@ -11,3 +11,14 @@ export interface SeatMapProps {
     seatMap: Seat[] | null;
     onSeatMapChange: (movieId: number, seatMap: Seat[]) => void;
 }
+
+export interface DateItem {
+    day: string;
+    date: number;
+    month: string;
+  }
+  
+export interface DateSelectorProps {
+    selectedDate: number;
+    onDateSelect: (date: number) => void;
+  }

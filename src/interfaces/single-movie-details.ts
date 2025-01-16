@@ -52,15 +52,3 @@ export interface SpokenLanguage {
     iso_639_1:    string;
     name:         string;
 }
-
-
-interface Seat {
-    row: string;
-    number: number;
-    status: 'available' | 'reserved' | 'selected';
-  }
-
-export interface UserSeatsSelected {
-    movieId: number;
-    seats: Seat[];
-}

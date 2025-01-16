@@ -25,13 +25,11 @@ const MovieDetail = () => {
   // const [selectedDate, setSelectedDate] = useState<number>(24);
   // const [selectedTime, setSelectedTime] = useState<string | null>(null);
   // const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<number>(24);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [_selectedDate, setSelectedDate] = useState<number>(24);
+  const [_selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [_selectedRoom, setSelectedRoom] = useState<string | null>(null);
 
-  selectedDate;
-  selectedTime;
-  selectedRoom;
+
 
   const handleDateClick = (date: number) => {
     setSelectedDate(date);

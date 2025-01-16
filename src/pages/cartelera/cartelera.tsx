@@ -14,7 +14,7 @@ import { ROOM_PRICES } from "../../constants";
 // import { PurchaseModal } from "./components/purchase-modal";
 // import { ROOM_PRICES } from "../../constants";
 
-export const Cartelera = (): JSX.Element => {
+export const Cartelera = () => {
   const {
     movies,
     selectedMovie,
@@ -34,8 +34,7 @@ export const Cartelera = (): JSX.Element => {
   const movieId = useParams<{ movieId: string }>().movieId;
 
   const parsedMovieId = movieId ? parseInt(movieId, 10) : undefined;
-  const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
-  setSelectedRoomType("standard")
+  const [selectedRoomType, _setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
   // Función para manejar la selección de tipo de sala
   // const handleRoomTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
   //   setSelectedRoomType(event.target.value as keyof typeof ROOM_PRICES);
@@ -56,14 +55,14 @@ export const Cartelera = (): JSX.Element => {
     navigate(`/cartelera/${movie.id}`);
   };
 
-  // const handleTimeSelect = (time: string) => {
-  //   setSelectedTime(time);
-  //   setStep(2);
-  // };
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
+    setStep(2);
+  };
 
-  // const handleSeatSelection = (seats: string[]) => {
-  //   setSelectedSeats(seats);
-  // };
+  const handleSeatSelection = (seats: string[]) => {
+    setSelectedSeats(seats);
+  };
 
   const handleMovieNext = () => {
     if (step < 3) {
@@ -120,8 +119,8 @@ export const Cartelera = (): JSX.Element => {
 
             {step === 1 && <MovieDetail />}
             {step === 2 && parsedMovieId !== undefined && (
-  <SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />
-)}
+              <SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />
+            )}
             {step === 3 && (
               <Checkout
                 movie={selectedMovie}

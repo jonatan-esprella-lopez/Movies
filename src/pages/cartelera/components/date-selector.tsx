@@ -1,15 +1,6 @@
+import { DateItem, DateSelectorProps } from "../../../interfaces/cartelera.interface";
 import "./date-selector.css";
 
-interface DateItem {
-  day: string;
-  date: number;
-  month: string;
-}
-
-interface DateSelectorProps {
-  selectedDate: number;
-  onDateSelect: (date: number) => void;
-}
 
 const dateItems: DateItem[] = [
   { day: "Jueves", date: 24, month: "Octubre" },

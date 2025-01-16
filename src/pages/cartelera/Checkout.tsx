@@ -28,9 +28,6 @@ const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
  
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-  movie;
-  time;
-  seats;
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log('Form Data:', data);
     alert('Booking successful! Check your email for tickets.');
