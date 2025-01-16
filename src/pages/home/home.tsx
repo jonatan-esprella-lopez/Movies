@@ -1,8 +1,10 @@
-import "../../style/styles-movie.css";
-import { HeaderNav } from "../../components/header";
-import { MovieSlider } from "../../components/movie-slider/movie-slider";
 import { Outlet } from 'react-router-dom';
-import { Footer } from "../../components/footer/footer";
+
+import { HeaderNav } from "@/components/header";
+import { MovieSlider } from "@/components/movie-slider/movie-slider";
+import { Footer } from "@/components/footer/footer";
+
+import "../../style/styles-movie.css";
 
 export function Home() {
   return (

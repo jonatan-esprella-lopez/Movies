@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CardMovie } from "../../../components/card-movie";
 import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
 import { useMovieStore } from "../../../stores/movie-store";
-import { SingleMovieDetails } from "../../../interfaces/movie.interface";
+import { SingleMovieDetails } from "../../../interfaces/single-movie-details";
 import { getMoviesMostValued } from "../../../services/movie-service";
 
 export function MostValued(): JSX.Element {
