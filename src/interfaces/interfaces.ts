@@ -30,6 +30,3 @@ export interface ButtonProps {
 }
 
 
-export interface MovieDetailsProps {
-  onVibeClick: () => void;
-}

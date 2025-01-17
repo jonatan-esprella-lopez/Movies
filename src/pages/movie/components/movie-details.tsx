@@ -1,12 +1,16 @@
-import { useMovieStore } from "../../../stores/movie-store";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { imageApi } from "../../../services/movie-api";
-import { getMovieDetails } from "../../../services/movie-service";
+import { imageApi } from "@/services/movie-api";
+import { getMovieDetails } from "@/services/movie-service";
 
-import { StarRating } from "../../../components/modal-details-movie/star-rating";
-import { MovieDetailsProps } from "../../../interfaces/interfaces";
+import { useMovieStore } from "@/stores/movie-store";
+
+import { StarRating } from "@/components/modal-details-movie/star-rating";
+
+export interface MovieDetailsProps {
+    onVibeClick: () => void;
+}
 
 export const MovieDetails = ({ onVibeClick }: MovieDetailsProps): JSX.Element | null => {
     const {

@@ -1,10 +1,14 @@
-import "./pages-home.css"
 import { useEffect, useState } from "react";
-import { CardMovie } from "../../../components/card-movie";
-import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
-import { useMovieStore } from "../../../stores/movie-store";
-import { SingleMovieDetails } from "../../../interfaces/single-movie-details";
-import { getMoviesMostValued } from "../../../services/movie-service";
+
+import { getMoviesMostValued } from "@/services/movie-service";
+
+import { CardMovie } from "@/components/card-movie";
+import { ModalDetailMovie } from "@/components/modal-details-movie/modal-detail-movie";
+import { useMovieStore } from "@/stores/movie-store";
+
+import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
+
+import "./pages-home.css"
 
 export function MostValued(): JSX.Element {
   const{ 
