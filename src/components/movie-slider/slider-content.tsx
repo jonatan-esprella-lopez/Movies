@@ -5,8 +5,12 @@ import { getMoviesMostValued } from "../../services/movie-service";
 import { URL_IMAGE } from "../../services/movie-api";
 
 import { ButtonMovie } from "../../pages/home/components/button-movie";
-import { SingleMovieDetails } from "../../interfaces/movie.interface";
-import { sliderContentProps } from "../../interfaces/common.interfaces";
+
+import { SingleMovieDetails } from "@/interfaces/single-movie-details";
+
+export interface sliderContentProps {
+  currentIndex: number;
+}
 
 export const SliderContent = ({ currentIndex }: sliderContentProps ):JSX.Element => {
   const [movies, setMovies] = useState<SingleMovieDetails[]>([]);

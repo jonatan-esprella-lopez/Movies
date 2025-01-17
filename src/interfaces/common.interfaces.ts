@@ -5,9 +5,6 @@ export interface SliderControlsProps {
     onNext: () => void;
 }
 
-export interface sliderContentProps {
-    currentIndex: number;
-}
 
 export interface SliderDotsProps {
     count: number;

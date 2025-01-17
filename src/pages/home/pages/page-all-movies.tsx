@@ -1,10 +1,15 @@
-import "./pages-home.css";
 import { useEffect, useState } from "react";
-import { CardMovie } from "../../../components/card-movie";
-import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
-import { SingleMovieDetails } from "../../../interfaces/movie.interface";
-import { getAllMovies } from "../../../services/movie-service";
-import { useMovieStore } from "../../../stores/movie-store";
+
+import { getAllMovies } from "@/services/movie-service";
+
+import { useMovieStore } from "@/stores/movie-store";
+
+import { CardMovie } from "@/components/card-movie";
+import { ModalDetailMovie } from "@/components/modal-details-movie/modal-detail-movie";
+
+import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
+
+import "./pages-home.css";
 
 export function AllMovies():JSX.Element {
   const {

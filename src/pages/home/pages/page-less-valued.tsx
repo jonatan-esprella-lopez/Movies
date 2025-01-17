@@ -1,10 +1,15 @@
-import "./pages-home.css"
 import { useEffect, useState } from "react";
-import { CardMovie } from "../../../components/card-movie";
-import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
-import { useMovieStore } from "../../../stores/movie-store";
-import { getMoviesLessValued } from "../../../services/movie-service";
-import { SingleMovieDetails } from "../../../interfaces/movie.interface";
+
+import { getMoviesLessValued } from "@/services/movie-service";
+
+import { useMovieStore } from "@/stores/movie-store";
+
+import { CardMovie } from "@/components/card-movie";
+import { ModalDetailMovie } from "@/components/modal-details-movie/modal-detail-movie";
+
+import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
+
+import "./pages-home.css";
 
 export function LessValued(): JSX.Element {
   const{ 

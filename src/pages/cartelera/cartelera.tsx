@@ -55,14 +55,14 @@ export const Cartelera = () => {
     navigate(`/cartelera/${movie.id}`);
   };
 
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
-    setStep(2);
-  };
+  // const handleTimeSelect = (time: string) => {
+  //   setSelectedTime(time);
+  //   setStep(2);
+  // };
 
-  const handleSeatSelection = (seats: string[]) => {
-    setSelectedSeats(seats);
-  };
+  // const handleSeatSelection = (seats: string[]) => {
+  //   setSelectedSeats(seats);
+  // };
 
   const handleMovieNext = () => {
     if (step < 3) {

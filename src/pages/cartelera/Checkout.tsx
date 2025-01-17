@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+
+import type { SingleMovieDetails } from '@/interfaces/single-movie-details';
+
 import "./checkout.css";
-import { SingleMovieDetails } from '../../interfaces/single-movie-details';
 
 // interface CheckoutProps {
 //   movie: { title: string; price: number };
@@ -24,7 +26,8 @@ interface CheckoutProps {
 }
 
 // function Checkout({ movie, time, seats }: CheckoutProps) {
-const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
+// const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
+const Checkout: React.FC<CheckoutProps> = ({ }) => {
  
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
@@ -41,7 +44,7 @@ const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
         <h2 className="text-2xl font-bold mb-6">Datos para pagar</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="payment-form">
-          <div className="form-group grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="form-group grid grid-cols-1 md:grid-cols-3 gap-6 mb-6"> 
             <div>
               <label className="form-label">Nombre</label>
               <input

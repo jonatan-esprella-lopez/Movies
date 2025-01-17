@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_MOVIEDB_API_KEY;
+// TODO: Move to constants
 export const URL_IMAGE = "https://image.tmdb.org/t/p/";
 
 export const moviesApi = axios.create({

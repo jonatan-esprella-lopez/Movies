@@ -1,30 +1,31 @@
 import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
+
 import { fetchTrailer, getMovieDetails, getMoviesMostValued, getMoviesSearch } from "../services/movie-service";
-import { SingleMovieDetails, UserSeatsSelected } from "../interfaces/single-movie-details";
-import { persist, devtools} from "zustand/middleware";
+
+import type { SingleMovieDetails } from "../interfaces/single-movie-details";
+
 
 
 
 interface MovieStore {
-  query: string;
-  idMovie: number;
-  SelectedSeatUser: UserSeatsSelected[];
-  modalMovie: boolean;
-  loadMovies: () => Promise<void>;
-  
-  setMovies: (movies: SingleMovieDetails[]) => void;
-  imagen: string | undefined;
-  movies: SingleMovieDetails[];
   detailsMovie: SingleMovieDetails | null;
-  selectedMovie: SingleMovieDetails | null;
+  idMovie: number;
+  imagen: string | undefined;
+  modalMovie: boolean;
+  movies: SingleMovieDetails[];
+  query: string;
   searchResults: SingleMovieDetails[];
+  selectedMovie: SingleMovieDetails | null;
   trailerMovie: { key: string } | null; 
-  setSelectedMovieDetails: (id: number) => void;
+  fetchSearchResults: (query: string) => void;
+  loadMovies: () => Promise<void>;
+  setModalMovie: (isOpen: boolean) => void;
   setMovieDetails: (movieID: number) => void; 
+  setMovies: (movies: SingleMovieDetails[]) => void;
   setQuery: (query: string) => void;
   setSelectedMovie: (SingleMovieDetails: SingleMovieDetails) => void;
-  fetchSearchResults: (query: string) => void;
-  setModalMovie: (isOpen: boolean) => void;
+  setSelectedMovieDetails: (id: number) => void;
 }
 
 
@@ -43,8 +44,6 @@ export const useMovieStore = create(
   selectedMovie: null,
   trailerMovie: null,
   searchResults: [],
-
-
 
 
   setMovies: (movies) => set({ movies }),
@@ -73,10 +72,6 @@ export const useMovieStore = create(
       .catch((error) => console.error("Error al obtener los detalles de la película:", error));
   },
 
-  // setSelectedSeatMovie: (SelectedSeatUser: UserSeatsSelected) => {
-    
-
-  // },
 
   setMovieDetails: (movieId: number): void => {
     getMovieDetails(movieId)
