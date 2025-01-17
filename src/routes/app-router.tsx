@@ -1,13 +1,12 @@
-import { Home } from "../pages/home/home";
-import { NotFoundPage } from "../pages/no-found/no-found-page";
-import { MovieView } from "../pages/movie/movie-page";
+import { Home } from "@/pages/home/home";
+import { NotFoundPage } from "@/pages/no-found/no-found-page";
+import { MovieView } from "@/pages/movie/movie-page";
 import { createBrowserRouter } from "react-router-dom";
-import { AllMovies } from "../pages/home/pages/page-all-movies";
-import { LessValued } from "../pages/home/pages/page-less-valued";
-import { MostValued } from "../pages/home/pages/page-most-valued";
-import { SearchMovie } from "../pages/home/pages";
-import { Pelicula } from "../pages/peliculas"
-import { Cartelera } from "../pages/cartelera/cartelera";
+import { AllMovies } from "@/pages/home/pages/page-all-movies";
+import { LessValued } from "@/pages/home/pages/page-less-valued";
+import { MostValued } from "@/pages/home/pages/page-most-valued";
+import { SearchMovie } from "@/pages/home/pages";
+import { Cartelera } from "@/pages/cartelera/cartelera";
  
 const router = createBrowserRouter([
 {
@@ -36,10 +35,6 @@ const router = createBrowserRouter([
 {
     path: "/movie/:id",
     element: <MovieView />,
-},
-{
-    path: "/pelicula",
-    element: <Pelicula />,
 },
 {
     path: "/cartelera",

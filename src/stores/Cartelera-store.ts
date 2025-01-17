@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { Seat, SeatStatus } from "../interfaces/cartelera.interface";
+import { Seat, SeatStatus } from "@/interfaces/cartelera.interface";
 import { persist } from "zustand/middleware";
-import { SEATS } from "../constants.tsx";
+import { SEATS } from "@/constants.tsx";
 
 type Seats = Seat[];
 type SeatsMap = Record<string, Seats>;

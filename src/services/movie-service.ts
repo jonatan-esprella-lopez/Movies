@@ -1,5 +1,5 @@
-import type { Cast, GetCreditsResponse } from "../interfaces/get-credits-response";
-import { SingleMovieDetails } from "../interfaces/single-movie-details";
+import type { Cast, GetCreditsResponse } from "@/interfaces/get-credits-response";
+import { SingleMovieDetails } from "@/interfaces/single-movie-details";
 import { moviesApi } from "./movie-api";
 
 const DEFAULT_LANGUAGE = "es-ES";

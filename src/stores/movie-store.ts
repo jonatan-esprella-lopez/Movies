@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import { fetchTrailer, getMovieDetails, getMoviesMostValued, getMoviesSearch } from "../services/movie-service";
+import { fetchTrailer, getMovieDetails, getMoviesMostValued, getMoviesSearch } from "@/services/movie-service";
 
-import type { SingleMovieDetails } from "../interfaces/single-movie-details";
+import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
 
 
 

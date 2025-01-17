@@ -4,11 +4,6 @@ import type { SingleMovieDetails } from '@/interfaces/single-movie-details';
 
 import "./checkout.css";
 
-// interface CheckoutProps {
-//   movie: { title: string; price: number };
-//   time: string;
-//   seats: string[];
-// }
 
 interface FormData {
   name: string;
@@ -36,7 +31,7 @@ const Checkout: React.FC<CheckoutProps> = ({ }) => {
     alert('Booking successful! Check your email for tickets.');
   };
 
-  // const totalPrice = movie.price * seats.length;
+  const totalPrice = movie.price * seats.length;
 
   return (
     <div className="checkout-grid">

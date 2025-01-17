@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
-import { useMovieStore } from "../../stores/movie-store";
 import { useNavigate, useParams } from "react-router-dom";
-import { HeaderNav } from "../../components/header";
-import { Footer } from "../../components/footer/footer";
-import "./cartelera.css";
-import { SingleMovieDetails } from "../../interfaces/single-movie-details";
-import { imageApi } from "../../services/movie-api";
-import { SeatMap } from "./components/seat-map";
-import Checkout from "./Checkout";
-// import { useCarteleraStore } from "../../stores/Cartelera-store";
+
+import { useMovieStore } from "@/stores/movie-store";
+import { imageApi } from "@/services/movie-api";
+
+import { ROOM_PRICES } from "@/constants";
+
+import { HeaderNav } from "@/components/header";
+import Checkout from "./components/Checkout";
 import MovieDetail from "./components/movie-details";
-import { ROOM_PRICES } from "../../constants";
+import { SeatMap } from "./components/seat-map";
+import { Footer } from "@/components/footer/footer";
+
+import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
+
+import "./cartelera.css";
+
+// import { useCarteleraStore } from "@/stores/Cartelera-store";
 // import { PurchaseModal } from "./components/purchase-modal";
-// import { ROOM_PRICES } from "../../constants";
 
 export const Cartelera = () => {
   const {
@@ -35,10 +40,8 @@ export const Cartelera = () => {
 
   const parsedMovieId = movieId ? parseInt(movieId, 10) : undefined;
   const [selectedRoomType, _setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
-  // Función para manejar la selección de tipo de sala
-  // const handleRoomTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setSelectedRoomType(event.target.value as keyof typeof ROOM_PRICES);
-  // };
+  
+
   useEffect(() => {
     loadMovies();
   }, [loadMovies, selectedMovie]);
@@ -46,7 +49,6 @@ export const Cartelera = () => {
   const handleMovieSelected = (movie: SingleMovieDetails): void => {
     setSelectedMovie(movie);
     
-    // Reiniciar los valores de step, asientos y tiempo seleccionado al elegir una nueva película
     setStep(1);
     setSelectedSeats([]);
     setSelectedTime("");
@@ -104,7 +106,7 @@ export const Cartelera = () => {
         ))}
       </section>
 
-      {selectedMovie && (
+      {(!parsedMovieId) && (
         <section className="Selected-mov-Cartelera">
           <div className="image-container">
             <img src={portada} alt={selectedMovie.title} className="hover-image" />
@@ -118,7 +120,7 @@ export const Cartelera = () => {
             <h2>Detalles de compra</h2>
 
             {step === 1 && <MovieDetail />}
-            {step === 2 && parsedMovieId !== undefined && (
+            {step === 2 && (
               <SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />
             )}
             {step === 3 && (
