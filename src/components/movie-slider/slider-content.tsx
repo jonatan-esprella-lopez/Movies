@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useMovieStore } from "../../stores/movie-store";
 import { getMoviesMostValued } from "../../services/movie-service";
-import { URL_IMAGE } from "../../services/movie-api";
+import { URL_IMAGE } from "@/constants/apimovie";
 
 import { ButtonMovie } from "../../pages/home/components/button-movie";
 

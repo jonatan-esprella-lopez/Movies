@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     element: <Cartelera />,
 },
 {
-    path: "/cartelera/:id",
+    path: "/cartelera/:movieId",
     element: <Cartelera/>,
 },
 {

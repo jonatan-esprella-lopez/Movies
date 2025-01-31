@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useMovieStore } from "@/stores/movie-store";
@@ -24,51 +24,24 @@ export const Cartelera = () => {
     movies,
     selectedMovie,
     setSelectedMovie,
-    loadMovies,
   } = useMovieStore();
 
-
-  
-  // const { seats } = useCarteleraStore();
-
   const navigate = useNavigate();
+  const { movieId } = useParams();
+  const parsedMovieId = movieId ? parseInt(movieId, 10) : Number;
+
   const [step, setStep] = useState<number>(1);
-  const [selectedTime, setSelectedTime] = useState<string>("");
-  const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
-
-  const movieId = useParams<{ movieId: string }>().movieId;
-
-  const parsedMovieId = movieId ? parseInt(movieId, 10) : undefined;
   const [selectedRoomType, _setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
-  
-
-  useEffect(() => {
-    loadMovies();
-  }, [loadMovies, selectedMovie]);
 
   const handleMovieSelected = (movie: SingleMovieDetails): void => {
     setSelectedMovie(movie);
-    
     setStep(1);
-    setSelectedSeats([]);
-    setSelectedTime("");
-  
     window.scrollTo({ top: 445, behavior: "smooth" });
     navigate(`/cartelera/${movie.id}`);
   };
 
-  // const handleTimeSelect = (time: string) => {
-  //   setSelectedTime(time);
-  //   setStep(2);
-  // };
-
-  // const handleSeatSelection = (seats: string[]) => {
-  //   setSelectedSeats(seats);
-  // };
-
   const handleMovieNext = () => {
     if (step < 3) {
-      setSelectedSeats([]);
       window.scrollTo({ top: 445, behavior: "smooth" });
       setStep(step + 1);
     }
@@ -76,17 +49,10 @@ export const Cartelera = () => {
 
   const handleMovieBack = () => {
     if (step > 1) {
-      setSelectedSeats([]);
       window.scrollTo({ top: 445, behavior: "smooth" });
       setStep(step - 1);
     }
   };
-
-
-  
-  // const handleCheckout = () => {
-  //   setStep(3);
-  // };
 
   const portada = selectedMovie ? imageApi(selectedMovie.poster_path, "w200") : "";
 
@@ -106,7 +72,7 @@ export const Cartelera = () => {
         ))}
       </section>
 
-      {(!parsedMovieId) && (
+      {(selectedMovie) && (
         <section className="Selected-mov-Cartelera">
           <div className="image-container">
             <img src={portada} alt={selectedMovie.title} className="hover-image" />
