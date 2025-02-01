@@ -16,9 +16,6 @@ import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
 
 import "./cartelera.css";
 
-// import { useCarteleraStore } from "@/stores/Cartelera-store";
-// import { PurchaseModal } from "./components/purchase-modal";
-
 export const Cartelera = () => {
   const {
     movies,
@@ -28,7 +25,7 @@ export const Cartelera = () => {
 
   const navigate = useNavigate();
   const { movieId } = useParams();
-  const parsedMovieId = movieId ? parseInt(movieId, 10) : Number;
+  const parsedMovieId = Number(movieId);
 
   const [step, setStep] = useState<number>(1);
   const [selectedRoomType, _setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
@@ -83,21 +80,12 @@ export const Cartelera = () => {
             </div>
           </div>
           <section className="conte">
-            <h2>Detalles de compra</h2>
+            <h2>Adquiere tu entrada</h2>
+            {step === 1 && (<MovieDetail />)}
+            {step === 2 && (<SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />)}
+            {step === 3 && (<Checkout />)}
 
-            {step === 1 && <MovieDetail />}
-            {step === 2 && (
-              <SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />
-            )}
-            {step === 3 && (
-              <Checkout
-                movie={selectedMovie}
-                time={selectedTime}
-                seats={selectedSeats}
-              />
-            )}
-
-            <div className="conteiner-movie-sell">
+            <article className="conteiner-movie-sell">
               <button className="btn-1-reserve btn-add" onClick={handleMovieBack}>
                 Atrás
               </button>
@@ -106,14 +94,12 @@ export const Cartelera = () => {
                   Siguiente
                 </button>
               ) : (
-                <button
-                  className="btn-1-reserve btn-add"
-                  disabled={selectedSeats.length === 0}
-                >
+                <button className="btn-1-reserve btn-add">
                   Completar pago
                 </button>
               )}
-            </div>
+              
+            </article>
           </section>
         </section>
       )}
