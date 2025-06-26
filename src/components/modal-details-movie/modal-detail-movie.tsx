@@ -8,11 +8,14 @@ import YouTube from "react-youtube";
 import { StarRating } from "./star-rating";
 import CloseIcon from "../../assets/modal/Icon.svg";
 
-export const ModalDetailMovie = (): JSX.Element => {
+interface ModalDetailMovieProps {
+  setModalMovie: (open: boolean) => void;
+}
+
+export const ModalDetailMovie = ({ setModalMovie }: ModalDetailMovieProps) => {
   const {
     selectedMovie,
     trailerMovie,
-    setModalMovie,
     setSelectedMovieDetails,
   } = useMovieStore();
 

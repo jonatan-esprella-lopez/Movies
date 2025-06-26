@@ -7,11 +7,10 @@ import Play from "@/assets/movies/Icon.svg";
 
 import "./button-movie.css"
 
-export const ButtonMovie = (): JSX.Element => {
+export const ButtonMovie = () => {
   const navigate = useNavigate();
   const { 
-    selectedMovie, 
-    setModalMovie 
+    selectedMovie
   } = useMovieStore()
   
   const getFormattedMoviePath = (): string => {
@@ -20,7 +19,6 @@ export const ButtonMovie = (): JSX.Element => {
 
   const handleModalMovie = (): void => {
     if(selectedMovie){
-      setModalMovie(false);
       navigate(getFormattedMoviePath());
     }
   };

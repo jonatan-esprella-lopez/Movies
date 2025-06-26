@@ -1,5 +1,5 @@
 import "./pages-home.css"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NoFound } from "../../../components/no-found";
 import { useSearchParams } from "react-router-dom";
 import { CardMovie } from "../../../components/card-movie";
@@ -8,12 +8,12 @@ import { useMovieStore } from "../../../stores/movie-store";
 
 export function SearchMovie(): JSX.Element {
   const {
-    modalMovie,
     searchResults,
     fetchSearchResults
   } = useMovieStore();
 
   const [searchParams] = useSearchParams();
+  const [modalMovie, setModalMovie] = useState<Boolean>(false)
   const query = searchParams.get('query') || '';
 
   useEffect(() => {
@@ -25,12 +25,12 @@ export function SearchMovie(): JSX.Element {
       <h1>Busqueda de pelicula</h1>
       <section className="conteiner-movies">
           {searchResults.map((movie) => (
-            <CardMovie  key={movie.id} movie={movie} />
+            <CardMovie  key={movie.id} movie={movie} setModalMovie={setModalMovie} />
           ))}
       </section>
       {modalMovie && (
           <section className="conteniner-modal-movie">
-            <ModalDetailMovie />
+            <ModalDetailMovie setModalMovie={setModalMovie}/>
           </section>
         )}
 

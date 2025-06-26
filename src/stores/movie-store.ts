@@ -24,7 +24,6 @@ interface MovieStore {
   detailsMovie: SingleMovieDetails | null;
   idMovie: number;
   imagen: string | undefined;
-  modalMovie: boolean;
   movies: SingleMovieDetails[];
   query: string;
   searchResults: SingleMovieDetails[];
@@ -34,7 +33,6 @@ interface MovieStore {
 
   fetchSearchResults: (query: string) => void;
   loadMovies: () => Promise<void>;
-  setModalMovie: (isOpen: boolean) => void;
   setMovieDetails: (movieID: number) => void;
   setMovies: (movies: SingleMovieDetails[]) => void;
   setQuery: (query: string) => void;
@@ -142,10 +140,7 @@ export const useMovieStore = create(
           }));
         },
 
-        setModalMovie: (isOpen) => {
-          set({ modalMovie: isOpen });
-          if (isOpen == false) set({ selectedMovie: null });
-        },
+        
       }),
       { name: "moviesData" }
     ),

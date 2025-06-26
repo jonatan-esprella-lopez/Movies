@@ -5,9 +5,8 @@ import { CardMovieProps } from "../interfaces/common.interfaces";
 import NoFoundMovie from "../assets/movies/movie-void.svg"
 import Star from "../assets/movies/star.svg";
 
-export function CardMovie({ movie }: CardMovieProps):JSX.Element {
+export function CardMovie({ movie, setModalMovie }: CardMovieProps) {
   const { 
-    setModalMovie, 
     setSelectedMovie 
   } = useMovieStore();
 

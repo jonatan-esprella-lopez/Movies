@@ -12,10 +12,11 @@ export interface SliderDotsProps {
     onDotClick: (index: number) => void;
 }
 
-export interface StarRatingProps {
+export interface St9arRatingProps {
     voteAverage: number;
 }
 
 export interface CardMovieProps {
     movie: SingleMovieDetails;
+    setModalMovie: (isOpen: boolean) => void;
 }
