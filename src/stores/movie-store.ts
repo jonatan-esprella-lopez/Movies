@@ -13,7 +13,7 @@ import { Seat } from "@/interfaces/cartelera.interface";
 
 interface MovieReservation {
   movieId: number;
-  theaterId: number;
+  roomId: number;
   date: string;
   time: string;
   price: number;
@@ -61,13 +61,21 @@ export const useMovieStore = create(
         reservations: [],
 
         setMovies: (movies) => set({ movies }),
+        
         setQuery: (query) => {
           set({ query });
-          getMoviesSearch(query).then((movies) => {
-            set({ searchResults: movies });
-          });
+          getMoviesSearch(query)
+            .then((movies) => set({ searchResults: movies }))
+            .catch((error) => 
+              console.error(
+                "Error al obtener los resultados de búsqueda:", 
+                error
+              )
+            );
         },
 
+
+        /**Hay que eliminar esta funcion */
         fetchSearchResults: (query) => {
           getMoviesSearch(query)
             .then((movies) => set({ searchResults: movies }))
@@ -79,6 +87,8 @@ export const useMovieStore = create(
             );
         },
 
+
+        // Cambiar a setMovieTrailer
         setSelectedMovieDetails: (movieId) => {
           fetchTrailer(movieId)
             .then((trailer) => set({ trailerMovie: trailer ?? null }))
@@ -87,6 +97,8 @@ export const useMovieStore = create(
             );
         },
 
+
+        //Eliminar la funcion 
         setSelectedMovie: (movie: SingleMovieDetails) => {
           getMovieDetails(movie.id)
             .then((details) => set({ selectedMovie: details ?? null }))
@@ -98,7 +110,7 @@ export const useMovieStore = create(
             );
         },
 
-        setMovieDetails: (movieId: number): void => {
+        setMovieDetails: (movieId: number) => {
           getMovieDetails(movieId)
             .then((detailsMovie) => set({ detailsMovie: detailsMovie ?? null }))
             .catch((error) =>
@@ -108,6 +120,7 @@ export const useMovieStore = create(
               )
             );
         },
+        
 
         loadMovies: async () => {
           const movies = await getMoviesMostValued();

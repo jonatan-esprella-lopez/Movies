@@ -31,12 +31,7 @@
   }
   
 
-  .seat-null {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    color: #ffcc00;
-  }
+ 
 
   .seat {
     width: 30px;
@@ -51,10 +46,17 @@
     font-size: 14px;
   }
 
-
+ 
   
   .seat:hover {
     transform: scale(1.1);
     transition: transform 0.2s;
   }
   
+  .seat-null {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: #ffcc00;
+    background-color: none;
+  }

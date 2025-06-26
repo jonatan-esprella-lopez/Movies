@@ -14,15 +14,10 @@ interface FormData {
   cvv: string;
 }
 
-interface CheckoutProps {
-  movie: SingleMovieDetails;
-  time: string;
-  seats: string[];
-}
 
 // function Checkout({ movie, time, seats }: CheckoutProps) {
 // const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
-const Checkout: React.FC<CheckoutProps> = ({ }) => {
+const Checkout = () => {
  
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 

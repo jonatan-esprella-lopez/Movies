@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useMovieStore } from "../../../stores/movie-store";
-import Play from "../../../assets/movies/Icon.svg";
-import Informacion from "../../../assets/movies/informacion.svg";
+
+import { useMovieStore } from "@/stores/movie-store";
+
+import Informacion from "@/assets/movies/informacion.svg";
+import Play from "@/assets/movies/Icon.svg";
+
 import "./button-movie.css"
 
 export const ButtonMovie = (): JSX.Element => {

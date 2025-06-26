@@ -1,17 +1,27 @@
-import { useParams } from 'react-router-dom';
-import './movie-detail.css';
-import { useMovieStore } from '../../../stores/movie-store.ts';
-import { DateSelector } from './date-selector.tsx';
 import { useEffect, useState } from 'react';
-import { useCarteleraStore } from '../../../stores/cartelera-movie.ts';
+import { useParams, useSearchParams } from 'react-router-dom';
+
+import { useCarteleraStore } from '@/stores/cartelera-movie.ts';
+import { useMovieStore } from '@/stores/movie-store.ts';
+
+import { DateSelector } from './date-selector.tsx';
+
+import './movie-detail.css';
 
 const MovieDetail = () => {
-  const { id } = useParams();
   // const navigate = useNavigate();
   // const movie = movies.find((m) => m.id === Number(id));
 
+  
+    const [searchParams] = useSearchParams();''
+    
+  const id = searchParams.get('query') || '';
+  console.log("esto es de cartelera", id)
+  // const {
+  //   selectedMovie
+  // } = useMovieStore();
+  
   const {
-    // selectedMovieId,
     showtimeData,
     setSelectedMovie,
     setShowtimeData,
@@ -21,13 +31,9 @@ const MovieDetail = () => {
     if (id) setSelectedMovie(Number(id));
   }, [id, setSelectedMovie]);
 
-
-  // const [selectedDate, setSelectedDate] = useState<number>(24);
-  // const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  // const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-  const [_selectedDate, setSelectedDate] = useState<number>(24);
-  const [_selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [_selectedRoom, setSelectedRoom] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<number>(24);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
 
 
 
