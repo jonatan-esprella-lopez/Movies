@@ -5,7 +5,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AllMovies } from "@/pages/home/pages/page-all-movies";
 import { LessValued } from "@/pages/home/pages/page-less-valued";
 import { MostValued } from "@/pages/home/pages/page-most-valued";
-import { SearchMovie } from "@/pages/home/pages";
+import { SearchMovie } from "@/pages/home/pages/page-search-movie";
 import { Cartelera } from "@/pages/cartelera/cartelera";
  
 const router = createBrowserRouter([

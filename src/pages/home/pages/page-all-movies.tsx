@@ -33,7 +33,7 @@ export function AllMovies() {
       </section>
       {modalMovie && (
           <section className="conteniner-modal-movie">
-            <ModalDetailMovie setModalMovie={setModalMovie}/>
+            <ModalDetailMovie setModalMovie={setModalMovie} />
           </section>
         )}
     </main>

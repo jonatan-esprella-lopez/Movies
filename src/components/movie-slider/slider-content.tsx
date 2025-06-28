@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { useMovieStore } from "../../stores/movie-store";
-import { getMoviesMostValued } from "../../services/movie-service";
+import { useMovieStore } from "@/stores/movie-store";
+import { getMoviesMostValued } from "@/services/movie-service";
 import { URL_IMAGE } from "@/constants/apimovie";
 
-import { ButtonMovie } from "../../pages/home/components/button-movie";
+import { ButtonMovie } from "@/pages/home/components/button-movie";
 
 import { SingleMovieDetails } from "@/interfaces/single-movie-details";
 

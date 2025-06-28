@@ -1,8 +1,8 @@
-import { StarRatingProps } from "../../interfaces/common.interfaces";
+import { StarRatingProps } from "@/interfaces/common.interfaces";
 
-import Star from "../../assets/movies/star.svg";
+import Star from "@/assets/movies/star.svg";
 
-export const StarRating = ({ voteAverage }: StarRatingProps):JSX.Element => {
+export const StarRating = ({ voteAverage }: StarRatingProps) => {
   const starClass = voteAverage > 5 ? "container-stars" : "container-stars-low";
 
   return (

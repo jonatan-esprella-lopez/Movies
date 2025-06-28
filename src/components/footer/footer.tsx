@@ -1,18 +1,19 @@
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from '../../assets/icon/social-page/index';
 import { Link } from 'react-router-dom';
+
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from '@/assets/icon/social-page/index';
 
 import './footer.css';
 
-export const Footer = (): JSX.Element => {
+export const Footer = () => {
   return (
     <footer className="conteiner-footer">
       <section className="footer-grid">
-        
         <article className='footer'>
-          <h3>Sobre Jona-BlockBuster</h3>
+          <h3>Sobre Blockbuster</h3>
           <p>
-            Una plataforma de películas que te permitirá pasar tiempo en familia.
-            Recuerda: ver películas piratas es lo mejor <span role="img" aria-label="smiley">*U*</span> ATTE: El Jona
+            Una plataforma para poder ver los ultimos Trailers y támbien podras ver mucho mas de 
+            tus peliculas favoritas, tiene una sacción de cartelera la simulacion para poder adquirir
+            una butaca de tus peliculas favoritas.
           </p>
         </article>
 
@@ -20,13 +21,12 @@ export const Footer = (): JSX.Element => {
           <h3>Navegación Rápida</h3>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/top-rated">Butaca</Link></li>
+            <li><Link to="/cartelera">Cartelera</Link></li>
             <li><Link to="/new-releases">Nuevos Lanzamientos</Link></li>
-            <li><Link to="/genres">Géneros</Link></li>
           </ul>
         </article>
 
-        <article className='footer'>
+        {/* <article className='footer'>
           <h3>Contáctate con Jonatan</h3>
           <nav className="social-icons">
             <a href="https://facebook.com" aria-label="Facebook" title="Facebook">
@@ -43,11 +43,11 @@ export const Footer = (): JSX.Element => {
               <img src={FaYoutube} alt="YouTube" />
             </a>
           </nav>
-        </article>
+        </article> */}
 
         <article className='footer'>
           <h3>Noticias y Novedades</h3>
-          <p>Ingresa tu correo electrónico para recibir novedades sobre tus películas favoritas.</p>
+          <p>Ingresa tu correo electrónico para recibir novedades sobre los nuevos estrenos.</p>
           <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
             <input
               type="email"
@@ -66,7 +66,7 @@ export const Footer = (): JSX.Element => {
       </section>
 
       <section className="footer-bottom">
-        <p>&copy; 2024 <strong>Jonatan-BlockBuster</strong>. Todos los derechos reservados.</p>
+        <p>&copy; 2024 <strong>Jonatan-BlockBuster</strong>. Creo que tengo derechos reservados.</p>
       </section>
     </footer>
   );

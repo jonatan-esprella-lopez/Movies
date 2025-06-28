@@ -10,15 +10,15 @@ import "./button-movie.css"
 export const ButtonMovie = () => {
   const navigate = useNavigate();
   const { 
-    selectedMovie
+    detailsMovie
   } = useMovieStore()
   
   const getFormattedMoviePath = (): string => {
-    return selectedMovie ? `/movie/${selectedMovie.id}` : "";
+    return detailsMovie ? `/movie/${detailsMovie.id}` : "";
   };
 
   const handleModalMovie = (): void => {
-    if(selectedMovie){
+    if(detailsMovie){
       navigate(getFormattedMoviePath());
     }
   };

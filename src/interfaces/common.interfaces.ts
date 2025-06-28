@@ -12,7 +12,7 @@ export interface SliderDotsProps {
     onDotClick: (index: number) => void;
 }
 
-export interface St9arRatingProps {
+export interface StarRatingProps {
     voteAverage: number;
 }
 

@@ -1,23 +1,24 @@
-import { useMovieStore } from "../stores/movie-store";
-import { imageApi } from "../services/movie-api";
+import { useMovieStore } from "@/stores/movie-store";
+import { imageApi } from "@/services/movie-api";
 
-import { CardMovieProps } from "../interfaces/common.interfaces";
-import NoFoundMovie from "../assets/movies/movie-void.svg"
-import Star from "../assets/movies/star.svg";
+import { CardMovieProps } from "@/interfaces/common.interfaces";
+import NoFoundMovie from "@/assets/movies/movie-void.svg"
+import Star from "@/assets/movies/star.svg";
 
 export function CardMovie({ movie, setModalMovie }: CardMovieProps) {
   const { 
-    setSelectedMovie 
+    setMovieDetails 
   } = useMovieStore();
 
   const {
-    title,
+    id,
     poster_path,
-    vote_average,
+    title,
+    vote_average
   } = movie;
   
   const handleSearchSubmit = (): void => {
-    setSelectedMovie(movie);
+    setMovieDetails(id);
     setModalMovie(true); 
   };
 

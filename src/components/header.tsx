@@ -3,8 +3,11 @@ import { useState } from "react";
 
 import { useMovieStore } from "../stores/movie-store";
 
-import Logotipo from "../assets/movies/logo-blockBuster.png";
-import Search from "../assets/movies/search.svg";
+import Logotipo from "@/assets/movies/logo-blockBuster.png";
+import Search from "@/assets/movies/search.svg";
+import Menu from "@/assets/navba-header/menu.svg";
+
+import "./header.css";
 
 const NAV_LINKS = [
   { path: "/", label: "Todos" },
@@ -13,22 +16,24 @@ const NAV_LINKS = [
   { path: "/cartelera", label: "Cartelera" },
 ];
 
-export function HeaderNav(): JSX.Element {
+export function HeaderNav() {
   const { 
     setQuery,
   } = useMovieStore()
 
   const [localSearchKey, setLocalSearchKey] = useState<string>("");
+  const [isMenuOpen, setIsMenuOpen] = useState<Boolean>(false);
+
   const navigate = useNavigate();
 
   const handleSearchSubmit = (event:any): void => {
     event.preventDefault()
+    if(localSearchKey){
+      const formattedTitle = localSearchKey.replace(/\s+/g, '_');
       setQuery(localSearchKey)
-      if(localSearchKey){
-        const formattedTitle = localSearchKey.replace(/\s+/g, '_');
-        navigate(`/search-movie?query=${formattedTitle}`);
-      }
-      setLocalSearchKey("");
+      navigate(`/search-movie?query=${formattedTitle}`);
+    }
+    setLocalSearchKey("");
   };
 
     return(
@@ -36,6 +41,15 @@ export function HeaderNav(): JSX.Element {
         <Link to="/" className="custom-link">
           <img src={Logotipo} alt="Logotipo" className="full-logo" />
         </Link>
+
+      <button
+        className="menu-toggle"
+        aria-label="Alternar menú"
+        onClick={() => setIsMenuOpen(prev => !prev)}
+      >
+        <img src={Menu} alt="Manu"/>
+      </button>
+
         <nav className="header-nav">
           {NAV_LINKS.map((link) => (
             <span key={link.path}>

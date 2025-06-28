@@ -27,7 +27,6 @@ interface MovieStore {
   movies: SingleMovieDetails[];
   query: string;
   searchResults: SingleMovieDetails[];
-  selectedMovie: SingleMovieDetails | null;
   trailerMovie: { key: string } | null;
   reservations: MovieReservation[];
 
@@ -36,8 +35,7 @@ interface MovieStore {
   setMovieDetails: (movieID: number) => void;
   setMovies: (movies: SingleMovieDetails[]) => void;
   setQuery: (query: string) => void;
-  setSelectedMovie: (SingleMovieDetails: SingleMovieDetails) => void;
-  setSelectedMovieDetails: (id: number) => void;
+  setMovieTrailer: (id: number) => void;
   addReservation: (reservation: MovieReservation) => void;
   removeReservation: (movieId: number) => void;
 }
@@ -53,7 +51,6 @@ export const useMovieStore = create(
         SelectedSeatUser: [],
         modalMovie: false,
         detailsMovie: null,
-        selectedMovie: null,
         trailerMovie: null,
         searchResults: [],
         reservations: [],
@@ -86,8 +83,7 @@ export const useMovieStore = create(
         },
 
 
-        // Cambiar a setMovieTrailer
-        setSelectedMovieDetails: (movieId) => {
+        setMovieTrailer: (movieId) => {
           fetchTrailer(movieId)
             .then((trailer) => set({ trailerMovie: trailer ?? null }))
             .catch((error) =>
@@ -96,17 +92,6 @@ export const useMovieStore = create(
         },
 
 
-        //Eliminar la funcion 
-        setSelectedMovie: (movie: SingleMovieDetails) => {
-          getMovieDetails(movie.id)
-            .then((details) => set({ selectedMovie: details ?? null }))
-            .catch((error) =>
-              console.error(
-                "Error al obtener los detalles de la película:",
-                error
-              )
-            );
-        },
 
         setMovieDetails: (movieId: number) => {
           getMovieDetails(movieId)
