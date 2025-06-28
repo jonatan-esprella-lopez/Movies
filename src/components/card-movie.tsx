@@ -25,13 +25,11 @@ export function CardMovie({ movie, setModalMovie }: CardMovieProps) {
   const portada = imageApi(poster_path, "w300");
 
   return (
-    <article>
-          <div className="portada-movie" onClick={handleSearchSubmit}>
-          <img src={poster_path ? portada : NoFoundMovie} alt={title} className="movie-image" />
-          <div className={`container-stars${vote_average > 5 ? "" : "-low"}`}>
-            <img src={Star} alt="star" />
-            {vote_average.toFixed(1)}
-          </div>
+    <article className="portada-movie" onClick={handleSearchSubmit}>
+        <img src={poster_path ? portada : NoFoundMovie} alt={title} className="movie-image" />
+        <div className={`container-stars${vote_average > 5 ? "" : "-low"}`}>
+          <img src={Star} alt="star" />
+          {vote_average.toFixed(1)}
         </div>
     </article>
   );
