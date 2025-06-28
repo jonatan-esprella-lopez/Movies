@@ -13,7 +13,7 @@ export const Footer = () => {
           <p>
             Una plataforma para poder ver los ultimos Trailers y támbien podras ver mucho mas de 
             tus peliculas favoritas, tiene una sacción de cartelera la simulacion para poder adquirir
-            una butaca de tus peliculas favoritas.
+            una butaca de tus peliculas favoritas.;
           </p>
         </article>
 

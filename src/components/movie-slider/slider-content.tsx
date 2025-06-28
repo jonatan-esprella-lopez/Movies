@@ -15,13 +15,13 @@ export interface sliderContentProps {
 export const SliderContent = ({ currentIndex }: sliderContentProps ):JSX.Element => {
   const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
   const {
-    setSelectedMovie
+    setMovieDetails
   } = useMovieStore();
 
   useEffect(() => {
     getMoviesMostValued().then((movies) =>{
       setMovies(movies)
-      setSelectedMovie(movies[currentIndex])
+      setMovieDetails(movies[currentIndex].id)
     }).catch((error) => {
       console.error('Error al obtener las películas', error);
     });

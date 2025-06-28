@@ -60,6 +60,7 @@
 
 .newsletter-form {
   display: flex;
+  width: 100%;
   margin-top: 20px;
   margin-right: 10px;
 }
@@ -67,6 +68,7 @@
 .newsletter-input {
   flex-grow: 1;
   padding: 0.5rem;
+  box-sizing: border-box;
   border: 1px solid #0091f1;
   border-radius: 4px 0 0 4px;
 }
@@ -92,4 +94,22 @@
   padding-top: 2rem;
   text-align: center;
   color: rgb(139, 139, 139);
+}
+
+@media (max-width: 768px) {
+
+    .newsletter-form{
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .newsletter-input {
+      width: 100%;
+    }
+
+    .newsletter-button {
+      margin: 20px 0;
+      width: 100%;
+    }
+
 }

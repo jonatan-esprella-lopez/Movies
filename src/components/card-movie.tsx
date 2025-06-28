@@ -5,6 +5,8 @@ import { CardMovieProps } from "@/interfaces/common.interfaces";
 import NoFoundMovie from "@/assets/movies/movie-void.svg"
 import Star from "@/assets/movies/star.svg";
 
+import "./card-movie.css";
+
 export function CardMovie({ movie, setModalMovie }: CardMovieProps) {
   const { 
     setMovieDetails 
