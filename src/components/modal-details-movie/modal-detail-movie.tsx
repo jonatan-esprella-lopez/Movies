@@ -9,6 +9,8 @@ import { ButtonMovie } from "@/pages/home/components/button-movie";
 import { StarRating } from "./star-rating";
 import CloseIcon from "@/assets/modal/Icon.svg";
 
+import "./modal-detail-movie.css";
+
 interface ModalDetailMovieProps {
   setModalMovie: (open: boolean) => void;
 }
@@ -64,6 +66,8 @@ export const ModalDetailMovie = ({ setModalMovie }: ModalDetailMovieProps) => {
         </span>
 
         {trailerMovie && (
+          <div className="youtube-container">
+
           <YouTube
             videoId={trailerMovie.key}
             className="reproductor skeleton-image"
@@ -73,7 +77,8 @@ export const ModalDetailMovie = ({ setModalMovie }: ModalDetailMovieProps) => {
                 controls: 1,
               },
             }}
-          />
+            />
+          </div>
         )}
         <ButtonMovie />
       </article>

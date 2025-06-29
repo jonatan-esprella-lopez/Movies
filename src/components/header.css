@@ -5,8 +5,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.2rem 1rem;
-     flex-wrap: wrap;
-     position: relative;
 }
 
 
@@ -63,7 +61,6 @@
 
 .function-header-nav {
     display: flex;
-    width: 100%;
     align-items: center;
 }
 
@@ -96,6 +93,8 @@
 
 @media (max-width: 768px) {
   .nav-container-header{
+    
+     flex-wrap: wrap;
     display: grid;
     grid-template-columns: 4fr 1fr;
   }
