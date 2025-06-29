@@ -28,12 +28,16 @@ export function HeaderNav() {
 
   const handleSearchSubmit = (event:any): void => {
     event.preventDefault()
-    if(localSearchKey){
-      const formattedTitle = localSearchKey.replace(/\s+/g, '_');
-      setQuery(localSearchKey)
+    if(localSearchKey.trim()){
+      const formattedTitle = encodeURIComponent(
+        localSearchKey.trim().replace(/\s+/g, "_")
+      );
+
+      setQuery(localSearchKey.trim());
       navigate(`/search-movie?query=${formattedTitle}`);
     }
     setLocalSearchKey("");
+    setIsMenuOpen(false);
   };
 
     return(
@@ -50,15 +54,16 @@ export function HeaderNav() {
         <img src={Menu} alt="Manu"/>
       </button>
 
-        <nav className="header-nav">
+        <nav className={`header-nav ${isMenuOpen ? "open" : ""}`}>
           {NAV_LINKS.map((link) => (
             <span key={link.path}>
-              <Link to={link.path} className="custom-link">
+              <Link to={link.path} className="custom-link" onClick={() => setIsMenuOpen(false)}>
                 <p>{link.label}</p>
               </Link>
             </span>
           ))}
         </nav>
+
         <form className="function-header-nav" onSubmit={handleSearchSubmit}>
           <input
             type="input"

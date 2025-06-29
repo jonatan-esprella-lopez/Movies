@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg fill="none" width="800px" height="800px" viewBox="-5.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-<title>facebook</title>
-<path d="M1.188 5.594h18.438c0.625 0 1.188 0.563 1.188 1.188v18.438c0 0.625-0.563 1.188-1.188 1.188h-18.438c-0.625 0-1.188-0.563-1.188-1.188v-18.438c0-0.625 0.563-1.188 1.188-1.188zM14.781 17.281h2.875l0.125-2.75h-3v-2.031c0-0.781 0.156-1.219 1.156-1.219h1.75l0.063-2.563s-0.781-0.125-1.906-0.125c-2.75 0-3.969 1.719-3.969 3.563v2.375h-2.031v2.75h2.031v7.625h2.906v-7.625z"></path>
+<!-- Generator: Adobe Illustrator 24.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 574 574" style="enable-background:new 0 0 574 574;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#0091F1;}
+</style>
+<path class="st0" d="M54.2,26.9h460.9c15.6,0,29.7,14.1,29.7,29.7v460.9c0,15.6-14.1,29.7-29.7,29.7H54.2
+	c-15.6,0-29.7-14.1-29.7-29.7V56.6C24.5,40.9,38.6,26.9,54.2,26.9z M394,319h71.9l3.1-68.8h-75v-50.8c0-19.5,3.9-30.5,28.9-30.5
+	h43.8l1.6-64.1c0,0-19.5-3.1-47.6-3.1c-68.8,0-99.2,43-99.2,89.1v59.4h-50.8V319h50.8v190.6H394V319z"/>
 </svg>

@@ -26,7 +26,7 @@ export const Footer = () => {
           </ul>
         </article>
 
-        {/* <article className='footer'>
+        <article className='footer'>
           <h3>Contáctate con Jonatan</h3>
           <nav className="social-icons">
             <a href="https://facebook.com" aria-label="Facebook" title="Facebook">
@@ -35,15 +35,18 @@ export const Footer = () => {
             </a>
             <a href="https://twitter.com" aria-label="Twitter" title="Twitter">
               <img src={FaTwitter} alt="Twitter" />
+              X (Twitter)
             </a>
             <a href="https://instagram.com" aria-label="Instagram" title="Instagram">
               <img src={FaInstagram} alt="Instagram" />
+              Instagram
             </a>
             <a href="https://youtube.com" aria-label="YouTube" title="YouTube">
               <img src={FaYoutube} alt="YouTube" />
+              Youtube
             </a>
           </nav>
-        </article> */}
+        </article>
 
         <article className='footer'>
           <h3>Noticias y Novedades</h3>
