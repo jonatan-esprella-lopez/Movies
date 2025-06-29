@@ -187,3 +187,58 @@ align-items: center;
   color: #FED941;
   font-weight: bold;
 }
+
+
+@media (max-width: 768px) {
+  .conteiner-details-movie {
+    flex-direction: column;
+    align-items: center;
+  }
+  .poster-section {
+    margin: 0 0 20px;
+  }
+  .poster-section img {
+    width: 80%;
+    max-width: 300px;
+  }
+  .details-section {
+    width: 100%;
+    padding: 0 10px;
+  }
+  .details-section h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+  .vibe-button {
+    margin: 10px auto;
+  }
+  .movie-info {
+    font-size: 13px;
+    justify-content: center;
+  }
+  .genres-movie {
+    padding: 2px 12px;
+    margin: 0.2rem;
+  }
+  .movie-overview {
+    font-size: 14px;
+    text-align: justify;
+  }
+  .conteiner-movie-sell {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-1-reserve {
+    width: 100%;
+  }
+  .contain-reparto {
+    margin: 30px 0;
+  }
+  .actor-image {
+    height: 200px;
+  }
+  .actor-card {
+    min-width: 150px;
+  }
+}
