@@ -4,6 +4,7 @@
   padding: 10px 0;
   scroll-snap-type: x mandatory;
   white-space: nowrap;
+    box-sizing: border-box;
 }
 
 
@@ -102,4 +103,49 @@
     width: 40%;
     margin-top: 20px;
     margin-bottom: 0;
+}
+
+
+@media (max-width: 768px) {
+  .conteiner-movies-cartelera {
+    padding: 8px 0;
+  }
+  .cartelera-movie img {
+    width: 120px;
+    margin: 0 8px;
+  }
+
+  .Selected-mov-Cartelera {
+    flex-direction: column;
+    width: 90vw;
+    
+  }
+
+  .image-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .Selected-mov-Cartelera img {
+    width: 70%;
+    height: auto;
+    margin-top: 20px;
+  }
+  .conte {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .nav-type-room {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .nav-type-room button {
+    width: 100px;
+    height: 36px;
+    font-size: 12px;
+  }
+
+  .btn-add {
+    width: 60%;
+  }
 }

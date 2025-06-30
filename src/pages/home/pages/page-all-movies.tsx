@@ -1,26 +1,20 @@
 import { useEffect, useState } from "react";
 
-import { getAllMovies } from "@/services/movie-service";
-
 import { CardMovie } from "@/components/card-movie";
 import { ModalDetailMovie } from "@/components/modal-details-movie/modal-detail-movie";
-
-import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
+import { useMovieStore } from "@/stores/movie-store";
 
 import "./pages-home.css";
 
 export function AllMovies() {
   const [modalMovie, setModalMovie] = useState<Boolean>(false)
-  const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
+  const {
+    movies, 
+    loadMovies 
+  } = useMovieStore();
 
   useEffect(() => {
-    getAllMovies()
-      .then((movies) => {
-        setMovies(movies);
-      })
-      .catch((error) => {
-        console.error("Error al obtener las películas", error);
-      });
+    loadMovies();
   }, []);
 
   return (

@@ -19,19 +19,19 @@ import "./cartelera.css";
 export const Cartelera = () => {
   const {
     movies,
-    selectedMovie,
-    setSelectedMovie,
+    detailsMovie,
+    setMovieDetails
   } = useMovieStore();
 
   const navigate = useNavigate();
   const { movieId } = useParams();
   const parsedMovieId = Number(movieId);
-
+  console.log("movies", movies)
   const [step, setStep] = useState<number>(1);
   const [selectedRoomType, _setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
 
   const handleMovieSelected = (movie: SingleMovieDetails): void => {
-    setSelectedMovie(movie);
+    setMovieDetails(movie.id);
     setStep(1);
     window.scrollTo({ top: 445, behavior: "smooth" });
     navigate(`/cartelera/${movie.id}`);
@@ -51,7 +51,7 @@ export const Cartelera = () => {
     }
   };
 
-  const portada = selectedMovie ? imageApi(selectedMovie.poster_path, "w200") : "";
+  const portada = detailsMovie ? imageApi(detailsMovie.poster_path, "w200") : "";
 
   return (
     <main className="container-main">
@@ -69,14 +69,14 @@ export const Cartelera = () => {
         ))}
       </section>
 
-      {(selectedMovie) && (
+      {(detailsMovie) && (
         <section className="Selected-mov-Cartelera">
           <div className="image-container">
-            <img src={portada} alt={selectedMovie.title} className="hover-image" />
-            <h1 className="movie-title">{selectedMovie.title}</h1>
+            <img src={portada} alt={detailsMovie.title} className="hover-image" />
+            <h1 className="movie-title">{detailsMovie.title}</h1>
             <div className="movie-synopsis">
               <h2>Descripción</h2>
-              <p className="movie-description">{selectedMovie.overview}</p>
+              <p className="movie-description">{detailsMovie.overview}</p>
             </div>
           </div>
           <section className="conte">

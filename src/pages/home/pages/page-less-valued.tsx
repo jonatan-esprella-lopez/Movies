@@ -1,31 +1,27 @@
 import { useEffect, useState } from "react";
 
-import { getMoviesLessValued } from "@/services/movie-service";
-
 import { CardMovie } from "@/components/card-movie";
 import { ModalDetailMovie } from "@/components/modal-details-movie/modal-detail-movie";
-
-import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
+import { useMovieStore } from "@/stores/movie-store";
 
 import "./pages-home.css";
 
-export function LessValued(): JSX.Element {
+export function LessValued() {
   const [modalMovie, setModalMovie] = useState<Boolean>(false)
-  const [movies, setMovies] = useState<SingleMovieDetails[]>([]);
+  const {
+    lessValuedMovies,
+    loadLessValuedMovies,
+  } = useMovieStore();
 
   useEffect(() => {
-    getMoviesLessValued().then((movies) => {
-      setMovies(movies)
-    }).catch((error) => {
-        console.error('Error al obtener las películas', error);
-    });
-  }, [getMoviesLessValued]);
+    loadLessValuedMovies()
+  }, []);
 
   return (
     <main className="container-main">
       <h1>Menos Valoradas</h1>
       <section className="conteiner-movies">
-        {movies.map((movie) => (
+        {lessValuedMovies.map((movie) => (
           <CardMovie  key={movie.id} movie={movie} setModalMovie={setModalMovie}/>
         ))}
       </section>
