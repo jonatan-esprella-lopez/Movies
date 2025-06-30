@@ -1,47 +1,34 @@
-import "./seat-map.css";
-import { useCarteleraStore } from "../../../stores/Cartelera-store";
-import { SEAT_NUMBERS, SEAT_ROWS, ROOM_PRICES } from "../../../constants.tsx";
-import { useState } from "react";
-import { Seat } from "@/interfaces/cartelera.interface";
+import { useCarteleraStore } from "@/stores/Cartelera-store";
 
-type Seats = Seat[];
+import { roomPrices, SEAT_NUMBERS, SEAT_ROWS } from "@/constants.tsx";
+
+import { Seat } from "@/interfaces/cartelera.interface";
+import "./seat-map.css";
+
 
 interface SeatMapProps {
   movieId: number;
-  roomType: "standard" | "premium" | "vip"; // Tipo de sala
-}
-
-interface SeatMapMovie {
-  movieId: number;
-  seats: Seats;
+  roomType: keyof typeof roomPrices | null;
 }
 
 export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
-  const { seats, selectedSeats, toggleSeatStatus } = useCarteleraStore();
-  const seatPrice = ROOM_PRICES[roomType];
+  const { 
+    seats, 
+    selectedSeats, 
+    toggleSeatStatus 
+  } = useCarteleraStore();
 
-  // Estado local para almacenar información de la sala por movieId
-  const [seatMapMovies, setSeatMapMovies] = useState<SeatMapMovie[]>([]);
+
+  const seatPrice = roomType ? roomPrices[roomType] : 0;
 
   const handleSeatMapChange = (
-    movieId: number,
     updatedSeats: Seat[],
     row: string,
     number: number
   ) => {
-    setSeatMapMovies((prev) => {
-      const index = prev.findIndex((seatMap) => seatMap.movieId === movieId);
-      console.log("handleSeatMapChange:", row, number, updatedSeats[0].status);
-      if(status === "reserved") {
-        getSeatColor("available");
-      }
-      if (index === -1) {
-        return [...prev, { movieId, seats: updatedSeats }];
-      }
-      const newState = [...prev];
-      newState[index].seats = updatedSeats;
-      return newState;
-    });
+    // This function is currently not needed, but you can keep logging if desired
+    console.log("handleSeatMapChange:", row, number, updatedSeats[0]?.status);
+    // Remove any logic that uses 'status' or updates unused state
   };
 
   const totalCost =

@@ -4,16 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMovieStore } from "@/stores/movie-store";
 import { imageApi } from "@/services/movie-api";
 
-import { ROOM_PRICES } from "@/constants";
-
 import { HeaderNav } from "@/components/header";
-import Checkout from "./components/Checkout";
-import MovieDetail from "./components/movie-details";
+import { Checkout } from "./components/Checkout";
+import { MovieDetail } from "./components/movie-details";
 import { SeatMap } from "./components/seat-map";
 import { Footer } from "@/components/footer/footer";
 
-import type { SingleMovieDetails } from "@/interfaces/single-movie-details";
-
+import { roomPrices } from "@/constants";
 import "./cartelera.css";
 
 export const Cartelera = () => {
@@ -22,19 +19,23 @@ export const Cartelera = () => {
     detailsMovie,
     setMovieDetails
   } = useMovieStore();
-
+  
   const navigate = useNavigate();
-  const { movieId } = useParams();
-  const parsedMovieId = Number(movieId);
-  console.log("movies", movies)
   const [step, setStep] = useState<number>(1);
-  const [selectedRoomType, _setSelectedRoomType] = useState<keyof typeof ROOM_PRICES>("standard");
+  
+  const { movieId } = useParams();
+  const [selectedDate, setSelectedDate] = useState<number>(24);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof roomPrices>("standard");
 
-  const handleMovieSelected = (movie: SingleMovieDetails): void => {
-    setMovieDetails(movie.id);
+
+  const parsedMovieId = Number(movieId);
+
+  const handleMovieSelected = (movieId: number): void => {
+    setMovieDetails(movieId);
     setStep(1);
     window.scrollTo({ top: 445, behavior: "smooth" });
-    navigate(`/cartelera/${movie.id}`);
+    navigate(`/cartelera?query=${movieId}`);
   };
 
   const handleMovieNext = () => {
@@ -62,7 +63,7 @@ export const Cartelera = () => {
           <div
             className="cartelera-movie"
             key={movie.id}
-            onClick={() => handleMovieSelected(movie)}
+            onClick={() => handleMovieSelected(movie.id)}
           >
             <img src={imageApi(movie.poster_path, "w200")} alt={movie.title} />
           </div>
@@ -72,8 +73,10 @@ export const Cartelera = () => {
       {(detailsMovie) && (
         <section className="Selected-mov-Cartelera">
           <div className="image-container">
-            <img src={portada} alt={detailsMovie.title} className="hover-image" />
-            <h1 className="movie-title">{detailsMovie.title}</h1>
+            <div>
+              <img src={portada} alt={detailsMovie.title} className="hover-image" />
+              <h1 className="movie-title">{detailsMovie.title}</h1>
+            </div>
             <div className="movie-synopsis">
               <h2>Descripción</h2>
               <p className="movie-description">{detailsMovie.overview}</p>
@@ -81,7 +84,7 @@ export const Cartelera = () => {
           </div>
           <section className="conte">
             <h2>Adquiere tu entrada</h2>
-            {step === 1 && (<MovieDetail />)}
+            {step === 1 && (<MovieDetail setSelectedRoomType={setSelectedRoomType} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime} />)}
             {step === 2 && (<SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />)}
             {step === 3 && (<Checkout />)}
 
@@ -98,7 +101,6 @@ export const Cartelera = () => {
                   Completar pago
                 </button>
               )}
-              
             </article>
           </section>
         </section>

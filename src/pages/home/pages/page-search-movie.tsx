@@ -1,12 +1,12 @@
 import "./pages-home.css"
 import { useEffect, useState } from "react";
-import { NoFound } from "../../../components/no-found";
+import { NoFound } from "@/components/no-found";
 import { useSearchParams } from "react-router-dom";
-import { CardMovie } from "../../../components/card-movie";
-import { ModalDetailMovie } from "../../../components/modal-details-movie/modal-detail-movie";
-import { useMovieStore } from "../../../stores/movie-store";
+import { CardMovie } from "@/components/card-movie";
+import { ModalDetailMovie } from "@/components/modal-details-movie/modal-detail-movie";
+import { useMovieStore } from "@/stores/movie-store";
 
-export function SearchMovie(): JSX.Element {
+export function SearchMovie() {
   const {
     searchResults,
     fetchSearchResults

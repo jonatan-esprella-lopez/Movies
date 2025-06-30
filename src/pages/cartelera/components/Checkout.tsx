@@ -17,7 +17,7 @@ interface FormData {
 
 // function Checkout({ movie, time, seats }: CheckoutProps) {
 // const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
-const Checkout = () => {
+export const Checkout = () => {
  
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
@@ -131,5 +131,3 @@ const Checkout = () => {
     </div>
   );
 }
-
-export default Checkout;

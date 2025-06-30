@@ -1,152 +1,139 @@
-import { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
-import { useCarteleraStore } from '@/stores/cartelera-movie.ts';
-import { useMovieStore } from '@/stores/movie-store.ts';
+import { useMovieStore } from "@/stores/movie-store.ts";
 
-import { DateSelector } from './date-selector.tsx';
+import { DateSelector } from "./date-selector.tsx";
 
-import './movie-detail.css';
+import { roomPrices, roomsByTime, showtimesByDate } from "@/constants.tsx";
+import "./movie-detail.css";
 
-const MovieDetail = () => {
-  // const navigate = useNavigate();
-  // const movie = movies.find((m) => m.id === Number(id));
+export const showtimeData: Record<number, { date: number; time: string | null; room: string | null }> = {};
 
+export function setShowtimeData(
+  id: number,
+  data: { date: number; time: string | null; room: string | null }
+) {
+  showtimeData[id] = data;
+}
+
+interface MovieDetailProps {
+  setSelectedRoomType: React.Dispatch<React.SetStateAction<keyof typeof roomPrices>>;
+  setSelectedDate: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedTime: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+export const MovieDetail: React.FC<MovieDetailProps> = ({
+  setSelectedRoomType,
+  setSelectedTime,
+  setSelectedDate,
+}) => {
+
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("query");
   
-    const [searchParams] = useSearchParams();''
-    
-  const id = searchParams.get('query') || '';
-  console.log("esto es de cartelera", id)
-  // const {
-  //   selectedMovie
-  // } = useMovieStore();
-  
-  const {
-    showtimeData,
-    setSelectedMovie,
-    setShowtimeData,
-  } = useCarteleraStore();
+  const { setMovieDetails } = useMovieStore();
 
   useEffect(() => {
-    if (id) setSelectedMovie(Number(id));
-  }, [id, setSelectedMovie]);
-
-  const [selectedDate, setSelectedDate] = useState<number>(24);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
-
-
+    if (id) setMovieDetails(Number(id));
+  }, [id]);
 
   const handleDateClick = (date: number) => {
     setSelectedDate(date);
     setSelectedTime(null);
-    setSelectedRoom(null);
-    setShowtimeData(Number(id), { ...currentData, date, time: null, room: null });
- 
+    setSelectedRoomType("standard");
+    setShowtimeData(Number(id), {
+      ...currentData,
+      date,
+      time: null,
+      room: null,
+    });
   };
 
   const handleTimeClick = (time: string) => {
     setSelectedTime(time);
-    setSelectedRoom(null);
-    setShowtimeData(Number(id), { ...currentData, time, room: null });
+    setSelectedRoomType("standard");
+    setShowtimeData(Number(id), {
+       ...currentData, 
+       time, 
+       room: 
+       null 
+    });
   };
 
   const handleRoomClick = (room: string) => {
-    setSelectedRoom(room);
-    setShowtimeData(Number(id), { ...currentData, room });
+    setSelectedRoomType(room as keyof typeof roomPrices);
+    setShowtimeData(Number(id), { 
+      ...currentData, 
+      room 
+    });
   };
 
-  const { selectedMovie } = useMovieStore();
+  const { detailsMovie } = useMovieStore();
 
-  if (!selectedMovie) return <div>Movie not found</div>;
+  if (!detailsMovie) return <div>Movie not found</div>;
 
-  const currentData = showtimeData[Number(id)] || {
-    date: 24,
-    time: null,
-    room: null,
-  };
-
-  const showtimesByDate: { [key: number]: string[] } = {
-    24: ['12:30', '15:45', '18:15'],
-    25: ['13:00', '16:00', '19:00', '22:00'],
-    26: ['11:00', '14:30', '17:30', '20:30'],
-    27: ['12:30', '15:45', '18:15'],
-    28: ['13:00', '16:00', '19:00', '22:00'],
-    29: ['11:00', '14:30', '17:30', '20:30'],
-  };
-
-  const roomsByTime: { [key: string]: string[] } = {
-    '12:30': ['Sala 1', 'Sala 3'],
-    '15:45': ['Sala 2', 'Sala VIP', 'Sala VIP 1'],
-    '18:15': ['Sala 1', 'Sala 4'],
-    '13:00': ['Sala 5'],
-    '16:00': ['Sala VIP', 'Sala 2'],
-    '19:00': ['Sala 3', 'Sala 4'],
-    '22:00': ['Sala VIP'],
-    '11:00': ['Sala 1'],
-    '14:30': ['Sala 2', 'Sala 3'],
-    '17:30': ['Sala 4'],
-    '20:30': ['Sala VIP', 'Sala 1'],
-  };
-
-  const roomPrices: { [key: string]: { type: string; price: number } } = {
-    'Sala 1': { type: 'General', price: 12 },
-    'Sala 2': { type: 'General', price: 12 },
-    'Sala 3': { type: 'General', price: 12 },
-    'Sala 4': { type: 'General', price: 12 },
-    'Sala 5': { type: 'General', price: 12 },
-    'Sala VIP': { type: 'VIP', price: 30 },
-  };
-
-  // const showtimes = showtimesByDate[selectedDate] || [];
-  // const availableRooms = selectedTime ? roomsByTime[selectedTime] : [];
-  // const selectedRoomInfo = selectedRoom ? roomPrices[selectedRoom] : null;
-
+  const currentData = showtimeData[Number(id)];
 
   const showtimes = showtimesByDate[currentData.date] || [];
   const availableRooms = currentData.time ? roomsByTime[currentData.time] : [];
-  const selectedRoomInfo = currentData.room ? roomPrices[currentData.room] : null;
+  const selectedRoomInfo = currentData.room
+    ? roomPrices[currentData.room]
+    : null;
 
   return (
-    <div className="movie-detail-container">
+    <section className="movie-detail-container">
       <div className="movie-detail-content">
         <div className="movie-info-section">
-          <div className="movie-meta">
-            <div className="meta-item">
-              <span>{Math.floor(selectedMovie.runtime / 60) + '.' + (selectedMovie.runtime % 60)} Hrs</span>
-
-            </div>
+          <article className="movie-meta">
             <div className="meta-item">
               <span>
-                {selectedMovie.genres?.length > 0
-                  ? selectedMovie.genres.map((genre) => <>{" . " + genre.name}</>)
-                  : 'No hay géneros registrados'}
+                {Math.floor(detailsMovie.runtime / 60) +
+                  "." +
+                  (detailsMovie.runtime % 60)}{" "}
+                Hrs
               </span>
             </div>
             <div className="meta-item">
-              <strong className="country-movie">Ciudad de origen: {selectedMovie.origin_country}</strong>
+              <span>
+                {detailsMovie.genres?.length > 0
+                  ? detailsMovie.genres.map((genre) => (
+                      <>{" . " + genre.name}</>
+                    ))
+                  : "No hay géneros registrados"}
+              </span>
             </div>
-          </div>
+            <div className="meta-item">
+              <strong className="country-movie">
+                Ciudad de origen: {detailsMovie.origin_country}
+              </strong>
+            </div>
+          </article>
 
-          <div className="showtimes-section">
+          <article className="showtimes-section">
             <h2>Selecciona una fecha</h2>
-            <DateSelector selectedDate={currentData.date} onDateSelect={handleDateClick} />
+            <DateSelector
+              selectedDate={currentData.date}
+              onDateSelect={handleDateClick}
+            />
             <h2>Horarios del {currentData.date} de Octubre</h2>
             <div className="showtimes-grid">
               {showtimes.map((time) => (
                 <button
                   key={time}
                   onClick={() => handleTimeClick(time)}
-                  className={`showtime-button ${currentData.time === time ? 'selected' : ''}`}
+                  className={`showtime-button ${
+                    currentData.time === time ? "selected" : ""
+                  }`}
                 >
                   {time}
                 </button>
               ))}
             </div>
-          </div>
+          </article>
 
           {currentData.time && (
-            <div className="rooms-section">
+            <article className="rooms-section">
               <h2>Salas disponibles para las {currentData.time}</h2>
               <div className="rooms-grid">
                 {availableRooms.length > 0 ? (
@@ -154,7 +141,9 @@ const MovieDetail = () => {
                     <button
                       key={room}
                       onClick={() => handleRoomClick(room)}
-                      className={`room-card ${currentData.room === room ? 'selected' : ''}`}
+                      className={`room-card ${
+                        currentData.room === room ? "selected" : ""
+                      }`}
                     >
                       <h4>{room}</h4>
                       <p>Detalles de la sala...</p>
@@ -164,23 +153,19 @@ const MovieDetail = () => {
                   <p>No hay salas disponibles para esta hora.</p>
                 )}
               </div>
-            </div>
+            </article>
           )}
 
           {selectedRoomInfo && (
-            <div className="ticket-info">
-              <div className="info-card">
-                <div className="info-text">
-                  <h4>{selectedRoomInfo.type} - {currentData.room}</h4>
-                  <p>Bs {selectedRoomInfo.price.toFixed(2)}</p>
-                </div>
-              </div>
+            <div className="ticket-info info-text info-card">
+              <h4>
+                {selectedRoomInfo.type} - {currentData.room}
+              </h4>
+              <p>Bs {selectedRoomInfo.price.toFixed(2)}</p>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
-
-export default MovieDetail;
