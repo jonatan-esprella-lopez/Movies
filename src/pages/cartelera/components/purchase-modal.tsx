@@ -1,6 +1,3 @@
-// PurchaseModal.tsx
-
-import React from "react";
 import "./purchase-modal.css";
 
 interface PurchaseModalProps {

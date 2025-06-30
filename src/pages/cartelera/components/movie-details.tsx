@@ -73,7 +73,8 @@ export const MovieDetail: React.FC<MovieDetailProps> = ({
 
   if (!detailsMovie) return <div>Movie not found</div>;
 
-  const currentData = showtimeData[Number(id)];
+  const currentData = showtimeData[Number(id)] || 
+  { date: undefined, time: null, room: null };
 
   const showtimes = showtimesByDate[currentData.date] || [];
   const availableRooms = currentData.time ? roomsByTime[currentData.time] : [];

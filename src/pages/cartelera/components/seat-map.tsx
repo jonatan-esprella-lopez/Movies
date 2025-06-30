@@ -26,14 +26,32 @@ export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
     row: string,
     number: number
   ) => {
-    // This function is currently not needed, but you can keep logging if desired
-    console.log("handleSeatMapChange:", row, number, updatedSeats[0]?.status);
-    // Remove any logic that uses 'status' or updates unused state
+    const seatIndex = updatedSeats.findIndex(
+      (seat) => seat.row === row && seat.number === number
+    );
+
+    if (seatIndex !== -1) {
+      const updatedSeat = { ...updatedSeats[seatIndex] };
+      updatedSeat.status =
+        updatedSeat.status === "available" ? "selected" : "available";
+      updatedSeats[seatIndex] = updatedSeat;
+    } else {
+      updatedSeats.push({
+        row,
+        number,
+        status: "selected",
+      });
+    }
+
+    // Update the selected seats in the store
+    selectedSeats[String(movieId)] = updatedSeats.filter(
+      (seat) => seat.status === "selected"
+    );
   };
 
   const totalCost =
     (selectedSeats[String(movieId)]?.reduce((total, seat) => {
-      return seat.status === "selected" ? total + seatPrice : total;
+      return seat.status === "selected" ? total + (typeof seatPrice === "number" ? seatPrice : seatPrice.price) : total;
     }, 0)) || 0;
 
   const getSeatColor = (status: string): string => {
@@ -77,7 +95,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
                   }}
                   onClick={() => {
                     toggleSeatStatus(String(movieId), row, number);
-                    handleSeatMapChange(movieId, seats, row, number);
+                    handleSeatMapChange(seats, row, number);
                   }}
                 >
                   {number > 10 ? number - 2 : number}

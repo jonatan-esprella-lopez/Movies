@@ -1,16 +1,9 @@
-import { DateItem, DateSelectorProps } from "../../../interfaces/cartelera.interface";
+import { dateItems } from "@/constants";
+import { DateSelectorProps } from "../../../interfaces/cartelera.interface";
 import "./date-selector.css";
 
 
-const dateItems: DateItem[] = [
-  { day: "Jueves", date: 24, month: "Octubre" },
-  { day: "Viernes", date: 25, month: "Octubre" },
-  { day: "Sábado", date: 26, month: "Octubre" },
-  { day: "Domingo", date: 27, month: "Octubre" },
-  { day: "Lunes", date: 28, month: "Octubre" },
-  { day: "Martes", date: 29, month: "Octubre" },
-  { day: "Miercoles", date: 30, month: "Octubre" },
-];
+
 
 export const DateSelector = ({ selectedDate, onDateSelect }: DateSelectorProps) => {
   return (

@@ -1,4 +1,4 @@
-import { Seat } from "./interfaces/cartelera.interface";
+import { DateItem, Seat } from "./interfaces/cartelera.interface";
 
 export const SEATS: Seat[] = [];
 
@@ -7,6 +7,16 @@ export const SEAT_NUMBERS = [
 ];
 
 export const SEAT_ROWS = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+
+export const dateItems: DateItem[] = [
+  { day: "Jueves", date: 24, month: "Octubre" },
+  { day: "Viernes", date: 25, month: "Octubre" },
+  { day: "Sábado", date: 26, month: "Octubre" },
+  { day: "Domingo", date: 27, month: "Octubre" },
+  { day: "Lunes", date: 28, month: "Octubre" },
+  { day: "Martes", date: 29, month: "Octubre" },
+  { day: "Miercoles", date: 30, month: "Octubre" },
+];
 
 export const showtimesByDate: { [key: number]: string[] } = {
   24: ["12:30", "15:45", "18:15"],
