@@ -26,7 +26,7 @@ export const Cartelera = () => {
   const { movieId } = useParams();
   const [selectedDate, setSelectedDate] = useState<number>(24);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof roomPrices>("standard");
+  const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof roomPrices>("Sala 1");
 
 
   const parsedMovieId = Number(movieId);
@@ -73,20 +73,26 @@ export const Cartelera = () => {
       {(detailsMovie) && (
         <section className="Selected-mov-Cartelera">
           <div className="image-container">
-            <div>
+            <header>
               <img src={portada} alt={detailsMovie.title} className="hover-image" />
               <h1 className="movie-title">{detailsMovie.title}</h1>
-            </div>
-            <div className="movie-synopsis">
+            </header>
+            <section className="movie-synopsis">
               <h2>Descripción</h2>
               <p className="movie-description">{detailsMovie.overview}</p>
-            </div>
+            </section>
           </div>
+
           <section className="conte">
             <h2>Adquiere tu entrada</h2>
             {step === 1 && (<MovieDetail setSelectedRoomType={setSelectedRoomType} setSelectedDate={setSelectedDate} setSelectedTime={setSelectedTime} />)}
-            {step === 2 && (<SeatMap movieId={parsedMovieId} roomType={selectedRoomType} />)}
-            {step === 3 && (<Checkout />)}
+            {step === 2 && (<SeatMap movieId={Number(movieId)} price={roomPrices[selectedRoomType].price} />)}
+            {step === 3 && detailsMovie && (
+              <Checkout
+                movie={ roomPrice }
+                seats={[]} // Replace with actual selected seats if available
+              />
+            )}
 
             <article className="conteiner-movie-sell">
               <button className="btn-1-reserve btn-add" onClick={handleMovieBack}>

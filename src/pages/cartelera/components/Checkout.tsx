@@ -1,9 +1,6 @@
-import { useForm, SubmitHandler } from 'react-hook-form';
-
-import type { SingleMovieDetails } from '@/interfaces/single-movie-details';
+import { useForm } from 'react-hook-form';
 
 import "./checkout.css";
-
 
 interface FormData {
   name: string;
@@ -14,44 +11,42 @@ interface FormData {
   cvv: string;
 }
 
-
-// function Checkout({ movie, time, seats }: CheckoutProps) {
-// const Checkout: React.FC<CheckoutProps> = ({ movie, time, seats }) => {
-export const Checkout = () => {
- 
+interface CheckoutProps {
+  movie: { price: number };
+  seats: any[];
+}
+export const Checkout = ({ movie, seats }: CheckoutProps) => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
-
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit = (data: FormData) => {
     console.log('Form Data:', data);
     alert('Booking successful! Check your email for tickets.');
   };
-
   const totalPrice = movie.price * seats.length;
 
   return (
-    <div className="checkout-grid">
-      <div className="checkout-card">
-        <h2 className="text-2xl font-bold mb-6">Datos para pagar</h2>
+    <div className="checkout">
+      <div className="checkout__card">
+        <h2 className="checkout__title">Datos para pagar</h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="payment-form">
-          <div className="form-group grid grid-cols-1 md:grid-cols-3 gap-6 mb-6"> 
-            <div>
-              <label className="form-label">Nombre</label>
+        <form onSubmit={handleSubmit(onSubmit)} className="checkout__form">
+          <div className="checkout__group">
+            <div className="checkout__field">
+              <label className="checkout__label">Nombre</label>
               <input
                 type="text"
                 placeholder="Ingresa tu nombre"
-                className="form-input"
+                className="checkout__input"
                 {...register("name", { required: "El nombre es obligatorio" })}
               />
-              {errors.name && <p className="error-text">{errors.name.message}</p>}
+              {errors.name && <p className="checkout__error">{errors.name.message}</p>}
             </div>
 
-            <div>
-              <label className="form-label">Correo electrónico</label>
+            <div className="checkout__field">
+              <label className="checkout__label">Correo electrónico</label>
               <input
                 type="email"
                 placeholder="Ingresa tu correo electrónico"
-                className="form-input"
+                className="checkout__input"
                 {...register("email", {
                   required: "El correo es obligatorio",
                   pattern: {
@@ -60,74 +55,77 @@ export const Checkout = () => {
                   }
                 })}
               />
-              {errors.email && <p className="error-text">{errors.email.message}</p>}
+              {errors.email && <p className="checkout__error">{errors.email.message}</p>}
             </div>
           </div>
 
-          <div>
-            <label className="form-label">Celular</label>
+          <div className="checkout__field">
+            <label className="checkout__label">Celular</label>
             <input
               type="tel"
               placeholder="Ingresa tu número"
-              className="form-input"
+              className="checkout__input"
               {...register("phone", { required: "El número de teléfono es obligatorio" })}
             />
-            {errors.phone && <p className="error-text">{errors.phone.message}</p>}
+            {errors.phone && <p className="checkout__error">{errors.phone.message}</p>}
           </div>
 
-          <div className="form-group grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label className="form-label">Número de tarjeta</label>
-              <input
-                type="text"
-                maxLength={16}
-                placeholder="Ingresa número de tarjeta"
-                className="form-input"
-                {...register("cardNumber", {
-                  required: "El número de tarjeta es obligatorio",
-                  minLength: { value: 16, message: "Debe tener 16 dígitos" },
-                  maxLength: { value: 16, message: "Debe tener 16 dígitos" }
-                })}
-              />
-              {errors.cardNumber && <p className="error-text">{errors.cardNumber.message}</p>}
-            </div>
+          <div className="checkout__card-details">
+  <div className="checkout__card-field">
+    <label className="checkout__label">Número de tarjeta</label>
+    <input
+      type="text"
+      maxLength={16}
+      placeholder="Ingresa número de tarjeta"
+      className="checkout__input"
+      {...register("cardNumber", {
+        required: "El número de tarjeta es obligatorio",
+        minLength: { value: 16, message: "Debe tener 16 dígitos" },
+        maxLength: { value: 16, message: "Debe tener 16 dígitos" }
+      })}
+    />
+    {errors.cardNumber && <p className="checkout__error">{errors.cardNumber.message}</p>}
+  </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="form-label">Fecha de expiración</label>
-                <input
-                  type="text"
-                  maxLength={5}
-                  placeholder="MM/YY"
-                  className="form-input"
-                  {...register("expiry", { required: "La fecha de expiración es obligatoria" })}
-                />
-                {errors.expiry && <p className="error-text">{errors.expiry.message}</p>}
-              </div>
+  <div className="checkout__card-field">
+    <div className="checkout__card-subfields">
+      <div>
+        <label className="checkout__label">Fecha de expiración</label>
+        <input
+          type="text"
+          maxLength={5}
+          placeholder="MM/YY"
+          className="checkout__input"
+          {...register("expiry", { required: "La fecha de expiración es obligatoria" })}
+        />
+        {errors.expiry && <p className="checkout__error">{errors.expiry.message}</p>}
+      </div>
 
-              <div>
-                <label className="form-label">CVV</label>
-                <input
-                  type="text"
-                  maxLength={3}
-                  placeholder="Ingresa tu código CVV"
-                  className="form-input"
-                  {...register("cvv", {
-                    required: "El CVV es obligatorio",
-                    minLength: { value: 3, message: "Debe tener 3 dígitos" },
-                    maxLength: { value: 3, message: "Debe tener 3 dígitos" }
-                  })}
-                />
-                {errors.cvv && <p className="error-text">{errors.cvv.message}</p>}
-              </div>
-            </div>
-          </div>
+      <div>
+        <label className="checkout__label">CVV</label>
+        <input
+          type="text"
+          maxLength={3}
+          placeholder="CVV"
+          className="checkout__input"
+          {...register("cvv", {
+            required: "El CVV es obligatorio",
+            minLength: { value: 3, message: "Debe tener 3 dígitos" },
+            maxLength: { value: 3, message: "Debe tener 3 dígitos" }
+          })}
+        />
+        {errors.cvv && <p className="checkout__error">{errors.cvv.message}</p>}
+      </div>
+    </div>
+  </div>
+</div>
 
-          <button type="submit" className="btn btn-primary btn-full">
+
+          <button type="submit" className="checkout__btn">
             Completar pago
           </button>
-        </form> 
+        </form>
       </div>
     </div>
   );
-}
+};

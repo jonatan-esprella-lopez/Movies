@@ -8,18 +8,16 @@ import "./seat-map.css";
 
 interface SeatMapProps {
   movieId: number;
-  roomType: keyof typeof roomPrices | null;
+  price: number;
 }
 
-export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
+export const SeatMap: React.FC<SeatMapProps> = ({ movieId, price }) => {   
   const { 
     seats, 
     selectedSeats, 
     toggleSeatStatus 
   } = useCarteleraStore();
 
-
-  const seatPrice = roomType ? roomPrices[roomType] : 0;
 
   const handleSeatMapChange = (
     updatedSeats: Seat[],
@@ -51,7 +49,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
 
   const totalCost =
     (selectedSeats[String(movieId)]?.reduce((total, seat) => {
-      return seat.status === "selected" ? total + (typeof seatPrice === "number" ? seatPrice : seatPrice.price) : total;
+      return seat.status === "selected" ? total + Number(roomPrices[price]) : total;
     }, 0)) || 0;
 
   const getSeatColor = (status: string): string => {
@@ -77,7 +75,6 @@ export const SeatMap: React.FC<SeatMapProps> = ({ movieId, roomType }) => {
               if (number === 9 || number === 10) {
                 return (
                   <div key={`null-${number}`} className="seat-null">
-                    {/* Puedes dejarlo vacío o mostrar algo, según tu diseño */}
                   </div>
                 );
               }
