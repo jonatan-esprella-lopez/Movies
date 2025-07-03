@@ -24,12 +24,11 @@ export const Cartelera = () => {
   const [step, setStep] = useState<number>(1);
   
   const { movieId } = useParams();
-  const [selectedDate, setSelectedDate] = useState<number>(24);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [_selectedDate, setSelectedDate] = useState<number>(24);
+  const [_selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedRoomType, setSelectedRoomType] = useState<keyof typeof roomPrices>("Sala 1");
 
 
-  const parsedMovieId = Number(movieId);
 
   const handleMovieSelected = (movieId: number): void => {
     setMovieDetails(movieId);
@@ -89,7 +88,7 @@ export const Cartelera = () => {
             {step === 2 && (<SeatMap movieId={Number(movieId)} price={roomPrices[selectedRoomType].price} />)}
             {step === 3 && detailsMovie && (
               <Checkout
-                movie={ roomPrice }
+                movie={{ price: roomPrices[selectedRoomType].price }}
                 seats={[]} // Replace with actual selected seats if available
               />
             )}

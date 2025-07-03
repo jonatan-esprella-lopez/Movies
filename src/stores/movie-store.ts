@@ -49,7 +49,7 @@ interface MovieStore {
 export const useMovieStore = create(
   devtools(
     persist<MovieStore>(
-      (set, get) => ({
+      (set, _get) => ({
         query: "",
         idMovie: 0,
         movies: [],

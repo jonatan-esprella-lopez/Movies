@@ -26,7 +26,7 @@ export const Checkout = ({ movie, seats }: CheckoutProps) => {
   return (
     <div className="checkout">
       <div className="checkout__card">
-        <h2 className="checkout__title">Datos para pagar</h2>
+        <h2 className="checkout__title">Datos para pagar {totalPrice}</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="checkout__form">
           <div className="checkout__group">
