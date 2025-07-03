@@ -9,7 +9,7 @@ export const moviesApi = axios.create({
     api_key: API_KEY,
   },
 });
-
+ //holas
 export const imageApi = (posterMovie: string, size: string): string => {
   return `${URL_IMAGE}${size}${posterMovie}`;
 }
